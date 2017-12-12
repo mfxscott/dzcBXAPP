@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/app_bg"
+    android:background="@mipmap/login_bg"
     android:orientation="vertical"
     >
     <LinearLayout
@@ -12,13 +12,9 @@
         <include layout="@layout/all_title_layout"
             />
     </LinearLayout>
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/app_bg"
             android:orientation="vertical"
             >
             <LinearLayout
@@ -135,36 +131,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
             </RelativeLayout>
-            <LinearLayout
-                android:padding="10dp"
-                android:layout_margin="20dp"
-                android:layout_gravity="center_horizontal"
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <EditText
-                    android:id="@+id/test_set_ip_edt"
-                    android:layout_gravity="center_horizontal"
-                    android:text="http://120.27.223.246:8080/xianhao365/api.do"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-                <TextView
-                    android:textColor="@color/col_333"
-                    android:layout_gravity="center_horizontal"
-                    android:text="默认地址：http://120.27.223.246:8080/xianhao365/api.do"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-                <Button
-                    android:paddingRight="20dp"
-                    android:paddingLeft="20dp"
-                    android:id="@+id/test_set_ip_tv"
-                    android:textSize="18sp"
-                    android:textColor="@color/col_333"
-                    android:layout_gravity="center_horizontal"
-                    android:text="修改"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
+
         </LinearLayout>
-    </ScrollView>
 </LinearLayout>

@@ -79,7 +79,10 @@
         -->
         <!-- 高德地图key 测试和生产是同一个key -->
         <service android:name="com.amap.api.location.APSService" />
-        <activity android:name="com.bixian365.dzc.activity.StartMainActivity">
+        <activity android:name="com.bixian365.dzc.activity.member.LoginNameActivity"
+            android:screenOrientation="landscape"
+            >
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -119,27 +122,27 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.DesignDemo"
             android:windowSoftInputMode="stateHidden|stateUnchanged" />
-        <activity
-            android:name="com.bixian365.dzc.activity.member.LoginCodeActivity"
-            android:label="@string/title_activity_login"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.DesignDemo"
-            android:windowSoftInputMode="stateHidden|stateUnchanged" >
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.VIEW" />-->
-                <!--<category android:name="android.intent.category.DEFAULT" />-->
-                <!--<category android:name="android.intent.category.BROWSABLE" />-->
-                <!--<data-->
-                    <!--android:host="login"-->
-                    <!--android:scheme="test" />-->
-            <!--</intent-filter>-->
-        </activity>
-        <activity
-            android:name="com.bixian365.dzc.activity.member.LoginNameActivity"
-            android:label="@string/title_activity_login_name"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.DesignDemo"
-            android:windowSoftInputMode="stateHidden|stateUnchanged" />
+        <!--<activity-->
+            <!--android:name="com.bixian365.dzc.activity.member.LoginCodeActivity"-->
+            <!--android:label="@string/title_activity_login"-->
+            <!--android:screenOrientation="portrait"-->
+            <!--android:theme="@style/Theme.DesignDemo"-->
+            <!--android:windowSoftInputMode="stateHidden|stateUnchanged" >-->
+            <!--&lt;!&ndash;<intent-filter>&ndash;&gt;-->
+                <!--&lt;!&ndash;<action android:name="android.intent.action.VIEW" />&ndash;&gt;-->
+                <!--&lt;!&ndash;<category android:name="android.intent.category.DEFAULT" />&ndash;&gt;-->
+                <!--&lt;!&ndash;<category android:name="android.intent.category.BROWSABLE" />&ndash;&gt;-->
+                <!--&lt;!&ndash;<data&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:host="login"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:scheme="test" />&ndash;&gt;-->
+            <!--&lt;!&ndash;</intent-filter>&ndash;&gt;-->
+        <!--</activity>-->
+        <!--<activity-->
+            <!--android:name="com.bixian365.dzc.activity.member.LoginNameActivity"-->
+            <!--android:label="@string/title_activity_login_name"-->
+            <!--android:screenOrientation="portrait"-->
+            <!--android:theme="@style/Theme.DesignDemo"-->
+            <!--android:windowSoftInputMode="stateHidden|stateUnchanged" />-->
         <activity
             android:name="com.bixian365.dzc.activity.member.ForGetPsdActivity"
             android:label="@string/title_activity_for_get_psd"

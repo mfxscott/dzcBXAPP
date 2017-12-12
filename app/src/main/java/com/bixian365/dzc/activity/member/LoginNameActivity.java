@@ -29,7 +29,7 @@ import org.greenrobot.eventbus.EventBus;
  * 供应商测试账号
  * 13129343614  密码 1
  */
-public class LoginNameActivity extends BaseActivity implements View.OnClickListener {
+public class LoginNameActivity extends Activity implements View.OnClickListener {
     private EditText loginAccPhoneEdt;
     private EditText loginAccPsdEdt;
     private Button loginAccNext;
@@ -130,19 +130,6 @@ public class LoginNameActivity extends BaseActivity implements View.OnClickListe
                 }
                 SXUtils.DialogDismiss();
                 return true;
-            }
-        });
-      final   EditText setip = (EditText) findViewById(R.id.test_set_ip_edt);
-        TextView confirm = (TextView) findViewById(R.id.test_set_ip_tv);
-        confirm.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String ipstr = setip.getText().toString();
-                if(!TextUtils.isEmpty(ipstr)){
-                    SXUtils.getInstance(activity).getApp().setHttpUrl(ipstr+"");
-                    SXUtils.getInstance(activity).ToastCenter("已经生效");
-                }
-
             }
         });
     }
