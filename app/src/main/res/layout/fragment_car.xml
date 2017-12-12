@@ -1,0 +1,332 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/line_bg"
+    >
+    <RelativeLayout
+        android:id="@+id/car_title_rely"
+        android:padding="10dip"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_centerVertical="true"
+            android:gravity="center_horizontal"
+            android:layout_toLeftOf="@+id/main_message_ivs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:textSize="@dimen/ac_text_size_18"
+                android:layout_gravity="center_vertical"
+                android:textColor="@color/col_333"
+                android:text="购物车"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+        <TextView
+            android:visibility="visible"
+            android:padding="5dp"
+            android:id="@+id/car_edit_del"
+            android:text="编辑"
+            android:textColor="@color/qblue"
+            android:textSize="@dimen/ac_text_size_14"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_gravity="center_horizontal"
+            android:src="@mipmap/default_car"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:textSize="@dimen/ac_text_size_16"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/col_999"
+            android:text="购物车还没有商品哟~"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+    <RelativeLayout
+        android:background="@color/app_bg"
+        android:layout_below="@+id/car_title_rely"
+        android:id="@+id/car_content_rely"
+        android:visibility="visible"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true">
+        <LinearLayout
+            android:orientation="vertical"
+            android:id="@+id/car_all_select_lin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            >
+            <View
+                android:layout_below="@id/car_title_rely"
+                android:visibility="visible"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/line_bg" />
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/main_car_coupons_recyclerv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:divider="@color/line_bg"
+                android:dividerHeight="1dp"
+                android:gravity="center_horizontal"
+                android:numColumns="1"
+                android:scrollbars="none"
+                android:stretchMode="columnWidth"
+                />
+
+        </LinearLayout>
+        <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/car_all_select_linaaa"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:padding="15dp">
+
+            <CheckBox
+                android:checked="true"
+                android:layout_marginLeft="5dp"
+                android:id="@+id/car_all_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/check_box_type_info"
+                android:button="@null"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="15dp"
+                android:text="全部"
+                android:textColor="@color/col_333"
+                android:textSize="@dimen/ac_text_size_14"/>
+
+            <RelativeLayout
+                android:layout_marginLeft="10dp"
+                android:id="@+id/car_all_yh_rel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/car_notice_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text=""
+                    android:textColor="@color/col_888"
+                    android:textSize="@dimen/ac_text_size_12"/>
+
+                <LinearLayout
+                    android:id="@+id/car_go_shop_lin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="去凑单"
+                        android:textColor="@color/col_333"
+                        android:textSize="@dimen/ac_text_size_16"/>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/arrow_right"/>
+
+                </LinearLayout>
+            </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/car_bottom_pay_liny"
+            android:layout_below="@+id/car_all_select_lin"
+            android:background="@color/white"
+            android:orientation="vertical">
+            <View
+                android:visibility="visible"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/line_bg" />
+            <com.bixian365.dzc.utils.view.SwipyRefreshLayout
+                android:id="@+id/car_swipyrefreshlayout"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                >
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/main_car_recyclerv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:divider="@color/line_bg"
+                    android:dividerHeight="1dp"
+                    android:gravity="center_horizontal"
+                    android:numColumns="1"
+                    android:scrollbars="none"
+                    android:stretchMode="columnWidth"
+                    />
+            </com.bixian365.dzc.utils.view.SwipyRefreshLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/car_bottom_pay_liny"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:orientation="vertical">
+            <View
+                android:visibility="visible"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/line_bg" />
+            <TextView
+                android:id="@+id/car_yh_msg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:padding="10dp"
+                android:text="(单笔订单满100元,即可免10.00元运费)"
+                android:textColor="@color/col_888"
+                android:textSize="@dimen/ac_text_size_12"
+                android:visibility="gone"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="合计："
+                        android:textColor="@color/col_333"
+                        android:textSize="@dimen/ac_text_size_14"/>
+
+                    <TextView
+                        android:id="@+id/car_total_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="¥0.00"
+                        android:textColor="@color/orange"
+                        android:textSize="@dimen/ac_text_size_18"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:visibility="gone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="00"
+                        android:textColor="@color/orange"
+                        android:textSize="@dimen/ac_text_size_12"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/car_del_num_liny"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15dp"
+                    android:background="@color/white"
+                    android:padding="10dp"
+                    android:visibility="gone">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="已选"
+                        android:textColor="@color/orange"
+                        android:textSize="@dimen/ac_text_size_16"/>
+                    <TextView
+                        android:id="@+id/car_del_num_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textColor="@color/orange"
+                        android:textSize="@dimen/ac_text_size_16"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="项"
+                        android:textColor="@color/orange"
+                        android:textSize="@dimen/ac_text_size_16"/>
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/car_pay_del_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:background="@color/orange"
+                    android:paddingBottom="15dp"
+                    android:paddingLeft="40dp"
+                    android:paddingRight="40dp"
+                    android:paddingTop="15dp"
+                    android:text="结算"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/ac_text_size_16"/>
+            </RelativeLayout>
+        </LinearLayout>
+
+
+    </RelativeLayout>
+    <View
+        android:id="@+id/main_bill_line_bv"
+        android:visibility="visible"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/line_bg" />
+</RelativeLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

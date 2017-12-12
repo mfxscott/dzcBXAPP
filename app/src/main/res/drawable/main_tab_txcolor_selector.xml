@@ -1,0 +1,6 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+<!-- 首页radio 文字点击颜色 -->
+    <item android:state_checked="true" android:color="@color/qblue"></item> <!-- 点击后的字体颜色 -->
+    <item android:color="#666666"></item> <!-- 默认字体颜色 -->
+
+</selector>

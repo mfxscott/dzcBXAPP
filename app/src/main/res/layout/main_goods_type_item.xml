@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+    <View
+        android:id="@+id/main_goods_type_line_v"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/line_bg" />
+    <RelativeLayout
+        android:id="@+id/main_goods_type_rel"
+        android:background="@drawable/white_appbg_selector"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <View
+            android:layout_alignParentRight="true"
+            android:id="@+id/main_goods_type_item_rv"
+            android:layout_width="1dp"
+            android:layout_height="50dp"
+            android:background="@color/line_bg" />
+        <TextView
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/main_goods_type_item_rv"
+            android:gravity="center_horizontal"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:textColor="@color/col_333"
+            android:textSize="@dimen/ac_text_size_14"
+            android:text="促销"
+            android:id="@+id/main_goods_type_item_tv"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"/>
+    </RelativeLayout>
+    <View
+        android:id="@+id/main_goods_type_item_bv"
+        android:visibility="visible"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/line_bg" />
+</LinearLayout>

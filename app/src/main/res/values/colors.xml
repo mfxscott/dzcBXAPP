@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#3F51B5</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="transparent">#00000000</color>
+
+    <color name="sblue">#015F2B</color>
+    <color name="qblue">#379532</color>
+    <color name="orange">#F29200</color>
+    <color name="qorange">#EEC900</color>
+
+    <color name="btn_gray">#E1E1E1</color>
+    <color name="app_bg">#F5F5F5</color>
+    <color name="col_hint">#CBCBCB</color>
+    <color name="title_black">#656565</color>
+    <color name="col_333">#333333</color>
+    <color name="col_999">#999999</color>
+
+    <color name="car_false_btn">#E5E5E5</color>
+
+
+    <color name="col_888">#888888</color>
+    <!-- 灰色 -->
+    <color name="white">#FFFFFF</color>
+    <!-- 白色 -->
+    <color name="black">#000000</color>
+    <!--扫码界面色值 -->
+    <color name="result_view">#b0000000</color>
+    <color name="viewfinder_mask">#90000000</color>
+
+    <!--分隔线背景色-->
+    <color name="line_bg">#dddddd</color>
+    <!-- 公告提示框标题  颜色 -->
+    <color name="dialog_title_333">#333</color>
+    <!--标题栏背景色  蓝色-->
+    <color name="dialog_btn">#006ace</color>
+    <!-- 红色 -->
+    <color name="red">#FF0000</color>
+    <color name="qred">#FF4D4D</color>
+    <!-- 暗绿色 -->
+    <color name="blue">#32508d</color>
+  <!-- 省市级联动-->
+    <color name="pickerview_timebtn_nor">#057dff</color>
+    <color name="pickerview_timebtn_pre">#c2daf5</color>
+    <color name="pickerview_bg_topbar">#f5f5f5</color>
+    <color name="pickerview_topbar_title">#000000</color>
+    <color name="pickerview_wheelview_textcolor_out">#a8a8a8</color>
+    <color name="pickerview_wheelview_textcolor_center">#2a2a2a</color>
+    <color name="pickerview_wheelview_textcolor_divider">#d5d5d5</color>
+    <color name="pickerview_bgColor_overlay">#60000000</color>
+    <color name="pickerview_bgColor_default">#FFFFFFFF</color>
+</resources>

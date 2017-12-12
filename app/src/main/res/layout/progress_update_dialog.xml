@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ui_dialog_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/white_round_shap"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        >
+        <TextView
+            android:gravity="center_vertical"
+            android:id="@+id/dialog_title_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/dialog_title_333"
+            android:text="正在下载"
+            android:layout_centerInParent="true"
+            android:textSize="@dimen/ac_text_size_16" />
+    </RelativeLayout>
+
+    <RelativeLayout
+
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        <ProgressBar
+            android:layout_margin="10dp"
+            android:layout_toLeftOf="@+id/update_progress_num_tv"
+            android:id="@+id/update_progress_v"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:max="100"
+            android:progress="0"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:progressDrawable="@drawable/update_progress_shap"
+            />
+
+        <TextView
+            android:layout_marginRight="10dp"
+            android:layout_centerVertical="true"
+            android:id="@+id/update_progress_num_tv"
+            android:layout_alignParentRight="true"
+            android:text="100%"
+            android:textColor="@color/qblue"
+            android:textSize="@dimen/ac_text_size_14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/line_bg" />
+    <LinearLayout
+        android:id="@+id/dialog_liny"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:background="@drawable/white_gray_bottom_round_selector"
+            android:layout_marginLeft="1dp"
+            android:padding="15dp"
+            android:id="@+id/update_progress_cancel_tv"
+            android:visibility="visible"
+            android:gravity="center_horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="取消下载"
+            android:textSize="@dimen/ac_text_size_16"
+            android:textColor="@color/qblue"
+            android:layout_centerInParent="true"
+            />
+    </LinearLayout>
+
+
+</LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,155 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    >
+    <RelativeLayout
+        android:id="@+id/main_search_rels"
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_centerVertical="true"
+            android:id="@+id/main_custom_service_ivs"
+            android:src="@mipmap/icon_main_customer_service"
+            android:layout_width="35dp"
+            android:layout_height="35dp"/>
+        <LinearLayout
+            android:id="@+id/bill_search_liny"
+            android:padding="8dp"
+            android:layout_centerVertical="true"
+            android:gravity="center_horizontal"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_toRightOf="@+id/main_custom_service_ivs"
+            android:layout_toLeftOf="@+id/main_message_ivs"
+            android:background="@drawable/search_bg_gray_shap"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_gravity="center_vertical"
+                android:src="@mipmap/icon_search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:textSize="@dimen/ac_text_size_14"
+                android:layout_marginLeft="5dp"
+                android:layout_gravity="center_vertical"
+                android:textColor="#888888"
+                android:text="搜索"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+        <ImageView
+            android:visibility="gone"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:src="@mipmap/icon_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </RelativeLayout>
+    <View
+        android:id="@+id/main_bill_line_bv"
+        android:visibility="visible"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/line_bg" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:background="@color/white"
+            android:id="@+id/bill_list_liny"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <LinearLayout
+                android:background="@color/app_bg"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <com.androidkun.xtablayout.XTabLayout
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:id="@+id/bill_xTablayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_gravity="start"
+                    app:xTabMode="scrollable"
+                    app:xTabIndicatorColor="@color/qblue"
+                    app:xTabIndicatorHeight="2dp"
+                    app:xTabIndicatorWidth="60dp"
+                    app:xTabSelectedTextColor="@color/qblue"
+                    app:xTabTextColor="@color/col_888"
+                    app:xTabTextSize="14sp"
+                    app:xTabSelectedTextSize="14sp"
+                    app:xTabDisplayNum="5"
+                    />
+            </LinearLayout>
+
+            <RelativeLayout
+                android:orientation="vertical"
+                android:background="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <com.bixian365.dzc.utils.view.SwipyRefreshLayout
+                    android:id="@+id/bill_swipyrefreshlayout"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    >
+                    <android.support.v7.widget.RecyclerView
+                        android:scrollbars="none"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_horizontal"
+                        android:id="@+id/main_bill_gridv"
+                        android:numColumns="1"
+                        android:stretchMode="columnWidth"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:divider="@color/line_bg"
+                        android:dividerHeight="1dp"
+                        />
+                </com.bixian365.dzc.utils.view.SwipyRefreshLayout>
+                <LinearLayout
+                    android:visibility="gone"
+                    android:id="@+id/bill_default_nodata_tv"
+                    android:layout_centerInParent="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <include
+                        android:id="@+id/include_bill"
+                        layout="@layout/layout_no_info"/>
+                </LinearLayout>
+
+            </RelativeLayout>
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

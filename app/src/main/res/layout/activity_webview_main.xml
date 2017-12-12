@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/common_webview_head_lin"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+        <include layout="@layout/all_title_layout" />
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <com.bixian365.dzc.utils.view.WebViewSwipeRefreshLayout
+                android:id="@+id/common_swipe_container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+                <WebView
+                    android:id="@+id/common_webview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </com.bixian365.dzc.utils.view.WebViewSwipeRefreshLayout>
+        </FrameLayout>
+        <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/webview_error_lin"
+            android:paddingTop="30dp"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:text="提示"
+                android:textColor="@color/black"
+                android:textSize="@dimen/ac_text_size_18"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_marginTop="10dp"
+                android:text="网络连接失败"
+                android:textColor="@color/black"
+                android:textSize="@dimen/ac_text_size_16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <Button
+                android:id="@+id/activity_webview_error_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="刷新重试"
+                android:padding="10dp"
+                android:textSize="@dimen/ac_text_size_18"
+                android:textColor="@color/white"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                />
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>

@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_bg"
+    android:orientation="vertical"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <include layout="@layout/all_title_layout"
+            />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/app_bg"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/regist_phone_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal|center_vertical"
+                        android:padding="15dp"
+                        android:text="@string/phone_num_str"
+                        android:textColor="@color/col_333"
+                        android:textSize="@dimen/ac_text_size_16" />
+
+                    <EditText
+                        android:id="@+id/regist_input_phone_edt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_toLeftOf="@+id/regist_getcode_tv"
+                        android:layout_toRightOf="@+id/regist_phone_tv"
+                        android:background="@color/transparent"
+                        android:hint="@string/regist_hint_phone_str"
+                        android:inputType="phone"
+                        android:maxLength="11"
+                        android:paddingBottom="15dp"
+                        android:paddingTop="15dp"
+                        android:textColor="@color/col_333"
+                        android:textColorHint="@color/col_hint"
+                        android:textSize="@dimen/ac_text_size_16" />
+
+                    <TextView
+                        android:id="@+id/regist_getcode_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/get_code_shap"
+                        android:gravity="center_horizontal|center_vertical"
+                        android:padding="16dp"
+                        android:text="@string/get_code_str"
+                        android:textColor="@color/col_hint"
+                        android:textSize="@dimen/ac_text_size_14" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/line_bg" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/regist_code_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal|center_vertical"
+                        android:padding="15dp"
+                        android:text="@string/code_num_str"
+                        android:textColor="@color/col_333"
+                        android:textSize="@dimen/ac_text_size_16" />
+
+                    <EditText
+                        android:id="@+id/regist_code_edt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/regist_code_tv"
+                        android:background="@color/transparent"
+                        android:hint="@string/regist_hint_code_str"
+                        android:inputType="number"
+                        android:maxLength="6"
+                        android:paddingBottom="15dp"
+                        android:paddingTop="15dp"
+                        android:textColor="@color/col_333"
+                        android:textColorHint="@color/col_hint"
+                        android:textSize="@dimen/ac_text_size_16" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/line_bg" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/regist_psd_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal|center_vertical"
+                        android:padding="15dp"
+                        android:text="密码    "
+                        android:textColor="@color/col_333"
+                        android:textSize="@dimen/ac_text_size_16" />
+
+                    <EditText
+                        android:id="@+id/regist_input_psd_edt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_toLeftOf="@+id/regist_see_tv"
+                        android:layout_toRightOf="@+id/regist_psd_tv"
+                        android:background="@color/transparent"
+                        android:digits="0123456789abcdefghigklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                        android:hint="@string/regist_hint_psd_str"
+                        android:inputType="textPassword"
+                        android:maxLength="16"
+                        android:paddingBottom="15dp"
+                        android:paddingTop="15dp"
+                        android:textColor="@color/col_333"
+                        android:textColorHint="@color/col_hint"
+                        android:textSize="@dimen/ac_text_size_16" />
+
+                    <CheckBox
+                        android:id="@+id/regist_see_tv"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="15dp"
+                        android:background="@drawable/regist_psd_see_selector"
+                        android:button="@null" />
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:visibility="gone"
+                    android:id="@+id/regist_referees_rely"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/line_bg" />
+                    <TextView
+                        android:id="@+id/regist_referees_phone_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal|center_vertical"
+                        android:padding="15dp"
+                        android:text="推荐人"
+                        android:textColor="@color/col_333"
+                        android:textSize="@dimen/ac_text_size_16" />
+
+                    <EditText
+                        android:id="@+id/regist_referees_phone_edt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/regist_referees_phone_tv"
+                        android:background="@color/transparent"
+                        android:hint="请填写推荐人手机号"
+                        android:inputType="number"
+                        android:maxLength="11"
+                        android:paddingBottom="15dp"
+                        android:paddingTop="15dp"
+                        android:textColor="@color/col_333"
+                        android:textColorHint="@color/col_hint"
+                        android:text=""
+                        android:textSize="@dimen/ac_text_size_16" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/regist_hint_send_code_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/regist_next_code_str"
+                android:textColor="@color/col_hint"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/regist_next"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/gray_round_shap"
+                android:enabled="false"
+                android:padding="10dp"
+                android:text="@string/regist_str"
+                android:textColor="@color/white"
+                android:textSize="@dimen/ac_text_size_18" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/regist_rule_str"
+                    android:textColor="@color/col_333"
+                    android:textSize="@dimen/ac_text_size_14" />
+
+                <TextView
+                    android:id="@+id/regist_rule_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/regist_rule_title_str"
+                    android:textColor="@color/qblue"
+                    android:textSize="@dimen/ac_text_size_14" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

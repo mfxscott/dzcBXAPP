@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources
+
+    xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+    <!--
+    "xxx" is not translated in "en" (English)
+    暴力解决  强制不翻译 -->
+    <string name="app_name">皕鲜商家</string>
+    <string name="title_activity_main2">Main2Activity</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!--登录  注册  忘记密码-->
+    <string name="login_str">登录</string>
+    <string name="use_psd_login_str">使用密码登录</string>
+
+    <string name="regist_str">注册</string>
+    <string name="phone_num_str">手机号</string>
+    <string name="code_num_str">验证码</string>
+    <string name="get_code_str">获取验证码</string>
+    <string name="psd_num_str">密码    </string>
+    <string name="regist_rule_str">点击注册即表明您同意</string>
+    <string name="regist_rule_title_str">《皕鲜惠服务条款》</string>
+    <string name="regist_next_code_str">收不到短信，稍后再点击一下发送验证码吧</string>
+    <string name="regist_send_code_yes_str">已经发送(</string>
+    <string name="regist_second_str">秒)</string>
+    <string name="regist_hint_phone_str">您的手机号码</string>
+    <string name="regist_hint_code_str">您手机收到的验证码</string>
+    <string name="regist_hint_psd_str">6~16位数字或字母</string>
+    <string name="title_activity_login">Sign in</string>
+
+    <string name="forget_psd_str">忘记密码</string>
+    <string name="new_psd_str">新密码</string>
+    <string name="confirm_psd_str">确认密码</string>
+    <string name="save_str">保存</string>
+    <string name="psd_two_error">新密码两次输入不一致</string>
+
+    <string name="check_store_str">选择门店</string>
+    <string name="comfirm_str">确定</string>
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+    <string name="title_activity_login_name">LoginNameActivity</string>
+    <string name="title_activity_for_get_psd">ForGetPsdActivity</string>
+    <string name="title_activity_acc_info">AccInfoActivity</string>
+    <string name="title_activity_my_wallet">MyWalletActivity</string>
+</resources>

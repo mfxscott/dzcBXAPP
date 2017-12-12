@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:padding="15dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/address_item_name"
+                android:textSize="@dimen/ac_text_size_16"
+                android:textColor="@color/col_333"
+                android:text="皕鲜&#160;&#160;&#160;&#160;18682136973"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:id="@+id/address_item_city_street"
+                android:textSize="@dimen/ac_text_size_14"
+                android:textColor="@color/col_333"
+                android:layout_marginTop="5dp"
+                android:text="广东省深圳市福田区冰河大道2812"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+        <View
+            android:layout_below="@+id/gopay_title_name"
+            android:visibility="visible"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/line_bg" />
+        <RelativeLayout
+            android:padding="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <CheckBox
+                android:id="@+id/address_item_cb"
+                android:paddingLeft="5dp"
+                android:button="@drawable/check_box_type_info"
+                android:background="@null"
+                android:text="设置为默认地址"
+                android:checked="true"
+                android:textSize="@dimen/ac_text_size_14"
+                android:textColor="@color/col_333"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <LinearLayout
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/address_item_edit"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:textSize="@dimen/ac_text_size_14"
+                    android:textColor="@color/col_333"
+                    android:text="编辑"
+                    android:background="@drawable/search_hot_selector"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:id="@+id/address_item_del"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:layout_marginLeft="10dp"
+                    android:textSize="@dimen/ac_text_size_14"
+                    android:textColor="@color/col_333"
+                    android:text="删除"
+                    android:background="@drawable/search_hot_selector"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+        </RelativeLayout>
+        <TextView
+            android:background="@color/app_bg"
+            android:layout_width="match_parent"
+            android:layout_height="10dp" />
+    </LinearLayout>
+</LinearLayout>

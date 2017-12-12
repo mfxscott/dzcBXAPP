@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/app_bg"
+    android:orientation="vertical"
+    >
+
+    <RelativeLayout
+        android:padding="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <CheckBox
+            android:gravity="right"
+            android:layout_centerVertical="true"
+            android:visibility="visible"
+            android:id="@+id/partner_scan_item_checkbox"
+            android:button="@null"
+            android:background="@drawable/check_box_type_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/partner_scan_item_checkbox"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/partner_scan_orderno_item_tv"
+                android:text=""
+                android:textSize="@dimen/ac_text_size_14"
+                android:textColor="@color/col_333"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <TextView
+
+                android:layout_marginTop="5dp"
+                android:id="@+id/partner_scan_name_item_tv"
+                android:text=""
+                android:textSize="14sp"
+                android:textColor="@color/col_333"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+        <TextView
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:textSize="@dimen/ac_text_size_16"
+            android:textColor="@color/col_999"
+            android:background="@mipmap/arrow_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </RelativeLayout>
+    <View
+        android:visibility="visible"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/line_bg" />
+</LinearLayout>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+<ImageView
+    android:scaleType="fitXY"
+    android:src="@mipmap/guide_2"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"/>
+    <RelativeLayout
+        android:layout_marginTop="20dp"
+        android:id="@+id/guide_lin_intent_rel"
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:background="@drawable/start_round_bg_shap"
+            android:textSize="@dimen/ac_text_size_18"
+            android:layout_alignParentRight="true"
+            android:text="立即使用"
+            android:id="@+id/guide_close_tv"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:gravity="center_horizontal"
+            android:textColor="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </RelativeLayout>
+
+</RelativeLayout>

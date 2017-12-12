@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:id="@+id/activity_main"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                tools:context="com.bixian365.dzc.activity.StartMainActivity">
+
+    <ImageView
+        android:id="@+id/start_logo_iv"
+        android:src="@mipmap/launch_logo"
+        android:scaleType="fitXY"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+    <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/start_guide_linlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewPager"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <RelativeLayout
+        android:background="@color/app_bg"
+        android:visibility="gone"
+        android:id="@+id/start_addlogo_linlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ImageView
+            android:id="@+id/start_addlogo_iv"
+            android:scaleType="fitXY"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+        <TextView
+            android:layout_marginTop="40dp"
+            android:layout_marginRight="10dp"
+            android:id="@+id/start_addlogo_time_tv"
+            android:gravity="center_horizontal|center_vertical"
+            android:background="@drawable/start_round_bg_shap"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:textColor="@color/white"
+            android:text="跳过1"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:textSize="@dimen/ac_text_size_16"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"/>
+    </RelativeLayout>
+</RelativeLayout>

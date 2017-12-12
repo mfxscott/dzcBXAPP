@@ -1,0 +1,85 @@
+apply plugin: 'com.android.application'
+apply plugin: 'android-apt'
+android {
+
+//    signingConfigs {
+//        test {
+//            keyAlias 'xhh'
+//            keyPassword 'xhh2017'
+//            storeFile file('E:/mfx/mc/xhhkeystore.jks')
+//            storePassword 'xhh2017'
+//        }
+//    }
+    compileSdkVersion 23
+    buildToolsVersion '25.0.3'
+    aaptOptions.cruncherEnabled = false
+    aaptOptions.useNewCruncher = false
+    defaultConfig {
+        applicationId "com.bixian365.dzc"
+        minSdkVersion 17
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.0.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+//            minifyEnabled true //启用Proguard
+//            shrinkResources true //是否清理无用资源,依赖于minifyEnabled
+
+//            zipAlignEnabled true //是否启用zipAlign压缩
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    //配置调用aar
+    repositories {
+        flatDir {
+            dirs 'libs'
+        }
+    }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+            assets.srcDirs = ['src/main/assets', 'src/main/assets/']
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
+}
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    //轮播广告
+    //最新版本
+    //    compile files('libs/AMap_Location_V3.4.1_20170629.jar')
+    //    compile files('libs/AMap_Search_V5.2.1_20170630.jar')
+    //    compile files('libs/Android_Map3D_SDK_V5.2.1_20170630.jar')
+    //    compile files('libs/alipaySdk-20170922.jar')
+    //扩展了下载管理和上传管理，根据需要添加
+    //版本号使用 + 可以自动引用最新版
+    compile project(':pickerview')
+    //    compile files('libs/zxing.jar')
+//    compile 'com.baidu.mobstat:mtj-sdk:latest.integration'
+    compile 'com.lzy.net:okhttpserver:1.0.3'
+    compile 'com.lzy.net:okhttputils:+'
+    compile 'com.android.support:design:23.0.1'
+    compile 'com.android.support:appcompat-v7:23.0.1'
+    compile 'com.squareup.okhttp3:okhttp:3.4.2'
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'com.google.code.gson:gson:2.7'
+    compile 'org.greenrobot:eventbus:3.0.0'
+    compile 'com.youth.banner:banner:1.4.10'
+    compile 'com.android.support:support-v4:23.0.1'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'com.androidkun:XTabLayout:1.0.1'
+    compile 'com.jakewharton:butterknife:8.4.0'
+    testCompile 'junit:junit:4.12'
+    apt 'com.jakewharton:butterknife-compiler:8.4.0'
+//    compile 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
+    compile files('libs/libammsdk.jar')
+}

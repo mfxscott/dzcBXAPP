@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    >
+    <ImageView
+        android:layout_marginTop="50dp"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/regist_check_img_iv"
+        android:src="@mipmap/regist_check_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <LinearLayout
+        android:layout_margin="20dp"
+        android:layout_below="@+id/regist_check_img_iv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/regist_check_sell_btn"
+            android:padding="10dp"
+            android:layout_marginRight="5dp"
+            android:textColor="@color/qblue"
+            android:textSize="@dimen/ac_text_size_16"
+            android:background="@drawable/regist_check_button_selector"
+            android:layout_weight="1"
+            android:text="我是店主"
+            android:textStyle="bold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <Button
+            android:id="@+id/regist_check_pay_btn"
+            android:padding="10dp"
+            android:layout_marginLeft="5dp"
+            android:textStyle="bold"
+            android:textColor="@color/qblue"
+            android:textSize="@dimen/ac_text_size_16"
+            android:background="@drawable/regist_check_button_selector"
+            android:layout_weight="1"
+            android:text="我是个人"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+</RelativeLayout>

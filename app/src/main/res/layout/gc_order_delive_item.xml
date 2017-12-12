@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:background="@drawable/white_gray_selector"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <ImageView
+            android:id="@+id/cg_order_detail_iv"
+            android:layout_width="@dimen/goods_img_info_size"
+            android:layout_height="@dimen/goods_img_info_size"
+            android:layout_marginLeft="5dp"
+            android:src="@mipmap/img_gdy" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@+id/cg_order_detail_iv"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/cg_order_goodsname_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="新鲜上市的黄豆芽"
+                android:textColor="@color/col_333"
+                android:textSize="@dimen/ac_text_size_14" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/cg_order_detail_modelprice_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="5dp"
+                    android:paddingTop="5dp"
+                    android:text="￥44.00"
+                    android:textColor="@color/col_333"
+                    android:textSize="@dimen/ac_text_size_14" />
+
+                <TextView
+                    android:id="@+id/cg_order_detail_model_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="5dp"
+                    android:paddingTop="5dp"
+                    android:text=""
+                    android:textColor="@color/col_333"
+                    android:textSize="@dimen/ac_text_size_14" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:visibility="visible"
+                    android:id="@+id/cg_order_detail_shopprice_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="￥5.8"
+                    android:textColor="@color/col_333"
+                    android:textSize="@dimen/ac_text_size_14"
+                    />
+
+                <TextView
+                    android:visibility="gone"
+                    android:id="@+id/cg_order_delive_marketprice_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="/斤"
+                    android:textColor="@color/col_333"
+                    android:textSize="@dimen/ac_text_size_14" />
+
+                <TextView
+                    android:visibility="gone"
+                    android:id="@+id/order_wait_pay_item_mp_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="￥6.8/斤"
+                    android:textColor="@color/col_999"
+                    android:textSize="@dimen/ac_text_size_12" />
+            </LinearLayout>
+        </LinearLayout>
+      <LinearLayout
+          android:layout_alignParentRight="true"
+          android:orientation="vertical"
+          android:layout_centerVertical="true"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content">
+        <LinearLayout
+            android:id="@+id/cg_order_num_liny"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/cg_delive_submit_item_sendnum"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/gray_car_round_shap"
+                android:digits="1234567890"
+                android:gravity="center_horizontal"
+                android:hint="请输入发货数量"
+                android:maxLines="1"
+                android:minEms="7"
+                android:inputType="number"
+                android:maxLength="5"
+                android:padding="10dp"
+                android:textColor="@color/col_333"
+                android:textSize="@dimen/ac_text_size_12"/>
+        </LinearLayout>
+        <TextView
+            android:id="@+id/cg_delive_actual_num"
+            android:layout_marginTop="5dp"
+            android:layout_gravity="center_horizontal"
+            android:textSize="@dimen/ac_text_size_12"
+            android:textColor="@color/red"
+            android:text="已发货数量"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+      </LinearLayout>
+    </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/line_bg" />
+</LinearLayout>

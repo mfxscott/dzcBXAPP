@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp">
+
+        <TextView
+            android:id="@+id/stock_submit_item_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="商品"
+            android:textColor="@color/col_333"
+            android:textSize="@dimen/ac_text_size_14"/>
+
+        <TextView
+            android:id="@+id/stock_submit_item_num"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="下单数量"
+            android:textColor="@color/col_333"
+            android:textSize="@dimen/ac_text_size_14"/>
+
+        <EditText
+            android:id="@+id/stock_submit_item_sendnum"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/gray_car_round_shap"
+            android:digits="1234567890"
+            android:gravity="center_horizontal"
+            android:hint="请输入收货数量"
+            android:maxLines="1"
+            android:inputType="number"
+            android:maxLength="5"
+            android:padding="10dp"
+            android:textColor="@color/col_333"
+            android:textSize="@dimen/ac_text_size_12"/>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/line_bg" />
+</LinearLayout>

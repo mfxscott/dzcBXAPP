@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 我的 消息填充颜色-->
+<shape xmlns:android="http://schemas.android.com/apk/res/android" >
+    <!-- 填充的颜色 -->
+    <solid android:color="@color/orange"/>
+    
+    <!-- 设置布局的四个角为弧形 -->
+    <!-- android:radius 弧形的半径 -->  
+    <corners android:radius="10dp"/>
+
+</shape>

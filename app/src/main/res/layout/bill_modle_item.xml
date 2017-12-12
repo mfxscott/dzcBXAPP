@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_gravity="center_vertical"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="10dp">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/down_img" />
+
+            <TextView
+                android:id="@+id/main_bill_item_unit_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text=""
+                android:textColor="@color/orange"
+                android:textSize="@dimen/ac_text_size_16" />
+
+            <TextView
+                android:id="@+id/main_bill_item_model_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="@color/col_999"
+                android:textSize="@dimen/ac_text_size_12" />
+            <TextView
+                android:layout_marginLeft="10dp"
+                android:id="@+id/main_bill_item_market_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text=""
+                android:textColor="@color/col_999"
+                android:textSize="@dimen/ac_text_size_12" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:visibility="gone"
+                android:id="@+id/main_bill_item_subcar_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="3dp"
+                android:background="@mipmap/car_sub" />
+            <TextView
+                android:layout_gravity="center_vertical"
+                android:visibility="gone"
+                android:id="@+id/main_bill_item_carnum_tv"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:gravity="center_horizontal"
+                android:textSize="@dimen/ac_text_size_14"
+                android:textColor="@color/col_333"
+                android:text=""
+                android:minEms="2"
+                android:maxLength="3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <ImageView
+                android:id="@+id/main_bill_item_addcar_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/add_img" />
+        </LinearLayout>
+    </RelativeLayout>
+
+</LinearLayout>

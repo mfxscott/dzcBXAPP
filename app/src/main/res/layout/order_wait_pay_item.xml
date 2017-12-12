@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/order_wait_pay_shopname_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="15dp"
+                android:text="皕鲜商店"
+                android:textColor="@color/col_333"
+                android:textSize="@dimen/ac_text_size_14" />
+
+            <TextView
+                android:id="@+id/order_wait_pay_ordertime_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:padding="15dp"
+                android:text="2017.07.06 09:02"
+                android:textColor="@color/col_333"
+                android:textSize="@dimen/ac_text_size_14" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/line_bg" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/order_item_recycler"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="none" />
+        </LinearLayout>
+        <RelativeLayout
+            android:padding="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_centerVertical="true"
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:visibility="gone"
+                    android:layout_marginBottom="3dp"
+                    android:id="@+id/order_item_send_time_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="发货时间："
+                    android:textColor="@color/col_333"
+                    android:textSize="@dimen/ac_text_size_14" />
+                <LinearLayout
+                    android:layout_below="@+id/order_item_send_time_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/order_item_total_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:text="合计："
+                        android:textColor="@color/col_333"
+                        android:textSize="@dimen/ac_text_size_14" />
+
+                    <TextView
+                        android:id="@+id/order_wait_pay_ordertotal_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@+id/order_item_total_tv"
+                        android:text=""
+                        android:textColor="@color/orange"
+                        android:textSize="@dimen/ac_text_size_14" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/order_btn_lin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                >
+
+                <TextView
+                    android:id="@+id/order_wait_pay_cancel_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/cancel_order_selector"
+                    android:padding="10dp"
+                    android:text="取消订单"
+                    android:textColor="@color/orange"
+                    android:textSize="@dimen/ac_text_size_14"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/order_wait_pay_take_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:background="@drawable/comfirm_take_selector"
+                    android:padding="10dp"
+                    android:text="立刻付款"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/ac_text_size_14" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/order_done_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_margin="10dp"
+                android:text="已完成"
+                android:textColor="@color/col_333"
+                android:textSize="@dimen/ac_text_size_14"
+                android:visibility="gone" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <TextView
+        android:background="@color/app_bg"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"/>
+</LinearLayout>
