@@ -5,13 +5,13 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
-    <dimen name="ac_text_size_24">24sp</dimen>
-    <dimen name="ac_text_size_20">20sp</dimen>
-    <dimen name="ac_text_size_18">18sp</dimen>
-    <dimen name="ac_text_size_16">16sp</dimen>
-    <dimen name="ac_text_size_14">14sp</dimen>
-    <dimen name="ac_text_size_12">12sp</dimen>
-    <dimen name="ac_text_size_10">10sp</dimen>
+    <dimen name="ac_text_size_24">28sp</dimen>
+    <dimen name="ac_text_size_20">24sp</dimen>
+    <dimen name="ac_text_size_18">22sp</dimen>
+    <dimen name="ac_text_size_16">20sp</dimen>
+    <dimen name="ac_text_size_14">18sp</dimen>
+    <dimen name="ac_text_size_12">16sp</dimen>
+    <dimen name="ac_text_size_10">14sp</dimen>
 
 
     <dimen name="bannel_img_h">130dp</dimen>

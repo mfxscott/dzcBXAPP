@@ -40,6 +40,11 @@
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <!-- 双屏显示权限-->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+    <uses-permission android:name="android.permission.SYSTEM_OVERLAY_WINDOW" />
     <!-- 要求设备有摄像头 -->
     <!-- <uses-permission android:name="android.permission.CAMERA"/> -->
     <!-- <uses-permission android:name="android.permission.FLASHLIGHT"/> -->
@@ -111,21 +116,25 @@
             android:label="@string/app_name"
             android:theme="@style/Theme.DesignDemo"
             android:windowSoftInputMode="adjustPan" />
+        <service
+            android:screenOrientation="landscape"
+            android:name="com.bixian365.dzc.fragment.XHShowService" >
+        </service>
         <activity
             android:name="com.bixian365.dzc.fragment.CommonWebViewMainActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"
+            android:screenOrientation="landscape"
             android:theme="@style/Theme.DesignDemo" />
         <activity android:name="com.bixian365.dzc.utils.checkPermission.PermissionsActivity" />
         <activity
             android:name="com.bixian365.dzc.activity.member.Regis1Activity"
-            android:screenOrientation="portrait"
+            android:screenOrientation="landscape"
             android:theme="@style/Theme.DesignDemo"
             android:windowSoftInputMode="stateHidden|stateUnchanged" />
         <!--<activity-->
             <!--android:name="com.bixian365.dzc.activity.member.LoginCodeActivity"-->
             <!--android:label="@string/title_activity_login"-->
-            <!--android:screenOrientation="portrait"-->
+            <!--android:screenOrientation="landscape"-->
             <!--android:theme="@style/Theme.DesignDemo"-->
             <!--android:windowSoftInputMode="stateHidden|stateUnchanged" >-->
             <!--&lt;!&ndash;<intent-filter>&ndash;&gt;-->
@@ -140,105 +149,105 @@
         <!--<activity-->
             <!--android:name="com.bixian365.dzc.activity.member.LoginNameActivity"-->
             <!--android:label="@string/title_activity_login_name"-->
-            <!--android:screenOrientation="portrait"-->
+            <!--android:screenOrientation="landscape"-->
             <!--android:theme="@style/Theme.DesignDemo"-->
             <!--android:windowSoftInputMode="stateHidden|stateUnchanged" />-->
         <activity
             android:name="com.bixian365.dzc.activity.member.ForGetPsdActivity"
             android:label="@string/title_activity_for_get_psd"
-            android:screenOrientation="portrait"
+            android:screenOrientation="landscape"
             android:theme="@style/Theme.DesignDemo"
             android:windowSoftInputMode="stateHidden|stateUnchanged" />
         <activity
             android:name="com.bixian365.dzc.activity.member.StoreMapActivity"
-            android:screenOrientation="portrait"
+            android:screenOrientation="landscape"
             android:theme="@style/Theme.DesignDemo"
             android:windowSoftInputMode="stateHidden|stateUnchanged" />
         <activity
             android:name="com.bixian365.dzc.activity.member.RegistCheckActivity"
-            android:screenOrientation="portrait"
+            android:screenOrientation="landscape"
             android:theme="@style/Theme.DesignDemo"
             android:windowSoftInputMode="stateHidden|stateUnchanged" />
         <activity
             android:name="com.bixian365.dzc.fragment.my.store.AccManageActivity"
-            android:screenOrientation="portrait"
+            android:screenOrientation="landscape"
             android:theme="@style/Theme.DesignDemo" />
         <activity
             android:name="com.bixian365.dzc.fragment.my.store.AccInfoActivity"
             android:label="@string/title_activity_acc_info"
-            android:screenOrientation="portrait"
+            android:screenOrientation="landscape"
             android:theme="@style/Theme.DesignDemo" />
         <activity
             android:name="com.bixian365.dzc.fragment.my.store.AccSecurityActivity"
-            android:screenOrientation="portrait"
+            android:screenOrientation="landscape"
             android:theme="@style/Theme.DesignDemo" />
         <activity
             android:name="com.bixian365.dzc.fragment.my.store.MessageActivity"
-            android:screenOrientation="portrait"
+            android:screenOrientation="landscape"
             android:theme="@style/Theme.DesignDemo" />
         <activity
             android:name="com.bixian365.dzc.fragment.my.store.MyWalletActivity"
             android:label="@string/title_activity_my_wallet"
-            android:screenOrientation="portrait"
+            android:screenOrientation="landscape"
             android:theme="@style/Theme.DesignDemo" />
         <activity
+            android:screenOrientation="landscape"
             android:name="com.bixian365.dzc.fragment.my.pay.TopUpActivity"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.DesignDemo" />
         <activity
             android:name="com.bixian365.dzc.fragment.my.store.BankCardTopUpActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="landscape" />
         <activity
             android:name="com.bixian365.dzc.fragment.my.store.yhj.YHJActivity"
-            android:screenOrientation="portrait"
+            android:screenOrientation="landscape"
             android:theme="@style/Theme.DesignDemo" />
         <activity
             android:name="com.bixian365.dzc.activity.SearchActivity"
-            android:screenOrientation="portrait"
+            android:screenOrientation="landscape"
             android:theme="@style/Theme.DesignDemo"
             android:windowSoftInputMode="stateHidden|stateUnchanged" />
         <activity
             android:name="com.bixian365.dzc.activity.GoodsDetailActivity"
-            android:screenOrientation="portrait"
+            android:screenOrientation="landscape"
             android:theme="@style/Theme.DesignDemo" />
         <activity
+            android:screenOrientation="landscape"
             android:name="com.bixian365.dzc.fragment.car.GoPayActivity"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.DesignDemo" />
         <activity
             android:name="com.bixian365.dzc.fragment.car.AddressListActivity"
-            android:screenOrientation="portrait"
+            android:screenOrientation="landscape"
             android:theme="@style/Theme.DesignDemo" />
         <activity
             android:name="com.bixian365.dzc.fragment.car.EditAddAddressActivity"
-            android:screenOrientation="portrait"
+            android:screenOrientation="landscape"
             android:theme="@style/Theme.DesignDemo" />
         <activity
             android:name="com.bixian365.dzc.activity.GoodsFeedbackActivity"
-            android:screenOrientation="portrait"
+            android:screenOrientation="landscape"
             android:theme="@style/Theme.DesignDemo"
             android:windowSoftInputMode="stateHidden|stateUnchanged" />
         <activity
             android:name="com.bixian365.dzc.fragment.my.store.order.MyOrderActivity"
-            android:screenOrientation="portrait"
+            android:screenOrientation="landscape"
             android:theme="@style/Theme.DesignDemo" />
         <activity
             android:name="com.bixian365.dzc.fragment.my.store.order.OrderDetailActivity"
-            android:screenOrientation="portrait"
+            android:screenOrientation="landscape"
             android:theme="@style/Theme.DesignDemo" />
         <activity
             android:name="com.bixian365.dzc.activity.SearchDetailActivity"
-            android:screenOrientation="portrait"
+            android:screenOrientation="landscape"
             android:theme="@style/Theme.DesignDemo"
             android:launchMode="singleTask" android:windowSoftInputMode="stateUnspecified|adjustPan"
             />
         <activity
             android:name="com.bixian365.dzc.fragment.my.buyer.ExtractDetailActivity"
-            android:screenOrientation="portrait"
+            android:screenOrientation="landscape"
             android:theme="@style/Theme.DesignDemo" />
         <activity
             android:name="com.bixian365.dzc.fragment.my.buyer.ExtractAddBankCardActivity"
-            android:screenOrientation="portrait"
+            android:screenOrientation="landscape"
             android:theme="@style/Theme.DesignDemo" />
 
         <receiver android:name="com.bixian365.dzc.utils.NetworkConnectChangedReceiver">
@@ -251,7 +260,7 @@
 
         <activity
             android:name="com.bixian365.dzc.utils.zxing.BaseQRScanActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="landscape" />
         <activity
             android:name="com.bixian365.dzc.fragment.my.partner.PartnerOrderActivity"
             android:theme="@style/Theme.DesignDemo" />

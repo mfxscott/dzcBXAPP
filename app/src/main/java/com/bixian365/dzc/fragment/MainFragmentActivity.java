@@ -83,6 +83,7 @@ public class MainFragmentActivity extends AppCompatActivity {
     private String tag;//1 为普通用户，店铺  显示商品及购买 2 为合伙人等角色
     private Activity activity;
     private int displayTag=1;//当前显示tab 保存在未登录点击选项卡位置
+    private Intent intentService;//双屏幕显示
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,6 +99,8 @@ public class MainFragmentActivity extends AppCompatActivity {
         SXUtils.getInstance(this).addActivity(activity);
         EventBus.getDefault().register(this);
         init();
+        intentService = new Intent(activity,XHShowService.class);
+        startService(intentService);
 //        compat(this);
     }
 
@@ -174,7 +177,7 @@ public class MainFragmentActivity extends AppCompatActivity {
     private void remind(View view) { //BadgeView的具体使用
         badge1 = new BadgeView(this, view);// 创建一个BadgeView对象，view为你需要显示提醒的控件
 //        badge1.setText("0"); // 需要显示的提醒类容
-        badge1.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 显示的位置.右上角,BadgeView.POSITION_BOTTOM_LEFT,下左，还有其他几个属性
+//        badge1.setBadgePosition(BadgeView.POSITION_CENTER);// 显示的位置.右上角,BadgeView.POSITION_BOTTOM_LEFT,下左，还有其他几个属性
         badge1.setTextColor(Color.WHITE); // 文本颜色
         badge1.setBadgeBackgroundColor(getResources().getColor(R.color.orange)); // 提醒信息的背景颜色，自己设置
         if(!TextUtils.isEmpty(AppClient.USER_ID) && !TextUtils.isEmpty(AppClient.USER_SESSION)){
@@ -188,10 +191,11 @@ public class MainFragmentActivity extends AppCompatActivity {
 //        badge1.setPadding(0,0,0,2);
 //        badge1.setHeight(30);
 //        badge1.setWidth(30);
-        badge1.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL);
+//        badge1.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL);
+        badge1.setGravity(Gravity.CENTER_HORIZONTAL);
 
 //        badge1.setBackgroundResource(R.drawable.round_red_bg_shap); //设置背景图片
-        badge1.setTextSize(12); // 文本大小
+        badge1.setTextSize(14); // 文本大小
 //        badge1.setBadgeMargin(3, 3); // 水平和竖直方向的间距
 //        badge1.setBadgeMargin(2); //各边间隔
 //         badge1.toggle(); //显示效果，如果已经显示，则影藏，如果影藏，则显示
