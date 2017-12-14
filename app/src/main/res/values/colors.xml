@@ -50,4 +50,15 @@
     <color name="pickerview_wheelview_textcolor_divider">#d5d5d5</color>
     <color name="pickerview_bgColor_overlay">#60000000</color>
     <color name="pickerview_bgColor_default">#FFFFFFFF</color>
+
+
+    <!-- 平板颜色值-->
+    <color name="car_bg">#2B2B2B</color>
+    <color name="car_goodslist_head">#B1A598</color>
+    <color name="car_del_update_btn">#3581DC</color>
+    <color name="car_pay">#E91938</color>
+    <color name="car_bottom">#006B31</color>
+    <color name="car_top_bg">#786A5D</color>
+     <color name="q_white">#A9A9A9</color>
+    <color name="car_item_on_bg">#EFE3DC</color>
 </resources>

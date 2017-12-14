@@ -26,11 +26,10 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.lzy.okhttputils.OkHttpUtils;
 import com.bixian365.dzc.R;
 import com.bixian365.dzc.entity.MessageEvent;
 import com.bixian365.dzc.fragment.bill.BillFragment;
-import com.bixian365.dzc.fragment.car.CarFragment;
+import com.bixian365.dzc.fragment.car.PadCarFragment;
 import com.bixian365.dzc.fragment.goods.GoodsListFragment;
 import com.bixian365.dzc.fragment.home.HomeFragment;
 import com.bixian365.dzc.fragment.my.buyer.BuyerFragment;
@@ -42,6 +41,7 @@ import com.bixian365.dzc.utils.download.DownloadOkHttpUtils;
 import com.bixian365.dzc.utils.httpClient.AppClient;
 import com.bixian365.dzc.utils.httpClient.RequestReqMsgData;
 import com.bixian365.dzc.utils.view.BadgeView;
+import com.lzy.okhttputils.OkHttpUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -65,7 +65,8 @@ public class MainFragmentActivity extends AppCompatActivity {
     public HomeFragment homeFrag;
     public BillFragment billFrag;
     public GoodsListFragment goodsFrag;
-    public CarFragment  carFrag;
+//    public CarFragment  carFrag;
+    public PadCarFragment PadCarFrag;
     //联创中心，供货商
     public BuyerFragment myFrag;
     //    合伙人，
@@ -366,11 +367,11 @@ public class MainFragmentActivity extends AppCompatActivity {
                     return ;
                 }
                 displayTag = 4;
-                if (carFrag == null) {
-                    carFrag = new CarFragment();
-                    transaction.add(R.id.content,carFrag);
+                if (PadCarFrag == null) {
+                    PadCarFrag = new PadCarFragment();
+                    transaction.add(R.id.content,PadCarFrag);
                 }
-                addFragmentToStack(carFrag);
+                addFragmentToStack(PadCarFrag);
             }
         }
     }

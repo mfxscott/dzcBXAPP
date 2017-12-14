@@ -1,6 +1,10 @@
 package com.bixian365.dzc.utils.httpClient;
 
+import com.bixian365.dzc.entity.car.ShoppingCartLinesEntity;
+
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -12,6 +16,8 @@ import java.util.Map;
  * ***************************
  */
 public class AppClient{
+    //缓存平板购物车商品列表
+    public static List<ShoppingCartLinesEntity>  padCarGoodsList = new ArrayList<>();
     public static Map<String,Boolean>  goodsMap = new HashMap<String ,Boolean>();
     public static Map<String,Boolean> storeMap = new HashMap<String ,Boolean>();
     public static  boolean  isSubAdd=false;

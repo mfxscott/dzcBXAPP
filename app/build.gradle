@@ -65,6 +65,8 @@ dependencies {
     compile project(':pickerview')
     //    compile files('libs/zxing.jar')
 //    compile 'com.baidu.mobstat:mtj-sdk:latest.integration'
+    //    compile 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
+    compile files('libs/libammsdk.jar')
     compile 'com.lzy.net:okhttpserver:1.0.3'
     compile 'com.lzy.net:okhttputils:+'
     compile 'com.android.support:design:23.0.1'
@@ -80,6 +82,4 @@ dependencies {
     compile 'com.jakewharton:butterknife:8.4.0'
     testCompile 'junit:junit:4.12'
     apt 'com.jakewharton:butterknife-compiler:8.4.0'
-//    compile 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
-    compile files('libs/libammsdk.jar')
 }
