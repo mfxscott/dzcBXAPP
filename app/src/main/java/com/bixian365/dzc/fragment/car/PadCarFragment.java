@@ -74,6 +74,7 @@ public class PadCarFragment extends Fragment {
         shoppingCartLinesEntity.setSkuPrice("12.3");
         shoppingCartLinesEntity.setQuantity("2");
         shoppingCartLinesEntity.setGoodsModel("公斤");
+        AppClient.padCarGoodsList.add(shoppingCartLinesEntity);
         simpAdapter = new PadCarGoodsListRecyclerViewAdapter(getActivity(),AppClient.padCarGoodsList);
         recyclerView.setAdapter(simpAdapter);
         initHandler();
