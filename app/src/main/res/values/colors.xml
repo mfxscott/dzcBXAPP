@@ -61,4 +61,8 @@
     <color name="car_top_bg">#786A5D</color>
      <color name="q_white">#A9A9A9</color>
     <color name="car_item_on_bg">#EFE3DC</color>
+
+
+    <!-- -->
+    <color name="login_input_bg">#FFDAA776</color>
 </resources>

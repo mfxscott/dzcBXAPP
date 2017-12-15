@@ -20,7 +20,7 @@
     <!--</style>-->
     <!-- 处理程序在启动出现短暂白屏-->
     <style name="Splash_Theme" parent="@android:style/Theme.NoTitleBar">
-        <item      name="android:windowBackground">@mipmap/launch_logo</item>
+        <!--<item      name="android:windowBackground">@mipmap/launch_logo</item>-->
         <item name="android:windowNoTitle">true</item>
     </style>
     <!-- 首页底部导航栏样式-->

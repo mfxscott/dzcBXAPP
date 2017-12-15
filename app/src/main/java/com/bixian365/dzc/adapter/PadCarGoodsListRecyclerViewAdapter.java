@@ -7,6 +7,7 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bixian365.dzc.R;
@@ -26,6 +27,7 @@ public  class PadCarGoodsListRecyclerViewAdapter
     private int mBackground;
     private List<ShoppingCartLinesEntity> mValues = new ArrayList<>();
     private Activity activity;
+    public int mSelect= -1;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -36,6 +38,7 @@ public  class PadCarGoodsListRecyclerViewAdapter
         public final  TextView  unitTv;
         public final  TextView  priceTv;
         public final  TextView  totalPriceTv;
+        public final LinearLayout  carLiny;
         public ViewHolder(View view) {
             super(view);
             mView = view;
@@ -45,6 +48,7 @@ public  class PadCarGoodsListRecyclerViewAdapter
             unitTv = (TextView) view.findViewById(R.id.car_list_item_unit_tv);
             priceTv = (TextView) view.findViewById(R.id.car_list_item_price_tv);
             totalPriceTv = (TextView) view.findViewById(R.id.car_list_item_total_price_tv);
+            carLiny = (LinearLayout) view.findViewById(R.id.pad_car_item_liny);
 
         }
         @Override
@@ -75,9 +79,16 @@ public  class PadCarGoodsListRecyclerViewAdapter
         holder.unitTv.setText(goods.getGoodsModel()+"");
         holder.priceTv.setText(goods.getSkuPrice()+"元");
         holder.totalPriceTv.setText(Float.parseFloat(goods.getQuantity())*Float.parseFloat(goods.getSkuPrice())+"元");
+
+        if(mSelect==position){
+            holder.carLiny.setBackgroundResource(R.color.car_item_on_bg);  //选中项背景
+        }else{
+            holder.carLiny.setBackgroundResource(R.color.white);  //其他项背景
+        }
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                changeSelected(position);
             }
         });
 
@@ -91,15 +102,39 @@ public  class PadCarGoodsListRecyclerViewAdapter
         Log.i("========",position+"");
         return super.getItemViewType(position);
     }
+    public void changeSelected(int positon){ //刷新方法
+        if(positon != mSelect){
+            mSelect = positon;
+            notifyDataSetChanged();
+        }
+    }
     //  添加数据
     public void addData(int position) {
 //      在list中添加数据，并通知条目加入一条
         notifyItemInserted(position);
     }
     //  删除数据
-    public void removeData(int position) {
-        mValues.remove(position);
-        notifyItemRemoved(position);
+    public void removeData() {
+        if(mSelect>-1) {
+            mValues.remove(mSelect);
+            notifyItemRemoved(mSelect);
+            notifyDataSetChanged();
+        }
+
+    }
+
+    /**
+     *  修改购物车商品参数
+     * @param isPrice 0 修改数量  1 修改价格
+     * @param value
+     */
+    public void updateData(String isPrice,String value) {
+        final ShoppingCartLinesEntity  goods = mValues.get(mSelect);
+        if(isPrice.equals("0")){
+            goods.setSkuPrice(value+"");
+        }else{
+            goods.setQuantity(value+"");
+        }
         notifyDataSetChanged();
 
     }

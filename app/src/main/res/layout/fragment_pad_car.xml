@@ -262,6 +262,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
             <Button
+                android:id="@+id/pad_car_update_number_btn"
                 android:layout_marginLeft="10dp"
                 android:layout_weight="1"
                 android:background="@color/car_del_update_btn"
@@ -271,15 +272,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
             <Button
+                android:id="@+id/pad_car_update_price_btn"
                 android:layout_marginLeft="10dp"
                 android:layout_weight="1"
                 android:background="@color/car_del_update_btn"
                 android:textStyle="bold"
-                android:text="修改"
+                android:text="改价"
                 android:textColor="@color/white"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
             <Button
+                android:id="@+id/pad_car_update_del_btn"
                 android:layout_marginLeft="10dp"
                 android:layout_weight="1"
                 android:background="@color/car_del_update_btn"
@@ -289,6 +292,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
             <Button
+                android:id="@+id/pad_car_update_clear_btn"
                 android:layout_marginLeft="10dp"
                 android:layout_weight="1"
                 android:background="@color/car_del_update_btn"
@@ -298,6 +302,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
             <Button
+                android:id="@+id/pad_car_update_lock_btn"
                 android:layout_marginLeft="10dp"
                 android:layout_weight="1"
                 android:background="@color/car_del_update_btn"
@@ -313,6 +318,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <Button
+                android:id="@+id/pad_car_topay_btn"
                 android:background="@color/car_pay"
                 android:textSize="@dimen/ac_text_size_24"
                 android:textStyle="bold"
