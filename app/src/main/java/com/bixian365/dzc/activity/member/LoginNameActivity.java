@@ -17,7 +17,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.bixian365.dzc.R;
-import com.bixian365.dzc.activity.BaseActivity;
 import com.bixian365.dzc.entity.MessageEvent;
 import com.bixian365.dzc.fragment.MainFragmentActivity;
 import com.bixian365.dzc.utils.SXUtils;
@@ -121,6 +120,7 @@ public class LoginNameActivity extends Activity implements View.OnClickListener 
                                 finish();
                             }
                         }
+                        finish();
                         EventBus.getDefault().post(new MessageEvent(AppClient.EVENT100022, "webview"));
                         break;
                     case AppClient.ERRORCODE:
@@ -190,7 +190,7 @@ public class LoginNameActivity extends Activity implements View.OnClickListener 
             loginAccNext.setBackgroundResource(R.drawable.gray_round_shap);
         }else{
             loginAccNext.setEnabled(true);
-            loginAccNext.setBackgroundResource(R.drawable.login_button_selector);
+            loginAccNext.setBackgroundResource(R.drawable.pad_login_button_selector);
         }
     }
 //    public void psdLoginHttp(final  String mobile,final String psdStr){
@@ -256,7 +256,8 @@ public class LoginNameActivity extends Activity implements View.OnClickListener 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == event.KEYCODE_BACK) {
-            return false;
+            finish();
+            System.exit(0);
 //            SXUtils.getInstance(activity).IntentMain();
 //            SXUtils.getInstance(activity).finishActivity();
         }

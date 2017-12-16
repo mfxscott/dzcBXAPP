@@ -2,7 +2,6 @@ package com.bixian365.dzc.adapter;
 
 import android.app.Activity;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +10,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bixian365.dzc.R;
+import com.bixian365.dzc.entity.MessageEvent;
 import com.bixian365.dzc.entity.car.ShoppingCartLinesEntity;
+import com.bixian365.dzc.utils.SXUtils;
+import com.bixian365.dzc.utils.httpClient.AppClient;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,13 +77,13 @@ public  class PadCarGoodsListRecyclerViewAdapter
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         final ShoppingCartLinesEntity  goods = mValues.get(position);
-        holder.xh.setText(position+"");
+
+        holder.xh.setText(position+1>9 ? (position+1)+"":"0"+(position+1)+"");
         holder.goodsNameTv.setText(goods.getGoodsName()+"");
         holder.numberTv.setText(goods.getQuantity()+"");
         holder.unitTv.setText(goods.getGoodsModel()+"");
         holder.priceTv.setText(goods.getSkuPrice()+"元");
         holder.totalPriceTv.setText(Float.parseFloat(goods.getQuantity())*Float.parseFloat(goods.getSkuPrice())+"元");
-
         if(mSelect==position){
             holder.carLiny.setBackgroundResource(R.color.car_item_on_bg);  //选中项背景
         }else{
@@ -91,7 +95,6 @@ public  class PadCarGoodsListRecyclerViewAdapter
                 changeSelected(position);
             }
         });
-
     }
     @Override
     public int getItemCount() {
@@ -99,26 +102,30 @@ public  class PadCarGoodsListRecyclerViewAdapter
     }
     @Override
     public int getItemViewType(int position) {
-        Log.i("========",position+"");
         return super.getItemViewType(position);
     }
     public void changeSelected(int positon){ //刷新方法
         if(positon != mSelect){
             mSelect = positon;
-            notifyDataSetChanged();
+            notifyDataSetChangedSetCarTotalPrice();
         }
     }
     //  添加数据
-    public void addData(int position) {
+    public void clearCar(int position) {
+        AppClient.padCarGoodsList.clear();
 //      在list中添加数据，并通知条目加入一条
-        notifyItemInserted(position);
+        notifyDataSetChangedSetCarTotalPrice();
     }
     //  删除数据
     public void removeData() {
+
+        if(AppClient.padCarGoodsList.size()<1)
+            return;
         if(mSelect>-1) {
             mValues.remove(mSelect);
             notifyItemRemoved(mSelect);
-            notifyDataSetChanged();
+            mSelect = -1;
+            notifyDataSetChangedSetCarTotalPrice();
         }
 
     }
@@ -129,14 +136,33 @@ public  class PadCarGoodsListRecyclerViewAdapter
      * @param value
      */
     public void updateData(String isPrice,String value) {
+        if(AppClient.padCarGoodsList.size()<1)
+            return;
         final ShoppingCartLinesEntity  goods = mValues.get(mSelect);
         if(isPrice.equals("0")){
-            goods.setSkuPrice(value+"");
-        }else{
             goods.setQuantity(value+"");
+        }else{
+            goods.setSkuPrice(value+"");
         }
-        notifyDataSetChanged();
-
+        notifyDataSetChangedSetCarTotalPrice();
     }
-
+    /**
+     * 获取购物车内商品价格
+     * @return
+     */
+    public String getPadCarTotalMoney(){
+        if(AppClient.padCarGoodsList.size()<1){
+            return "0";
+        }
+        float priceTotal = 0;
+        for(int i = 0; i< AppClient.padCarGoodsList.size(); i++){
+            priceTotal += Float.parseFloat(AppClient.padCarGoodsList.get(i).getSkuPrice()) *
+                    Float.parseFloat(AppClient.padCarGoodsList.get(i).getQuantity());
+        }
+        return SXUtils.getInstance(activity).getFloatPrice(priceTotal)+"";
+    }
+    public void notifyDataSetChangedSetCarTotalPrice(){
+        notifyDataSetChanged();
+        EventBus.getDefault().post(new MessageEvent(AppClient.PADEVENT00001,getPadCarTotalMoney()+""));
+    }
 }

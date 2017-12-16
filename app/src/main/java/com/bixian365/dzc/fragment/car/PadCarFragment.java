@@ -3,17 +3,19 @@ package com.bixian365.dzc.fragment.car;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.Fragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -50,6 +52,12 @@ public class PadCarFragment extends Fragment {
     private PadCarGoodsListRecyclerViewAdapter simpAdapter;
     @BindView(R.id.pad_car_update_number_btn)
     Button updateNumBtn;
+    @BindView(R.id.pad_car_total_price_tv)
+    TextView totalPriceTv;
+    @BindView(R.id.pad_car_goodsnumber_tv)
+    TextView goodsNumberTv;
+    @BindView(R.id.pad_car_now_time_tv)
+    TextView  nowTimeTv;
     public PadCarFragment() {
     }
 
@@ -65,10 +73,11 @@ public class PadCarFragment extends Fragment {
         return view;
     }
     private void  initView(){
-
+        nowTimeTv.setText(SXUtils.getInstance(activity).GetNowDateTime()+"");
         mSwipyRefreshLayout = (SwipyRefreshLayout) view.findViewById(R.id.pad_car_swipyrefreshlayout);
         SXUtils.getInstance(activity).setColorSchemeResources(mSwipyRefreshLayout);
-        mSwipyRefreshLayout.setDirection(SwipyRefreshLayoutDirection.TOP);
+        mSwipyRefreshLayout.setDirection(SwipyRefreshLayoutDirection.BOTH);
+        mSwipyRefreshLayout.setEnabled(false);
         mSwipyRefreshLayout.setOnRefreshListener(new SwipyRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh(SwipyRefreshLayoutDirection direction) {
@@ -85,39 +94,34 @@ public class PadCarFragment extends Fragment {
         recyclerView = (RecyclerView) view.findViewById(R.id.pad_car_goodslist_recyclv);
         recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        ShoppingCartLinesEntity  shoppingCartLinesEntity = new ShoppingCartLinesEntity();
-        shoppingCartLinesEntity.setGoodsName("1111");
-        shoppingCartLinesEntity.setSkuPrice("12.3");
-        shoppingCartLinesEntity.setQuantity("2");
-        shoppingCartLinesEntity.setGoodsModel("公斤");
-        AppClient.padCarGoodsList.add(shoppingCartLinesEntity);
-        simpAdapter = new PadCarGoodsListRecyclerViewAdapter(getActivity(),AppClient.padCarGoodsList);
-        recyclerView.setAdapter(simpAdapter);
         initHandler();
+        steData();
+
+    }
+    /**
+     * 测试模拟测试数据
+     */
+    private void steData(){
+        ShoppingCartLinesEntity  shoppingCartLinesEntity;
+        for (int i=0;i<10;i++){
+            shoppingCartLinesEntity = new ShoppingCartLinesEntity();
+            shoppingCartLinesEntity.setGoodsName("我是商品名称");
+            shoppingCartLinesEntity.setSkuPrice(i+"."+i);
+            shoppingCartLinesEntity.setQuantity("1");
+            shoppingCartLinesEntity.setGoodsModel("公斤");
+            AppClient.padCarGoodsList.add(shoppingCartLinesEntity);
+        }
+        hand.sendEmptyMessage(1009);
     }
     private void initHandler(){
         hand = new Handler(new Handler.Callback() {
             public boolean handleMessage(Message msg) {
                 switch (msg.what) {
                     case 1009:
-//                        billlist = (List<BillDataSetEntity>) msg.obj;
-//                        if(billlist == null || billlist.size()<=0) {
-//                            noDataLin.setVisibility(View.VISIBLE);
-//                            if(tabLayout != null)
-//                                tabLayout.removeAllTabs();
-//                            if(billlist.size()<1){
-//                                billlist.clear();
-//                                recyclerView.setAdapter(null);
-//                            }
-//                            break;
-//                        }
-//                        noDataLin.setVisibility(View.GONE);
-//                        if(billlist.size() >9){
-//                            mSwipyRefreshLayout.setDirection(SwipyRefreshLayoutDirection.BOTH);
-//                        }else{
-//                            mSwipyRefreshLayout.setDirection(SwipyRefreshLayoutDirection.TOP);
-//                        }
-//                        initViewPager(billlist);
+                        simpAdapter = new PadCarGoodsListRecyclerViewAdapter(getActivity(),AppClient.padCarGoodsList);
+                        recyclerView.setAdapter(simpAdapter);
+                        goodsNumberTv.setText(AppClient.padCarGoodsList.size()+"件");
+                        totalPriceTv.setText(simpAdapter.getPadCarTotalMoney()+"元");
                         break;
                     case AppClient.ERRORCODE:
                         String str = (String) msg.obj;
@@ -135,15 +139,18 @@ public class PadCarFragment extends Fragment {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMoonEvent(MessageEvent messageEvent) {
         //发货和确认采购订单成功，刷新列表
-//        if (messageEvent.getTag() == AppClient.EVENT10002) {
-//            initData();
-//        }
+        if (messageEvent.getTag() == AppClient.PADEVENT00001) {
+            goodsNumberTv.setText(AppClient.padCarGoodsList.size()+"件");
+            totalPriceTv.setText(simpAdapter.getPadCarTotalMoney()+"元");
+        }else if(messageEvent.getTag() == AppClient.PADEVENT00002){
+            nowTimeTv.setText(SXUtils.getInstance(activity).GetNowDateTime()+"");
+        }
 //        if (messageEvent.getTag() == AppClient.EVENT100026) {
 //            simpAdapter.notifyDataSetChanged();
 //        }
     }
     @OnClick({ R.id.pad_car_update_number_btn, R.id.pad_car_update_price_btn, R.id.pad_car_update_del_btn, R.id.pad_car_update_clear_btn,
-    R.id.pad_car_update_lock_btn,R.id.pad_car_topay_btn
+            R.id.pad_car_update_lock_btn,R.id.pad_car_topay_btn
     })
     public void OnclickBtn(Button button) {
         switch (button.getId()) {
@@ -158,6 +165,8 @@ public class PadCarFragment extends Fragment {
                 break;
             case R.id.pad_car_update_clear_btn:
                 break;
+            case R.id.pad_car_update_lock_btn:
+                LockDailog();
             default:
                 break;
         }
@@ -168,11 +177,16 @@ public class PadCarFragment extends Fragment {
      * @param title
      */
     public void InputDailog(final String isprice , final String title){
-        final EditText et = new EditText(activity);
-       View convertView = LayoutInflater.from(activity).inflate(R.layout.bank_card_item, null);
-        new AlertDialog.Builder(activity).setTitle(title+"")
-                .setIcon(android.R.drawable.ic_dialog_info)
-                .setView(et)
+        if(simpAdapter.mSelect<0){
+            SXUtils.getInstance(activity).ToastCenter("请选择商品进行修改");
+            return;
+        }
+        View convertView = LayoutInflater.from(activity).inflate(R.layout.pad_car_update_value_dialog, null);
+        final EditText et = (EditText) convertView.findViewById(R.id.pad_car_update_dialog_edt);
+        new AlertDialog.Builder(activity)
+//                .setTitle(title+"")
+//                .setIcon(android.R.drawable.ic_dialog_info)
+                .setView(convertView)
                 .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         String input = et.getText().toString();
@@ -180,13 +194,43 @@ public class PadCarFragment extends Fragment {
                             Toast.makeText(activity, title+"" + input, Toast.LENGTH_LONG).show();
                         }
                         else {
-                           simpAdapter.updateData(isprice,input);
+                            simpAdapter.updateData(isprice,input);
                         }
                     }
                 })
                 .setNegativeButton("取消", null)
                 .show();
     }
+    /**
+     * 用户锁屏幕操作
+     */
+    private Dialog LockDialog;
+    public void LockDailog() {
+        final Dialog LockDialog = new AlertDialog.Builder(activity).create();
+        LockDialog.show();
+        LockDialog.setCancelable(false);
+        LockDialog.setCanceledOnTouchOutside(false);
+        Window window = LockDialog.getWindow();
+        window.setContentView(R.layout.pad_car_lock_dialog);
+       final  EditText inputedt = (EditText) window.findViewById(R.id.pad_car_lock_input_psd_tv);
+        TextView cancelTv = (TextView) window.findViewById(R.id.pad_car_lock_cancel_tv);
+        TextView unlockTv = (TextView) window.findViewById(R.id.pad_car_unlock_cancel_tv);
+        cancelTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                activity.finish();
+                System.exit(0);
+            }
+        });
+        unlockTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LockDialog.dismiss();
+                String  psd = inputedt.getText().toString();
+            }
+        });
+    }
+
     @Override
     public void onDestroy() {
         super.onDestroy();

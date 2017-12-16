@@ -18,6 +18,10 @@ import java.util.Map;
 public class AppClient{
     //缓存平板购物车商品列表
     public static List<ShoppingCartLinesEntity>  padCarGoodsList = new ArrayList<>();
+    public static final  int PADEVENT00001 =00001;//刷新计算设置购物车总价
+    public static final  int PADEVENT00002 =00002;//实时当前更新时间
+
+
     public static Map<String,Boolean>  goodsMap = new HashMap<String ,Boolean>();
     public static Map<String,Boolean> storeMap = new HashMap<String ,Boolean>();
     public static  boolean  isSubAdd=false;
@@ -57,6 +61,9 @@ public class AppClient{
     public static final  int EVENT100024 =100024;//修改购物车按钮 是否免运费
     public static final  int EVENT100025 =100025;//finish 支付收银台界面
     public static final  int EVENT100026 =100026;//刷新清单 商品列表 加入和减少购物车
+
+
+
 
     public static boolean isDelCarGoods= false; //true 显示删除按钮  false 显示结算按钮
 

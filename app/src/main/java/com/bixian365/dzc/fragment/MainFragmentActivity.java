@@ -39,7 +39,6 @@ import com.bixian365.dzc.utils.Logs;
 import com.bixian365.dzc.utils.SXUtils;
 import com.bixian365.dzc.utils.download.DownloadOkHttpUtils;
 import com.bixian365.dzc.utils.httpClient.AppClient;
-import com.bixian365.dzc.utils.httpClient.RequestReqMsgData;
 import com.bixian365.dzc.utils.view.BadgeView;
 import com.lzy.okhttputils.OkHttpUtils;
 
@@ -102,6 +101,7 @@ public class MainFragmentActivity extends AppCompatActivity {
         init();
         intentService = new Intent(activity,XHShowService.class);
         startService(intentService);
+        new TimeThread().start();
 //        compat(this);
     }
 
@@ -173,7 +173,8 @@ public class MainFragmentActivity extends AppCompatActivity {
 //        if (!(TextUtils.isEmpty(gesturePhone))) {
 //            RequestReqMsgData.ChckGestureStatue(MainFragmentActivity.this,0);
 //        }
-        RequestReqMsgData.UpdateVersion(activity,null);
+
+//        RequestReqMsgData.UpdateVersion(activity,null);
     }
     private void remind(View view) { //BadgeView的具体使用
         badge1 = new BadgeView(this, view);// 创建一个BadgeView对象，view为你需要显示提醒的控件
@@ -509,5 +510,19 @@ public class MainFragmentActivity extends AppCompatActivity {
             cancleTv.setText("取消下载");
         }
         cancleTv.setOnClickListener(onClickListener);
+
+    }
+    class TimeThread extends Thread {
+        @Override
+        public void run() {
+            do {
+                try {
+                    Thread.sleep(1000);
+                    EventBus.getDefault().post(new MessageEvent(AppClient.PADEVENT00001,""));
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            } while (true);
+        }
     }
 }

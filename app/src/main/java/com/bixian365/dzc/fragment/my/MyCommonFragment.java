@@ -22,10 +22,9 @@ import com.bixian365.dzc.utils.SXUtils;
  startActivity(setfragment);
  */
 public class MyCommonFragment extends BaseActivity {
-
 	private Bundle bundle;
 	private Activity activity;
-    private int flag;//标识跳转不同位置
+	private int flag;//标识跳转不同位置
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
@@ -34,27 +33,26 @@ public class MyCommonFragment extends BaseActivity {
 		bundle = new Bundle();
 		bundle = this.getIntent().getExtras();
 		activity = this;
-        flag = bundle.getInt("flag");
-       switch (flag) {
-           //设置
-           case 1:
+		flag = bundle.getInt("flag");
+		switch (flag) {
+			//设置
+			case 1:
 //               Fragment setFrag = new SetActivity();
 //               SXUtils.getInstance(activity).CommonFragment(activity.getFragmentManager(), setFrag, "set", null);
-               break;
-           //我的银行卡
-       }
-       }
+				break;
+			//我的银行卡
+		}
+	}
 	/**
-     * 点击返回键
-     */
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        //监听按下返回键
-        if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
-
-            SXUtils.getInstance(activity).FragmentGoBack(activity);
-        }
-        return true;
-    }
+	 * 点击返回键
+	 */
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		//监听按下返回键
+		if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
+			SXUtils.getInstance(activity).FragmentGoBack(activity);
+		}
+		return true;
+	}
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		switch (requestCode) {

@@ -17,7 +17,6 @@
             android:gravity="center_horizontal"
             android:text="序号"
             android:textColor="@color/col_333" />
-
         <TextView
             android:id="@+id/car_list_item_goodsname_tv"
             android:layout_width="match_parent"
@@ -26,7 +25,6 @@
             android:gravity="center_horizontal"
             android:text="商品名"
             android:textColor="@color/col_333" />
-
         <TextView
             android:id="@+id/car_list_item_number_tv"
             android:layout_width="match_parent"
@@ -35,16 +33,14 @@
             android:gravity="center_horizontal"
             android:text="数量"
             android:textColor="@color/col_333" />
-
         <TextView
-
+            android:gravity="center_horizontal"
             android:id="@+id/car_list_item_unit_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:text="单位"
             android:textColor="@color/col_333" />
-
         <TextView
             android:id="@+id/car_list_item_price_tv"
             android:layout_width="match_parent"

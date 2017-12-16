@@ -40,7 +40,7 @@
     <color name="qred">#FF4D4D</color>
     <!-- 暗绿色 -->
     <color name="blue">#32508d</color>
-  <!-- 省市级联动-->
+    <!-- 省市级联动-->
     <color name="pickerview_timebtn_nor">#057dff</color>
     <color name="pickerview_timebtn_pre">#c2daf5</color>
     <color name="pickerview_bg_topbar">#f5f5f5</color>
@@ -59,10 +59,11 @@
     <color name="car_pay">#E91938</color>
     <color name="car_bottom">#006B31</color>
     <color name="car_top_bg">#786A5D</color>
-     <color name="q_white">#A9A9A9</color>
+    <color name="q_white">#A9A9A9</color>
     <color name="car_item_on_bg">#EFE3DC</color>
+    <color name="pad_car_type_btn">#006B30</color>
+    <color name="pad_car_next_btn_bg">#70B036</color>
 
-
-    <!-- -->
+    <!-- 登录面板-->
     <color name="login_input_bg">#FFDAA776</color>
 </resources>

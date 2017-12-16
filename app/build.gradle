@@ -9,12 +9,12 @@ android {
 //            storeFile file('E:/mfx/mc/xhhkeystore.jks')
 //            storePassword 'xhh2017'
 //        }
-    release {//发布版本的签名配置
-        storeFile file('E:/mf/mc/bf/dzcBXAPP/app/xhhkeystore.jks')
-        keyAlias 'xhh'
-        storePassword 'xhh2017'
-        keyPassword 'xhh2017'
-    }
+//    release {//发布版本的签名配置
+//        storeFile file('E:/mf/mc/bf/dzcBXAPP/app/xhhkeystore.jks')
+//        keyAlias 'xhh'
+//        storePassword 'xhh2017'
+//        keyPassword 'xhh2017'
+//    }
     }
     compileSdkVersion 23
     buildToolsVersion '25.0.3'

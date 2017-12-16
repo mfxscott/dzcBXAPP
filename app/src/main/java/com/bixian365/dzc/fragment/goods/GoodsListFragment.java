@@ -17,6 +17,7 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.androidkun.xtablayout.XTabLayout;
 import com.lzy.okhttputils.model.HttpParams;
@@ -72,6 +73,7 @@ public class GoodsListFragment extends Fragment {
     private String idStr;//品牌ID
     private String cnoStr;
     private List<GoodsInfoEntity> goodsList = new ArrayList<>();
+    private TextView  nowTimeTv;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -86,7 +88,8 @@ public class GoodsListFragment extends Fragment {
         return view;
     }
     private void initView(){
-
+        TextView  nowTimeTv = (TextView) view.findViewById(R.id.pad_car_now_time_tv);
+        nowTimeTv.setText(SXUtils.getInstance(activity).GetNowDateTime()+"");
         view.findViewById(R.id.main_custom_service_ivs).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -361,8 +364,11 @@ public class GoodsListFragment extends Fragment {
     public void onMoonEvent(MessageEvent messageEvent) {
         if (messageEvent.getTag() == AppClient.EVENT100026) {
             simpAdapter.notifyDataSetChanged();
+        }else if(messageEvent.getTag() == AppClient.PADEVENT00002){
+            nowTimeTv.setText(SXUtils.getInstance(activity).GetNowDateTime()+"");
         }
     }
+
     @Override
     public void onDestroy() {
         super.onDestroy();
