@@ -16,7 +16,6 @@ public class XHPresentation extends Presentation
 	{
 		super(outerContext, display);
 	}
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
 	{

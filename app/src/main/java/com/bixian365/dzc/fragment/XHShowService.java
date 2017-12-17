@@ -4,9 +4,14 @@ import android.annotation.SuppressLint;
 import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.PixelFormat;
+import android.hardware.display.DisplayManager;
 import android.os.IBinder;
+import android.util.Log;
+import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.WindowManager;
@@ -20,14 +25,14 @@ public class XHShowService extends Service
 
 	 public final static String HDMI_PATH = "/mnt/external_sd/hdmi"; //副屏幕存放视频路径
 
-
+    private DisplayManager mDisplayManager;
     private XHPresentation myPresentation;
 
     private int nowHdmiPosition=0;
-
+    private Display[] displays;
     MsgReceiver receiver;
 
-    private final static String SERVICE_ACTION = "com.xh.dualscreen.actions";
+    private final static String SERVICE_ACTION = "com.bixian365.dzc.actions";
     
     class MsgReceiver extends BroadcastReceiver 
     {
@@ -51,14 +56,47 @@ public class XHShowService extends Service
 		return null;
 	}
 
-	@SuppressLint("NewApi") @Override
-	public void onCreate() 
-	{
-		super.onCreate();
-			
+    @SuppressLint("NewApi") @Override
+    public void onCreate()
+    {
+        super.onCreate();
 
-			 initViewSurface();
-	}
+        mDisplayManager = (DisplayManager) getSystemService(Context.DISPLAY_SERVICE);
+
+        displays = mDisplayManager.getDisplays();//get the number of displays
+
+        Log.d(TAG, "xhDisplays=" + displays.length);
+
+        if (displays.length > 1)
+        {
+            showPresentation(displays[1]);//displays[0]:main_screen  displays[1]:second_screen
+
+            receiver = new MsgReceiver();
+            IntentFilter intentFilter = new IntentFilter();
+
+            intentFilter.addAction(SERVICE_ACTION);
+
+            registerReceiver(receiver, intentFilter);
+
+            initViewSurface();
+        }
+    }
+    @SuppressLint("NewApi")
+    private void showPresentation(Display display)
+    {
+        myPresentation = new XHPresentation(this, display);
+        myPresentation.setOnDismissListener(new DialogInterface.OnDismissListener()
+        {
+            @Override
+            public void onDismiss(DialogInterface dialog)
+            {
+
+            }
+        });
+        myPresentation.getWindow().setType(WindowManager.LayoutParams.TYPE_PHONE);
+        myPresentation.show();
+
+    }
 
     @SuppressLint("InflateParams") 
     private void initViewSurface() 

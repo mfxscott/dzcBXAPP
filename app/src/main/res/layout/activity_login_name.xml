@@ -73,7 +73,6 @@
                         android:textColor="@color/col_333"
                         android:textColorHint="@color/col_hint"
                         android:textSize="@dimen/ac_text_size_16" />
-
                     <TextView
                         android:visibility="gone"
                         android:id="@+id/cs_test"

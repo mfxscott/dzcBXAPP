@@ -7,19 +7,15 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.Rect;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
 import android.util.DisplayMetrics;
-import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -135,75 +131,13 @@ public class MainFragmentActivity extends AppCompatActivity {
         fragmentManager = this.getFragmentManager();
         radioGroup = (RadioGroup) findViewById(R.id.main_groub_tab);
         radioGroup.setOnCheckedChangeListener(new OnCheckChanged());
-        Button btn4 = (Button) findViewById(R.id.btn_car);
 
         homeRb = (RadioButton) findViewById(R.id.main_tab_home_rb);
         goodsRb = (RadioButton) findViewById(R.id.main_tab_financial_rb);
         billRb = (RadioButton) findViewById(R.id.main_tab_live_rb);
         carRb = (RadioButton) findViewById(R.id.main_tab_car_rb);
         myRb = (RadioButton) findViewById(R.id.main_tab_my_rb);
-        if(TextUtils.isEmpty(AppClient.USER_SESSION)){
-            AppClient.USERROLETAG = "32";
-        }
-        if(tag.equals("2")){
-            //除了摊主和普通用户之外都没有首页和查看商品界面
-            goodsRb.setVisibility(View.GONE);
-//            billRb.setVisibility(View.GONE);
-//            homeRb.setVisibility(View.GONE);
-            carRb.setVisibility(View.GONE);
-//            btn4.setVisibility(View.GONE);
-            myRb.setChecked(true);
-            radioGroup.setVisibility(View.GONE);
-        }else{
-            if(TextUtils.isEmpty(AppClient.USER_ID)||TextUtils.isEmpty(AppClient.USER_SESSION)) {
-                AppClient.isFristLogin = true;
-            }else{
-                carRb.setChecked(true);
-            }
-            goodsRb.setVisibility(View.VISIBLE);
-            billRb.setVisibility(View.GONE);
-            homeRb.setVisibility(View.GONE);
-            carRb.setVisibility(View.VISIBLE);
-//            btn4.setVisibility(View.VISIBLE);
-            goodsRb.setChecked(true);
-            remind(btn4);
-        }
-
-//        gesturePhone = SharedPrefsUtil.getSahrePreference(MainFragmentActivity.this, "gesturePhone", "");
-//        if (!(TextUtils.isEmpty(gesturePhone))) {
-//            RequestReqMsgData.ChckGestureStatue(MainFragmentActivity.this,0);
-//        }
-
-//        RequestReqMsgData.UpdateVersion(activity,null);
-    }
-    private void remind(View view) { //BadgeView的具体使用
-        badge1 = new BadgeView(this, view);// 创建一个BadgeView对象，view为你需要显示提醒的控件
-//        badge1.setText("0"); // 需要显示的提醒类容
-//        badge1.setBadgePosition(BadgeView.POSITION_CENTER);// 显示的位置.右上角,BadgeView.POSITION_BOTTOM_LEFT,下左，还有其他几个属性
-        badge1.setTextColor(Color.WHITE); // 文本颜色
-        badge1.setBadgeBackgroundColor(getResources().getColor(R.color.orange)); // 提醒信息的背景颜色，自己设置
-        if(!TextUtils.isEmpty(AppClient.USER_ID) && !TextUtils.isEmpty(AppClient.USER_SESSION)){
-//            if(AppClient.USERROLETAG.equals("32") || AppClient.USERROLETAG.equals("64"))
-            badge1.show();// 只有显示
-//            else
-//                badge1.hide();//影藏显示
-        }else{
-            badge1.hide();//影藏显示
-        }
-//        badge1.setPadding(0,0,0,2);
-//        badge1.setHeight(30);
-//        badge1.setWidth(30);
-//        badge1.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL);
-        badge1.setGravity(Gravity.CENTER_HORIZONTAL);
-
-//        badge1.setBackgroundResource(R.drawable.round_red_bg_shap); //设置背景图片
-        badge1.setTextSize(14); // 文本大小
-//        badge1.setBadgeMargin(3, 3); // 水平和竖直方向的间距
-//        badge1.setBadgeMargin(2); //各边间隔
-//         badge1.toggle(); //显示效果，如果已经显示，则影藏，如果影藏，则显示
-
-
-//         badge1.hide();//影藏显示
+        carRb.setChecked(true);
     }
     public static MainFragmentActivity instance;
 
@@ -231,50 +165,6 @@ public class MainFragmentActivity extends AppCompatActivity {
             badge1.setText("0");
         }
         MainFragmentActivity.totalCarNum = num;
-    }
-    /**
-     * 获取购物车数量
-     */
-    public int getBadgeNum(){
-        String str = badge1.getText().toString();
-        if(str.equals("99+"))
-            return totalCarNum;
-        if(!TextUtils.isEmpty(str)){
-            totalCarNum = Integer.parseInt(str);
-            return totalCarNum;
-        }
-        return 0;
-
-    }
-    /**
-     * 判断是否是减，还是加入购物车
-     * @param issub  true 增加
-     * @param strcount  增加条数
-     */
-    public void setBadge(boolean issub,int strcount){
-        if(issub){
-//             int num= Integer.parseInt(strNum.equals("99+") ?"99":strNum)+strcount;
-//            totalCarNum += strcount;
-            if(totalCarNum+strcount >= 100){
-                badge1.setText("99+");
-            }else{
-                badge1.setText(totalCarNum+strcount+"");
-            }
-            badge1.setVisibility(View.VISIBLE);
-        }else{
-//                int num =  Integer.parseInt(nowsize.equals("99+") ?"99":nowsize)-strcount;
-            totalCarNum = totalCarNum-strcount;
-            if(totalCarNum > 0){
-                if(totalCarNum <= 99){
-                    badge1.setText(totalCarNum+"");
-                }else{
-                    badge1.setText(99+"+");
-                }
-            }else{
-                badge1.setText("0");
-                badge1.setVisibility(View.GONE);
-            }
-        }
     }
     public void addFragmentToStack(Fragment fragment) {
         if (fragmentManager == null)
@@ -518,7 +408,7 @@ public class MainFragmentActivity extends AppCompatActivity {
             do {
                 try {
                     Thread.sleep(1000);
-                    EventBus.getDefault().post(new MessageEvent(AppClient.PADEVENT00001,""));
+                    EventBus.getDefault().post(new MessageEvent(AppClient.PADEVENT00002,""));
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

@@ -87,7 +87,6 @@
         <activity android:name="com.bixian365.dzc.activity.member.LoginNameActivity"
             android:screenOrientation="landscape"
             >
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -109,7 +108,9 @@
             android:windowSoftInputMode="adjustResize|stateHidden" />
 
         <!-- alipay sdk end -->
-
+        <service
+            android:name=".fragment.XHShowService" >
+        </service>
         <activity
             android:screenOrientation="landscape"
             android:name="com.bixian365.dzc.fragment.MainFragmentActivity"
@@ -117,7 +118,6 @@
             android:theme="@style/Theme.DesignDemo"
             android:windowSoftInputMode="adjustPan" />
         <service
-            android:screenOrientation="landscape"
             android:name="com.bixian365.dzc.fragment.XHShowService" >
         </service>
         <activity
