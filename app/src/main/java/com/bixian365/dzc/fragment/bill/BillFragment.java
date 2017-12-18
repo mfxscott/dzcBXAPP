@@ -57,17 +57,12 @@ public class BillFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_bill, null);
         activity = getActivity();
         init();
-//        HttpLiveSp(indexPage);
-//        SXUtils.getInstance().setSysStatusBar(activity,R.color.white);
         EventBus.getDefault().register(this);
         initData();
         return view;
     }
     private  void initData(){
-
-
         if(SXUtils.getInstance(activity).IsLogin()) {
-//            SXUtils.showMyProgressDialog(activity,true);
             indexPage = 0;
             SXUtils.getInstance(activity).getBill(hand,indexPage);
         }else{
@@ -115,17 +110,6 @@ public class BillFragment extends Fragment {
         recyclerView = (RecyclerView) view.findViewById(R.id.main_bill_gridv);
         recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-
-//
-//        billInfoAdapter= new HomeBillRecyclerViewAdapter(activity,getTypeInfoData());
-//        gridView.setAdapter(billInfoAdapter);
-//        recyclerView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-////                SXUtils.getInstance(activity).ToastCenter("=="+position);
-////                billInfoAdapter.changeSelected(position);//刷新
-//            }
-//        });
         hand = new Handler(new Handler.Callback() {
             public boolean handleMessage(Message msg) {
                 switch (msg.what) {
@@ -173,52 +157,12 @@ public class BillFragment extends Fragment {
         }
 
         simpAdapter = new TypeInfoRecyclerViewAdapter(getActivity(),billList.get(0).getCategoryList(),"1");
-//                (getActivity(),billList.get(0).getCategoryList(),new FoodActionCallback(){
-//            @Override
-//            public void addAction(View view) {
-//                NXHooldeView nxHooldeView = new NXHooldeView(activity);
-//                int position[] = new int[2];
-//                view.getLocationInWindow(position);
-//                nxHooldeView.setStartPosition(new Point(position[0], position[1]));
-//                ViewGroup rootView = (ViewGroup) activity.getWindow().getDecorView();
-//                rootView.addView(nxHooldeView);
-//                int endPosition[] = new int[2];
-//                badge1.getLocationInWindow(endPosition);
-//                nxHooldeView.setEndPosition(new Point(endPosition[0], endPosition[1]));
-//                nxHooldeView.startBeizerAnimation();
-//                MainFragmentActivity.getInstance().setBadge(true,1);
-//            }
-//        });
         recyclerView.setAdapter(simpAdapter);
-
-//        tabLayout.addTab(tabLayout.newTab().setText("肉禽类"));
-//        tabLayout.addTab(tabLayout.newTab().setText("新鲜蔬菜"));
-//        tabLayout.addTab(tabLayout.newTab().setText("米面粮油"));
-//        tabLayout.addTab(tabLayout.newTab().setText("水产冻货"));
-//        tabLayout.addTab(tabLayout.newTab().setText("休闲酒饮"));
-//        tabLayout.addTab(tabLayout.newTab().setText("面食面粉"));
         tabLayout.setOnTabSelectedListener(new XTabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(XTabLayout.Tab tab) {
                 if(billList.get(tab.getPosition()).getCategoryList() != null && billList.get(tab.getPosition()).getCategoryList().size()>0){
                     simpAdapter = new TypeInfoRecyclerViewAdapter(getActivity(),billList.get(tab.getPosition()).getCategoryList(),"1");
-//                    simpAdapter = new HomeBillRecyclerViewAdapter(getActivity(),billList.get(tab.getPosition()).getCategoryList(),new FoodActionCallback() {
-//                        @Override
-//                        public void addAction(View view) {
-//                            NXHooldeView nxHooldeView = new NXHooldeView(activity);
-//                            int position[] = new int[2];
-//                            view.getLocationInWindow(position);
-//                            nxHooldeView.setStartPosition(new Point(position[0], position[1]));
-//                            ViewGroup rootView = (ViewGroup) activity.getWindow().getDecorView();
-//                            rootView.addView(nxHooldeView);
-//                            int endPosition[] = new int[2];
-//                            badge1.getLocationInWindow(endPosition);
-//                            nxHooldeView.setEndPosition(new Point(endPosition[0], endPosition[1]));
-//                            nxHooldeView.startBeizerAnimation();
-//                            MainFragmentActivity.getInstance().setBadge(true,1);
-//                        }
-//
-//                    });
                     recyclerView.setAdapter(simpAdapter);
                 }else{
                     recyclerView.setAdapter(null);

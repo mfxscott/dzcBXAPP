@@ -210,7 +210,7 @@ public class CarFragment extends Fragment implements View.OnClickListener{
                         }
                         AppClient.carSKUNumMap.clear();
                         for(int i=0;i<shopList.get(0).getShoppingCartLines().size();i++){
-                            AppClient.carSKUNumMap.put(shopList.get(0).getShoppingCartLines().get(i).getSkuBarcode(),shopList.get(0).getShoppingCartLines().get(i).getQuantity());
+//                            AppClient.carSKUNumMap.put(shopList.get(0).getShoppingCartLines().get(i).getSkuBarcode(goodsinfo.getChirdren().get(0).getShopPrice()),shopList.get(0).getShoppingCartLines().get(i).getQuantity());
                         }
                         //刷新商品列表
                         EventBus.getDefault().post(new MessageEvent(AppClient.EVENT100026,"refmapcar"));
@@ -552,7 +552,7 @@ public class CarFragment extends Fragment implements View.OnClickListener{
             String skuCodestr = "";
             for (int i = 0; i <shopList.get(0).getShoppingCartLines().size(); i++) {
                 if (shopList.get(0).getShoppingCartLines().get(i).getIsChecked().equals("1")) {
-                    skuCodestr += shopList.get(0).getShoppingCartLines().get(i).getSkuBarcode() + ",";
+//                    skuCodestr += shopList.get(0).getShoppingCartLines().get(i).getSkuBarcode(goodsinfo.getChirdren().get(0).getShopPrice()) + ",";
                 }
             }
             if (TextUtils.isEmpty(skuCodestr) || skuCodestr.equals(","))
@@ -568,7 +568,7 @@ public class CarFragment extends Fragment implements View.OnClickListener{
                     Boolean value = AppClient.goodsMap.get(key);
                     if(value){
                         int postions = Integer.parseInt(key);
-                        skuCodestr += shopList.get(i).getShoppingCartLines().get(postions).getSkuBarcode()+",";
+//                        skuCodestr += shopList.get(i).getShoppingCartLines().get(postions).getSkuBarcode(goodsinfo.getChirdren().get(0).getShopPrice())+",";
                     }
                 }
             }
@@ -591,7 +591,7 @@ public class CarFragment extends Fragment implements View.OnClickListener{
                 Boolean value = AppClient.goodsMap.get(key);
                 if(value){
                     int postions = Integer.parseInt(key);
-                    skuList.add(shopList.get(i).getShoppingCartLines().get(postions).getSkuBarcode());
+//                    skuList.add(shopList.get(i).getShoppingCartLines().get(postions).getSkuBarcode(goodsinfo.getChirdren().get(0).getShopPrice()));
 //                    priceTotal += Float.parseFloat(shopList.get(i).getShoppingCartLines().get(postions).getSkuPrice());
                 }
             }

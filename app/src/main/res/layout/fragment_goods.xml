@@ -5,8 +5,6 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-
     <RelativeLayout
         android:visibility="gone"
         android:background="@color/white"
@@ -56,14 +54,14 @@
             android:layout_height="wrap_content"/>
     </RelativeLayout>
 
-
     <RelativeLayout
         android:padding="15dp"
         android:background="@color/car_top_bg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
-            android:layout_marginLeft="20dp"
+            android:id="@+id/pad_goodslist_back_tv"
+           android:layout_marginLeft="20dp"
             android:paddingLeft="25dp"
             android:paddingRight="25dp"
             android:paddingTop="15dp"
@@ -250,6 +248,78 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:background="@color/white"
+                    android:id="@+id/pad_bill_list_liny"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                    <LinearLayout
+                        android:background="@color/app_bg"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <com.androidkun.xtablayout.XTabLayout
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:id="@+id/pad_bill_xTablayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="35dp"
+                            android:layout_gravity="start"
+                            app:xTabMode="scrollable"
+                            app:xTabIndicatorColor="@color/qblue"
+                            app:xTabIndicatorHeight="2dp"
+                            app:xTabIndicatorWidth="60dp"
+                            app:xTabSelectedTextColor="@color/qblue"
+                            app:xTabTextColor="@color/col_888"
+                            app:xTabTextSize="14sp"
+                            app:xTabSelectedTextSize="14sp"
+                            app:xTabDisplayNum="5"
+                            />
+                    </LinearLayout>
+
+                    <RelativeLayout
+                        android:orientation="vertical"
+                        android:background="@color/white"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                        <com.bixian365.dzc.utils.view.SwipyRefreshLayout
+                            android:id="@+id/pad_bill_swipyrefreshlayout"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            >
+                            <android.support.v7.widget.RecyclerView
+                                android:scrollbars="none"
+                                android:layout_gravity="center_horizontal"
+                                android:gravity="center_horizontal"
+                                android:id="@+id/pad_main_bill_gridv"
+                                android:numColumns="1"
+                                android:stretchMode="columnWidth"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:divider="@color/line_bg"
+                                android:dividerHeight="1dp"
+                                />
+                        </com.bixian365.dzc.utils.view.SwipyRefreshLayout>
+                        <LinearLayout
+                            android:visibility="gone"
+                            android:id="@+id/bill_default_nodata_tv"
+                            android:layout_centerInParent="true"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <include
+                                android:id="@+id/include_bill"
+                                layout="@layout/layout_no_info"/>
+                        </LinearLayout>
+
+                    </RelativeLayout>
+                </LinearLayout>
+            </RelativeLayout>
 
             <LinearLayout
                 android:layout_alignParentBottom="true"

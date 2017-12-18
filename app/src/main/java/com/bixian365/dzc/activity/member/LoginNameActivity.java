@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.bixian365.dzc.R;
 import com.bixian365.dzc.entity.MessageEvent;
 import com.bixian365.dzc.fragment.MainFragmentActivity;
+import com.bixian365.dzc.fragment.car.PadCarFragment;
 import com.bixian365.dzc.utils.SXUtils;
 import com.bixian365.dzc.utils.httpClient.AppClient;
 
@@ -45,6 +46,11 @@ public class LoginNameActivity extends Activity implements View.OnClickListener 
         setContentView(R.layout.activity_login_name);
         activity = this;
         initView();
+        String phone = loginAccPhoneEdt.getText().toString();
+        String psd = loginAccPsdEdt.getText().toString();
+        SXUtils.showMyProgressDialog(activity,false);
+//                psdLoginHttp(phone,psd);
+        SXUtils.getInstance(activity).psdLoginHttp(hand,phone,psd);
     }
     private void initView(){
         setTitle(getString(R.string.login_str));
@@ -90,7 +96,6 @@ public class LoginNameActivity extends Activity implements View.OnClickListener 
             }
             @Override
             public void afterTextChanged(Editable s) {
-
             }
         });
         loginAccNext = (Button) findViewById(R.id.login_acc_next);
@@ -105,23 +110,25 @@ public class LoginNameActivity extends Activity implements View.OnClickListener 
                     //登录成功
                     case 1000:
                         SXUtils.getInstance(activity).ToastCenter("登录成功");
-                        if(MainFragmentActivity.homeRb == null ) {
-//                            Intent mainintent = new Intent(activity, MainFragmentActivity.class);
+                        Intent mainintent = new Intent(activity, PadCarFragment.class);
+                        startActivity(mainintent);
+//                        if(MainFragmentActivity.homeRb == null ) {
+//                            Intent mainintent = new Intent(activity, PadCarFragment.class);
 //                            startActivity(mainintent);
-                            SXUtils.getInstance(activity).IntentMain(activity);
-//                            finish();
-                        }else{
-                            if(AppClient.LOGOUT){
-                                SXUtils.getInstance(activity).IntentMain(activity);
-                            }else {
-                                //登录成功刷新购物车和我的数据
-                                EventBus.getDefault().post(new MessageEvent(1, "login suc"));
-                                EventBus.getDefault().post(new MessageEvent(AppClient.EVENT10003,"home"));
-                                finish();
-                            }
-                        }
+//                            SXUtils.getInstance(activity).IntentMain(activity);
+////                            finish();
+//                        }else{
+//                            if(AppClient.LOGOUT){
+//                                SXUtils.getInstance(activity).IntentMain(activity);
+//                            }else {
+//                                //登录成功刷新购物车和我的数据
+//                                EventBus.getDefault().post(new MessageEvent(1, "login suc"));
+//                                EventBus.getDefault().post(new MessageEvent(AppClient.EVENT10003,"home"));
+//                                finish();
+//                            }
+//                        }
                         finish();
-                        EventBus.getDefault().post(new MessageEvent(AppClient.EVENT100022, "webview"));
+//                        EventBus.getDefault().post(new MessageEvent(AppClient.EVENT100022, "webview"));
                         break;
                     case AppClient.ERRORCODE:
                         String errormsg = (String) msg.obj;

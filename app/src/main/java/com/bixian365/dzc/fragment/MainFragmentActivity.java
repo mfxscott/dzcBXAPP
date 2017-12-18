@@ -219,14 +219,16 @@ public class MainFragmentActivity extends AppCompatActivity {
                 }
                 addFragmentToStack(billFrag);
 
-            } else if (goodsRb.getId() == checkedId) {
-                displayTag = 2;
-                if (goodsFrag == null) {
-                    goodsFrag = new GoodsListFragment();
-                    transaction.add(R.id.content, goodsFrag);
-                }
-                addFragmentToStack(goodsFrag);
-            } else if (myRb.getId() == checkedId) {
+            }
+//            else if (goodsRb.getId() == checkedId) {
+//                displayTag = 2;
+//                if (goodsFrag == null) {
+//                    goodsFrag = new GoodsListFragment();
+//                    transaction.add(R.id.content, goodsFrag);
+//                }
+//                addFragmentToStack(goodsFrag);
+//            }
+            else if (myRb.getId() == checkedId) {
                 displayTag = 5;
                 //根据登陆后获取的用户表示来判断我的界面显示对应布局
 //                用户标签，1:后台用户,2:城市采购中心,4:供应商,8:联创中心,16:合伙人,32:摊主店铺,64:消费者,128:供应商司机,256:采购中心司机
@@ -258,11 +260,11 @@ public class MainFragmentActivity extends AppCompatActivity {
                     return ;
                 }
                 displayTag = 4;
-                if (PadCarFrag == null) {
-                    PadCarFrag = new PadCarFragment();
-                    transaction.add(R.id.content,PadCarFrag);
-                }
-                addFragmentToStack(PadCarFrag);
+//                if (PadCarFrag == null) {
+//                    PadCarFrag = new PadCarFragment();
+//                    transaction.add(R.id.content,PadCarFrag);
+//                }
+//                addFragmentToStack(PadCarFrag);
             }
         }
     }

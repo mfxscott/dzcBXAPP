@@ -20,6 +20,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.androidkun.xtablayout.XTabLayout;
+import com.bixian365.dzc.entity.bill.BillDataSetEntity;
+import com.bixian365.dzc.entity.goodstype.PadGoodsTypeGoodsEntity;
 import com.lzy.okhttputils.model.HttpParams;
 import com.bixian365.dzc.R;
 import com.bixian365.dzc.activity.SearchActivity;
@@ -48,6 +50,9 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 import static com.bixian365.dzc.utils.SXUtils.dialog;
 
 /**
@@ -56,16 +61,17 @@ import static com.bixian365.dzc.utils.SXUtils.dialog;
  * @author mfx
  * ***************************
  */
-public class GoodsListFragment extends Fragment {
-    private  View view;
+public class GoodsListFragment extends Activity {
     private Activity activity;
     private GridView typeGridView;
     private RecyclerView recyclerView;
     private  MainGoodsTypeAdapter  typeAdapter;
     private int indexPage= 0;
+    private int padindexPage= 0;
     private SwipyRefreshLayout mSwipyRefreshLayout;
     private TypeInfoRecyclerViewAdapter simpAdapter;//商品列表
     private Handler hand;
+    private Handler padhand;
     private XTabLayout tabLayout;
     private List<TypeChildrenEntity> typeTwoList ;
     //    private ProgressBar progressBar;
@@ -74,32 +80,105 @@ public class GoodsListFragment extends Fragment {
     private String cnoStr;
     private List<GoodsInfoEntity> goodsList = new ArrayList<>();
     private TextView  nowTimeTv;
+    private SwipyRefreshLayout padmSwipyRefreshLayout;
+    private RecyclerView padrecyclerView;
+    private TypeInfoRecyclerViewAdapter padsimpAdapter;
+    private List<BillDataSetEntity> billlist;
+    @BindView(R.id.pad_goodslist_back_tv)
+    TextView  backTv;
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_goods, null);
-        activity = getActivity();
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.fragment_goods);
         EventBus.getDefault().register(this);
         initView();
+        activity = this;
+        ButterKnife.bind(activity);
         SXUtils.getInstance(activity).showMyProgressDialog(activity,true);
         GetGoodsType();
 //        GetGoodsTypeInfoHttp();
 //        HttpUtil();
-        return view;
+    }
+    private void initBillData(){
+        SXUtils.getInstance(activity).getBill(hand,padindexPage);
+    }
+    private void initBill(){
+        padmSwipyRefreshLayout = (SwipyRefreshLayout) findViewById(R.id.pad_bill_swipyrefreshlayout);
+        SXUtils.getInstance(activity).setColorSchemeResources(mSwipyRefreshLayout);
+        padmSwipyRefreshLayout.setDirection(SwipyRefreshLayoutDirection.TOP);
+        padmSwipyRefreshLayout.setOnRefreshListener(new SwipyRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh(SwipyRefreshLayoutDirection direction) {
+                if(direction == SwipyRefreshLayoutDirection.TOP){
+                    indexPage = 0;
+                    initBillData();
+                }else{
+                    indexPage ++;
+                    initBillData();
+//                    HttpLiveSp(indexPage);
+                }
+            }
+        });
+        padrecyclerView = (RecyclerView) findViewById(R.id.main_bill_gridv);
+        padrecyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
+        padrecyclerView.setItemAnimator(new DefaultItemAnimator());
+        padhand = new Handler(new Handler.Callback() {
+            public boolean handleMessage(Message msg) {
+                switch (msg.what) {
+                    case 1009:
+                        billlist = (List<BillDataSetEntity>) msg.obj;
+                        if(billlist == null || billlist.size()<=0) {
+//                            noDataLin.setVisibility(View.VISIBLE);
+                            if(tabLayout != null)
+                                tabLayout.removeAllTabs();
+                            if(billlist.size()<1){
+                                billlist.clear();
+                                recyclerView.setAdapter(null);
+                            }
+                            break;
+                        }
+//                        noDataLin.setVisibility(View.GONE);
+                        if(billlist.size() >9){
+                            mSwipyRefreshLayout.setDirection(SwipyRefreshLayoutDirection.BOTH);
+                        }else{
+                            mSwipyRefreshLayout.setDirection(SwipyRefreshLayoutDirection.TOP);
+                        }
+                        padinitViewPager(billlist);
+                        break;
+                    case AppClient.ERRORCODE:
+                        String str = (String) msg.obj;
+                        SXUtils.getInstance(activity).ToastCenter(str+"");
+//                        noDataLin.setVisibility(View.VISIBLE);
+                        break;
+                }
+                if(mSwipyRefreshLayout != null){
+                    mSwipyRefreshLayout.setRefreshing(false);
+                }
+                SXUtils.DialogDismiss();
+                return true;
+            }
+        });
     }
     private void initView(){
-        TextView  nowTimeTv = (TextView) view.findViewById(R.id.pad_car_now_time_tv);
-        nowTimeTv.setText(SXUtils.getInstance(activity).GetNowDateTime()+"");
-        view.findViewById(R.id.main_custom_service_ivs).setOnClickListener(new View.OnClickListener() {
+        backTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+        TextView  nowTimeTv = (TextView) findViewById(R.id.pad_car_now_time_tv);
+//        nowTimeTv.setText(SXUtils.getInstance(activity).GetNowDateTime()+"");
+        findViewById(R.id.main_custom_service_ivs).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 SXUtils.getInstance(activity).CallCustPhone();
             }
         });
 
-//        progressBar = (ProgressBar)view.findViewById(R.id.goods_type_pro);
-        noInfoRel = (RelativeLayout) view.findViewById(R.id.goods_type_no_rel);
-        mSwipyRefreshLayout = (SwipyRefreshLayout) view.findViewById(R.id.goods_type_swipyrefreshlayout);
+//        progressBar = (ProgressBar)findViewById(R.id.goods_type_pro);
+        noInfoRel = (RelativeLayout) findViewById(R.id.goods_type_no_rel);
+        mSwipyRefreshLayout = (SwipyRefreshLayout) findViewById(R.id.goods_type_swipyrefreshlayout);
         SXUtils.getInstance(activity).setColorSchemeResources(mSwipyRefreshLayout);
         mSwipyRefreshLayout.setDirection(SwipyRefreshLayoutDirection.BOTH);
         mSwipyRefreshLayout.setOnRefreshListener(new SwipyRefreshLayout.OnRefreshListener() {
@@ -122,17 +201,17 @@ public class GoodsListFragment extends Fragment {
                 }
             }
         });
-        LinearLayout searchLin = (LinearLayout) view.findViewById(R.id.all_goods_search_lin);
-        searchLin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(activity, SearchActivity.class);
-                startActivity(intent);
-            }
-        });
+//        LinearLayout searchLin = (LinearLayout) findViewById(R.id.all_goods_search_lin);
+//        searchLin.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(activity, SearchActivity.class);
+//                startActivity(intent);
+//            }
+//        });
 
-        tabLayout = (XTabLayout) view.findViewById(R.id.goods_xTablayout);
-        typeGridView = (GridView) view.findViewById(R.id.main_goods_type_gridv);
+        tabLayout = (XTabLayout) findViewById(R.id.goods_xTablayout);
+        typeGridView = (GridView) findViewById(R.id.main_goods_type_gridv);
         //左侧二级商品分类
         typeGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -150,7 +229,7 @@ public class GoodsListFragment extends Fragment {
 
             }
         });
-        recyclerView = (RecyclerView) view.findViewById(R.id.main_goods_info_gridv);
+        recyclerView = (RecyclerView) findViewById(R.id.main_goods_info_gridv);
         recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
@@ -185,7 +264,7 @@ public class GoodsListFragment extends Fragment {
                         if(indexPage ==0){
                             goodsList.clear();
                             goodsList.addAll(goodsDetaiLIst);
-                            simpAdapter = new TypeInfoRecyclerViewAdapter(getActivity(),goodsList);
+                            simpAdapter = new TypeInfoRecyclerViewAdapter(activity,goodsList);
                             recyclerView.setAdapter(simpAdapter);
                         }else{
                             goodsList.addAll(goodsDetaiLIst);
@@ -215,6 +294,37 @@ public class GoodsListFragment extends Fragment {
 //                    progressBar.setVisibility(View.GONE);
                 SXUtils.DialogDismiss();
                 return true;
+            }
+        });
+    }
+    private XTabLayout padtabLayout;
+    private void padinitViewPager(final List<BillDataSetEntity> billList) {
+        padtabLayout = (XTabLayout) findViewById(R.id.pad_bill_xTablayout);
+        padtabLayout.removeAllTabs();
+//        tabLayout.setupWithViewPager(viewPager);
+        for(int i=0;i<billList.size();i++){
+            padtabLayout.addTab(padtabLayout.newTab().setText(billList.get(i).getCategoryName()));
+        }
+
+        padsimpAdapter = new TypeInfoRecyclerViewAdapter(activity,billList.get(0).getCategoryList(),"1");
+        padrecyclerView.setAdapter(padsimpAdapter);
+        padtabLayout.setOnTabSelectedListener(new XTabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(XTabLayout.Tab tab) {
+                if(billList.get(tab.getPosition()).getCategoryList() != null && billList.get(tab.getPosition()).getCategoryList().size()>0){
+                    simpAdapter = new TypeInfoRecyclerViewAdapter(activity,billList.get(tab.getPosition()).getCategoryList(),"1");
+                    padrecyclerView.setAdapter(padsimpAdapter);
+                }else{
+                    padrecyclerView.setAdapter(null);
+                }
+            }
+            @Override
+            public void onTabUnselected(XTabLayout.Tab tab) {
+                Logs.i("tab===============222222222="+ tab.getPosition());
+            }
+            @Override
+            public void onTabReselected(XTabLayout.Tab tab) {
+                Logs.i("tab===============3333333333="+ tab.getPosition());
             }
         });
     }
@@ -350,6 +460,38 @@ public class GoodsListFragment extends Fragment {
                 msg.what = 1001;
                 msg.obj = gde.getDataset();
                 hand.sendMessage(msg);
+            }
+            @Override
+            public void onResponseError(String strError) {
+                Message msg = new Message();
+                msg.what = AppClient.ERRORCODE;
+                msg.obj = strError;
+                hand.sendMessage(msg);
+            }
+        });
+    }
+    /**
+     * 查询销售目录下所有二级分类及下面的商品
+     */
+    public void GetGoodsType(int pageIndex) {
+        HttpParams httpParams = new HttpParams();
+        httpParams.put("pageSize","12");
+        httpParams.put("pageIndex",pageIndex+"");
+        HttpUtils.getInstance(activity).requestPost(false,AppClient.SELECTSALE, httpParams, new HttpUtils.requestCallBack() {
+            @Override
+            public void onResponse(Object jsonObject) {
+                Logs.i("平板商品分类发送成功返回参数=======",jsonObject.toString());
+                List<PadGoodsTypeGoodsEntity> goodsTypeList=null;
+                try{
+                    goodsTypeList = ResponseData.getInstance(activity).parseJsonArray(jsonObject.toString(),PadGoodsTypeGoodsEntity.class);
+                }catch (Exception e){
+                    Logs.i(e.toString());
+                }
+                Message msg = new Message();
+                msg.what = 1000;
+                msg.obj = goodsTypeList;
+                hand.sendMessage(msg);
+
             }
             @Override
             public void onResponseError(String strError) {

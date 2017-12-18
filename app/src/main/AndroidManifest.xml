@@ -85,7 +85,6 @@
         <!-- 高德地图key 测试和生产是同一个key -->
         <service android:name="com.amap.api.location.APSService" />
         <activity android:name="com.bixian365.dzc.activity.member.LoginNameActivity"
-            android:screenOrientation="landscape"
             >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -117,6 +116,15 @@
             android:label="@string/app_name"
             android:theme="@style/Theme.DesignDemo"
             android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:screenOrientation="landscape"
+            android:name=".fragment.goods.GoodsListFragment">
+
+        </activity>
+
+        <activity
+            android:screenOrientation="landscape"
+            android:name=".fragment.car.PadCarFragment"></activity>
         <service
             android:name="com.bixian365.dzc.fragment.XHShowService" >
         </service>

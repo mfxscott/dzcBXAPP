@@ -10,6 +10,7 @@ import java.util.List;
 
 public class GoodsInfoEntity {
     private String id;
+    private String goodsModel;
     private String categoryId;
     private String goodsCode;
     private String goodsName;
@@ -34,6 +35,7 @@ public class GoodsInfoEntity {
     private String vendorCode;
     private String vendorName;
     private String wholesalePrice;
+    private String quantity;
 
 
 

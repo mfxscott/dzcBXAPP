@@ -360,7 +360,7 @@ public  class CarStoreRecyclerViewAdapter
         public void onBindViewHolder(final GoodsViewHolder holder, final int position) {
             final ShoppingCartLinesEntity shopCarinfo = mValues.get(position);
             holder.nameTv.setText(shopCarinfo.getGoodsName());
-            holder.modelTv.setText("/" + shopCarinfo.getGoodsModel());
+//            holder.modelTv.setText("/" + shopCarinfo.getGoodsModel(shopCarinfo.getGoodsUnit()));
             holder.number.setText(shopCarinfo.getQuantity() + "");
             holder.marketPrice.setText("¥" + shopCarinfo.getSkuPrice());
             holder.mView.setOnClickListener(new View.OnClickListener() {
@@ -378,7 +378,7 @@ public  class CarStoreRecyclerViewAdapter
                     //显示窗口
                     carNumPopupWindow.showAtLocation(view, Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
                     skuNumStr = shopCarinfo.getQuantity();
-                    skuCodeStr = shopCarinfo.getSkuBarcode();
+//                    skuCodeStr = shopCarinfo.getSkuBarcode(shopCarinfo.getChirdren().get(0).getShopPrice());
                     goodsNameStr = shopCarinfo.getGoodsName();
                     goodsPostion = position;
                 }
@@ -422,22 +422,22 @@ public  class CarStoreRecyclerViewAdapter
                     }else{
                         if(isChecked){
                             SXUtils.showMyProgressDialog(context,false,1);
-                            SXUtils.getInstance(context).CheckBoxCar(shopCarinfo.getSkuBarcode()+":1");
+//                            SXUtils.getInstance(context).CheckBoxCar(shopCarinfo.getSkuBarcode(goodsinfo.getChirdren().get(0).getShopPrice())+":1");
                         }else{
                             SXUtils.showMyProgressDialog(context,false,1);
-                            SXUtils.getInstance(context).CheckBoxCar(shopCarinfo.getSkuBarcode()+":0");
+//                            SXUtils.getInstance(context).CheckBoxCar(shopCarinfo.getSkuBarcode(goodsinfo.getChirdren().get(0).getShopPrice())+":0");
                         }
                     }
                 }
             });
-            holder.sub.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    goodsPostion = position;
-                    carNum(false,holder.number,shopCarinfo);
-
-                }
-            });
+//            holder.sub.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    goodsPostion = position;
+//                    carNum(false,holder.number,shopCarinfo);
+//
+//                }
+//            });
             holder.add.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -461,7 +461,7 @@ public  class CarStoreRecyclerViewAdapter
                 SXUtils.showMyProgressDialog(context,false,1);
                 textView.setText((carTotalNum++)+"");
 //                SXUtils.getInstance(context).AddOrUpdateCar(shopcar.getSkuBarcode(),"1");
-                callback = new MyFoodActionCallback((Activity) context,shopcar.getSkuBarcode());
+//                callback = new MyFoodActionCallback((Activity) context,shopcar.getSkuBarcode(goodsinfo.getChirdren().get(0).getShopPrice()));
                 callback.addAction(textView);
                 AppClient.isSubAdd=true;
                 AppClient.goodsMap.put(""+goodsPostion,true);
@@ -472,7 +472,7 @@ public  class CarStoreRecyclerViewAdapter
                         public void onClick(View v) {
                             SXUtils.getInstance(context).tipDialog.dismiss();
                             SXUtils.showMyProgressDialog(context,false);
-                            SXUtils.getInstance(context).AddOrUpdateCar(shopcar.getSkuBarcode(),"0");
+//                            SXUtils.getInstance(context).AddOrUpdateCar(shopcar.getSkuBarcode(goodsinfo.getChirdren().get(0).getShopPrice()),"0");
                             AppClient.goodsMap.clear();
                             AppClient.storeMap.clear();
                         }
@@ -481,7 +481,7 @@ public  class CarStoreRecyclerViewAdapter
 
                     SXUtils.showMyProgressDialog(context,false,1);
                     textView.setText((carTotalNum - 1) + "");
-                    SXUtils.getInstance(context).AddOrUpdateCar(shopcar.getSkuBarcode(),"-1");
+//                    SXUtils.getInstance(context).AddOrUpdateCar(shopcar.getSkuBarcode(goodsinfo.getChirdren().get(0).getShopPrice()),"-1");
                     AppClient.isSubAdd=true;
                     AppClient.goodsMap.put(""+goodsPostion,true);
                 }
@@ -641,7 +641,7 @@ public  class CarStoreRecyclerViewAdapter
         }
         String  skuStr="";
         for(int i=0;i<goodsCar.size();i++) {
-            skuStr += goodsCar.get(i).getSkuBarcode()+":"+state+"|";
+//            skuStr += goodsCar.get(i).getSkuBarcode(goodsinfo.getChirdren().get(0).getShopPrice())+":"+state+"|";
         }
 
         return skuStr.substring(0,skuStr.length()-1);

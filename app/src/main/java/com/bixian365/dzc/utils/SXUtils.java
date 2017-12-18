@@ -1320,7 +1320,6 @@ public class SXUtils {
         HttpUtils.getInstance(mContext).requestPost(false, AppClient.USER_LOGIN, httpParams, new HttpUtils.requestCallBack() {
             @Override
             public void onResponse(Object jsonObject) {
-
                 Logs.i("密码登录发送成功返回参数=======",jsonObject.toString());
                 try {
                     JSONObject jsonObject1 = new JSONObject(jsonObject.toString());

@@ -13,7 +13,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <RelativeLayout
-                android:padding="15dp"
+                android:padding="10dp"
                 android:background="@color/car_top_bg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -89,13 +89,13 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginTop="10dp"
                 android:orientation="horizontal">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="400dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="1">
 
                     <LinearLayout
@@ -188,8 +188,7 @@
                         android:layout_alignParentBottom="true"
                         android:layout_marginTop="10dp"
                         android:background="@color/car_goodslist_head"
-                        android:padding="10dp">
-
+                        >
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -252,47 +251,58 @@
                     >
                     <LinearLayout
                         android:layout_marginRight="10dp"
-                        android:layout_marginTop="10dp"
                         android:layout_marginLeft="10dp"
                         android:orientation="horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
                         <Button
-                            android:padding="20dp"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:id="@+id/pad_car_type1"
+                            android:padding="10dp"
                             android:layout_weight="1"
                             android:textSize="@dimen/ac_text_size_18"
                             android:textColor="@color/col_333"
-                            android:text="蔬菜类"
+                            android:text=""
                             android:layout_marginRight="5dp"
                             android:background="@color/pad_car_type_btn"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent" />
                         <Button
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:id="@+id/pad_car_type2"
                             android:layout_marginRight="5dp"
                             android:layout_marginLeft="5dp"
                             android:layout_weight="1"
                             android:textSize="@dimen/ac_text_size_18"
                             android:textColor="@color/col_333"
-                            android:text="蔬菜类"
+                            android:text=""
                             android:background="@color/pad_car_type_btn"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent" />
                         <Button
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:id="@+id/pad_car_type3"
                             android:layout_marginRight="5dp"
                             android:layout_marginLeft="5dp"
                             android:layout_weight="1"
                             android:textSize="@dimen/ac_text_size_18"
                             android:textColor="@color/col_333"
-                            android:text="蔬菜类"
+                            android:text=""
                             android:background="@color/pad_car_type_btn"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent" />
                         <Button
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:id="@+id/pad_car_type4"
                             android:layout_marginLeft="5dp"
                             android:layout_weight="1"
                             android:textSize="@dimen/ac_text_size_18"
                             android:textColor="@color/col_333"
-                            android:text="蔬菜类"
+                            android:text=""
                             android:background="@color/pad_car_type_btn"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent" />
@@ -305,41 +315,53 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
                         <Button
-                            android:padding="20dp"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:id="@+id/pad_car_type5"
+                            android:padding="10dp"
                             android:layout_weight="1"
                             android:textSize="@dimen/ac_text_size_18"
                             android:textColor="@color/col_333"
-                            android:text="蔬菜类"
+                            android:text=""
                             android:layout_marginRight="5dp"
                             android:background="@color/pad_car_type_btn"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent" />
                         <Button
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:id="@+id/pad_car_type6"
                             android:layout_marginRight="5dp"
                             android:layout_marginLeft="5dp"
                             android:layout_weight="1"
                             android:textSize="@dimen/ac_text_size_18"
                             android:textColor="@color/col_333"
-                            android:text="蔬菜类"
+                            android:text=""
                             android:background="@color/pad_car_type_btn"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent" />
                         <Button
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:id="@+id/pad_car_type7"
                             android:layout_marginRight="5dp"
                             android:layout_marginLeft="5dp"
                             android:layout_weight="1"
                             android:textSize="@dimen/ac_text_size_18"
                             android:textColor="@color/col_333"
-                            android:text="蔬菜类"
+                            android:text=""
                             android:background="@color/pad_car_type_btn"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent" />
                         <Button
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:id="@+id/pad_car_type8"
                             android:layout_marginLeft="5dp"
                             android:layout_weight="1"
                             android:textSize="@dimen/ac_text_size_18"
                             android:textColor="@color/col_333"
-                            android:text="蔬菜类"
+                            android:text=""
                             android:background="@color/pad_car_type_btn"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent" />
@@ -352,26 +374,33 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
                         <Button
-                            android:padding="20dp"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:id="@+id/pad_car_type9"
+                            android:padding="10dp"
                             android:layout_weight="1"
                             android:textSize="@dimen/ac_text_size_18"
                             android:textColor="@color/col_333"
-                            android:text="蔬菜类"
+                            android:text=""
                             android:layout_marginRight="5dp"
                             android:background="@color/pad_car_type_btn"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent" />
                         <Button
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:id="@+id/pad_car_type10"
                             android:layout_marginRight="5dp"
                             android:layout_marginLeft="5dp"
                             android:layout_weight="1"
                             android:textSize="@dimen/ac_text_size_18"
                             android:textColor="@color/col_333"
-                            android:text="蔬菜类"
+                            android:text=""
                             android:background="@color/pad_car_type_btn"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent" />
                         <Button
+                            android:id="@+id/pad_car_type_last_setp"
                             android:layout_marginRight="5dp"
                             android:layout_marginLeft="5dp"
                             android:layout_weight="1"
@@ -382,6 +411,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent" />
                         <Button
+                            android:id="@+id/pad_car_type_next"
                             android:layout_marginLeft="5dp"
                             android:layout_weight="1"
                             android:textSize="@dimen/ac_text_size_18"
@@ -393,52 +423,317 @@
                     </LinearLayout>
                     <LinearLayout
                         android:layout_marginRight="10dp"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="20dp"
                         android:layout_marginLeft="10dp"
                         android:orientation="horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
-                        <Button
-                            android:padding="20dp"
-                            android:layout_weight="1"
-                            android:textSize="@dimen/ac_text_size_18"
-                            android:textColor="@color/col_333"
-                            android:text="蔬菜类"
+                        <LinearLayout
                             android:layout_marginRight="5dp"
-                            android:background="@color/pad_car_type_btn"
+                            android:layout_weight="1"
+                            android:id="@+id/pad_car_goods1"
+                            android:padding="10dp"
+                            android:orientation="vertical"
+                            android:background="@color/white"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent" />
-                        <Button
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:ellipsize="end"
+                                android:maxLines="1"
+                                android:id="@+id/pad_car_goodsname1"
+                                android:textSize="@dimen/ac_text_size_18"
+                                android:textColor="@color/col_333"
+                                android:text=""
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+                            <TextView
+                                android:id="@+id/pad_car_goodsprice1"
+                                android:layout_gravity="right"
+                                android:textColor="@color/col_333"
+                                android:text=""
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+                        </LinearLayout>
+                        <LinearLayout
                             android:layout_marginRight="5dp"
                             android:layout_marginLeft="5dp"
                             android:layout_weight="1"
-                            android:textSize="@dimen/ac_text_size_18"
-                            android:textColor="@color/col_333"
-                            android:text="蔬菜类"
-                            android:background="@color/pad_car_type_btn"
+                            android:id="@+id/pad_car_goods2"
+                            android:padding="10dp"
+                            android:orientation="vertical"
+                            android:background="@color/white"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent" />
-                        <Button
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:ellipsize="end"
+                                android:maxLines="1"
+                                android:id="@+id/pad_car_goodsname2"
+                                android:textSize="@dimen/ac_text_size_18"
+                                android:textColor="@color/col_333"
+                                android:text=""
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+                            <TextView
+                                android:id="@+id/pad_car_goodsprice2"
+                                android:layout_gravity="right"
+                                android:textColor="@color/col_333"
+                                android:text=""
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+                        </LinearLayout>
+                        <LinearLayout
                             android:layout_marginRight="5dp"
                             android:layout_marginLeft="5dp"
                             android:layout_weight="1"
-                            android:textSize="@dimen/ac_text_size_18"
-                            android:textColor="@color/col_333"
-                            android:text="上一步"
-                            android:background="@color/pad_car_next_btn_bg"
+                            android:id="@+id/pad_car_goods3"
+                            android:padding="10dp"
+                            android:orientation="vertical"
+                            android:background="@color/white"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent" />
-                        <Button
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:ellipsize="end"
+                                android:maxLines="1"
+                                android:id="@+id/pad_car_goodsname3"
+                                android:textSize="@dimen/ac_text_size_18"
+                                android:textColor="@color/col_333"
+                                android:text=""
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+                            <TextView
+                                android:id="@+id/pad_car_goodsprice3"
+                                android:layout_gravity="right"
+                                android:textColor="@color/col_333"
+                                android:text=""
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+                        </LinearLayout>
+                        <LinearLayout
                             android:layout_marginLeft="5dp"
                             android:layout_weight="1"
-                            android:textSize="@dimen/ac_text_size_18"
-                            android:textColor="@color/col_333"
-                            android:text="下一步"
-                            android:background="@color/pad_car_next_btn_bg"
+                            android:id="@+id/pad_car_goods4"
+                            android:padding="10dp"
+                            android:orientation="vertical"
+                            android:background="@color/white"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent" />
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:ellipsize="end"
+                                android:maxLines="1"
+                                android:id="@+id/pad_car_goodsname4"
+                                android:textSize="@dimen/ac_text_size_18"
+                                android:textColor="@color/col_333"
+                                android:text=""
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+                            <TextView
+                                android:id="@+id/pad_car_goodsprice4"
+                                android:layout_gravity="right"
+                                android:textColor="@color/col_333"
+                                android:text=""
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+                        </LinearLayout>
                     </LinearLayout>
 
+                    <LinearLayout
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <LinearLayout
+                            android:layout_marginRight="5dp"
+                            android:layout_weight="1"
+                            android:id="@+id/pad_car_goods5"
+                            android:padding="10dp"
+                            android:orientation="vertical"
+                            android:background="@color/white"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:ellipsize="end"
+                                android:maxLines="1"
+                                android:id="@+id/pad_car_goodsname5"
+                                android:textSize="@dimen/ac_text_size_18"
+                                android:textColor="@color/col_333"
+                                android:text=""
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+                            <TextView
+                                android:id="@+id/pad_car_goodsprice5"
+                                android:layout_gravity="right"
+                                android:textColor="@color/col_333"
+                                android:text=""
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_marginRight="5dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_weight="1"
+                            android:id="@+id/pad_car_goods6"
+                            android:padding="10dp"
+                            android:orientation="vertical"
+                            android:background="@color/white"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:ellipsize="end"
+                                android:maxLines="1"
+                                android:id="@+id/pad_car_goodsname6"
+                                android:textSize="@dimen/ac_text_size_18"
+                                android:textColor="@color/col_333"
+                                android:text=""
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+                            <TextView
+                                android:id="@+id/pad_car_goodsprice6"
+                                android:layout_gravity="right"
+                                android:textColor="@color/col_333"
+                                android:text=""
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_marginRight="5dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_weight="1"
+                            android:id="@+id/pad_car_goods7"
+                            android:padding="10dp"
+                            android:orientation="vertical"
+                            android:background="@color/white"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:ellipsize="end"
+                                android:maxLines="1"
+                                android:id="@+id/pad_car_goodsname7"
+                                android:textSize="@dimen/ac_text_size_18"
+                                android:textColor="@color/col_333"
+                                android:text=""
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+                            <TextView
+                                android:id="@+id/pad_car_goodsprice7"
+                                android:layout_gravity="right"
+                                android:textColor="@color/col_333"
+                                android:text=""
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_marginLeft="5dp"
+                            android:layout_weight="1"
+                            android:id="@+id/pad_car_goods8"
+                            android:padding="10dp"
+                            android:orientation="vertical"
+                            android:background="@color/white"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:ellipsize="end"
+                                android:maxLines="1"
+                                android:id="@+id/pad_car_goodsname8"
+                                android:textSize="@dimen/ac_text_size_18"
+                                android:textColor="@color/col_333"
+                                android:text=""
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+                            <TextView
+                                android:id="@+id/pad_car_goodsprice8"
+                                android:layout_gravity="right"
+                                android:textColor="@color/col_333"
+                                android:text=""
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <LinearLayout
+                            android:layout_marginRight="5dp"
+                            android:layout_weight="1"
+                            android:id="@+id/pad_car_goods9"
+                            android:padding="10dp"
+                            android:orientation="vertical"
+                            android:background="@color/white"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:ellipsize="end"
+                                android:maxLines="1"
+                                android:id="@+id/pad_car_goodsname9"
+                                android:textSize="@dimen/ac_text_size_18"
+                                android:textColor="@color/col_333"
+                                android:text=""
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+                            <TextView
+                                android:id="@+id/pad_car_goodsprice9"
+                                android:layout_gravity="right"
+                                android:textColor="@color/col_333"
+                                android:text=""
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_marginRight="5dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_weight="1"
+                            android:id="@+id/pad_car_goods10"
+                            android:padding="10dp"
+                            android:orientation="vertical"
+                            android:background="@color/white"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:ellipsize="end"
+                                android:maxLines="1"
+                                android:id="@+id/pad_car_goodsname10"
+                                android:textSize="@dimen/ac_text_size_18"
+                                android:textColor="@color/col_333"
+                                android:text=""
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+                            <TextView
+                                android:id="@+id/pad_car_goodsprice10"
+                                android:layout_gravity="right"
+                                android:textColor="@color/col_333"
+                                android:text=""
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+                        </LinearLayout>
+                        <Button
+                            android:id="@+id/pad_car_goods_last_step"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_weight="1"
+                            android:textSize="@dimen/ac_text_size_18"
+                            android:textColor="@color/col_333"
+                            android:text="上一步"
+                            android:background="@color/pad_car_next_btn_bg"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
+                        <Button
+                            android:id="@+id/pad_car_goods_next"
+                            android:layout_marginLeft="5dp"
+                            android:layout_weight="1"
+                            android:textSize="@dimen/ac_text_size_18"
+                            android:textColor="@color/col_333"
+                            android:text="下一步"
+                            android:background="@color/pad_car_next_btn_bg"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
+                    </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
 
@@ -457,16 +752,18 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
                     <Button
-                        android:layout_weight="1"
+                        android:id="@+id/pad_car_goods_manage_btn"
+                        android:layout_weight="1.8"
                         android:background="@color/car_del_update_btn"
                         android:textStyle="bold"
+                        android:text="商品管理"
                         android:textColor="@color/white"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />
                     <Button
                         android:id="@+id/pad_car_update_number_btn"
                         android:layout_marginLeft="10dp"
-                        android:layout_weight="1"
+                        android:layout_weight="2"
                         android:background="@color/car_del_update_btn"
                         android:textStyle="bold"
                         android:text="数量"
@@ -476,7 +773,7 @@
                     <Button
                         android:id="@+id/pad_car_update_price_btn"
                         android:layout_marginLeft="10dp"
-                        android:layout_weight="1"
+                        android:layout_weight="2"
                         android:background="@color/car_del_update_btn"
                         android:textStyle="bold"
                         android:text="改价"
@@ -486,7 +783,7 @@
                     <Button
                         android:id="@+id/pad_car_update_del_btn"
                         android:layout_marginLeft="10dp"
-                        android:layout_weight="1"
+                        android:layout_weight="2"
                         android:background="@color/car_del_update_btn"
                         android:textStyle="bold"
                         android:text="删除"
@@ -496,7 +793,7 @@
                     <Button
                         android:id="@+id/pad_car_update_clear_btn"
                         android:layout_marginLeft="10dp"
-                        android:layout_weight="1"
+                        android:layout_weight="2"
                         android:background="@color/car_del_update_btn"
                         android:textStyle="bold"
                         android:text="清空"
@@ -506,7 +803,7 @@
                     <Button
                         android:id="@+id/pad_car_update_lock_btn"
                         android:layout_marginLeft="10dp"
-                        android:layout_weight="1"
+                        android:layout_weight="2"
                         android:background="@color/car_del_update_btn"
                         android:textStyle="bold"
                         android:text="锁屏"
@@ -516,6 +813,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:layout_marginLeft="10dp"
                     android:layout_weight="1.2"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
