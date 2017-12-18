@@ -784,7 +784,7 @@ public class PadCarFragment extends Activity implements View.OnClickListener{
                     Logs.i(e.toString());
                 }
                 Message msg = new Message();
-                msg.what = 1009;
+                msg.what = 1000;
                 msg.obj = goodsTypeList;
                 hand.sendMessage(msg);
 

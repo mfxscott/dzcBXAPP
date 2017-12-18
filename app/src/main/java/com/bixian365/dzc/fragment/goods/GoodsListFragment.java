@@ -97,11 +97,12 @@ public class GoodsListFragment extends Activity {
         ButterKnife.bind(activity);
         SXUtils.getInstance(activity).showMyProgressDialog(activity,true);
         GetGoodsType();
+        initBillData();
 //        GetGoodsTypeInfoHttp();
 //        HttpUtil();
     }
     private void initBillData(){
-        SXUtils.getInstance(activity).getBill(hand,padindexPage);
+        BillGetGoodsType(padindexPage);
     }
     private void initBill(){
         padmSwipyRefreshLayout = (SwipyRefreshLayout) findViewById(R.id.pad_bill_swipyrefreshlayout);
@@ -473,7 +474,7 @@ public class GoodsListFragment extends Activity {
     /**
      * 查询销售目录下所有二级分类及下面的商品
      */
-    public void GetGoodsType(int pageIndex) {
+    public void BillGetGoodsType(int pageIndex) {
         HttpParams httpParams = new HttpParams();
         httpParams.put("pageSize","12");
         httpParams.put("pageIndex",pageIndex+"");
@@ -488,7 +489,7 @@ public class GoodsListFragment extends Activity {
                     Logs.i(e.toString());
                 }
                 Message msg = new Message();
-                msg.what = 1000;
+                msg.what = 1009;
                 msg.obj = goodsTypeList;
                 hand.sendMessage(msg);
 

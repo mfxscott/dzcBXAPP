@@ -97,7 +97,7 @@ public class MainFragmentActivity extends AppCompatActivity {
         init();
         intentService = new Intent(activity,XHShowService.class);
         startService(intentService);
-        new TimeThread().start();
+//        new TimeThread().start();
 //        compat(this);
     }
 
