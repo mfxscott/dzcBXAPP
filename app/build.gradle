@@ -81,6 +81,9 @@ dependencies {
     //扩展了下载管理和上传管理，根据需要添加
     //版本号使用 + 可以自动引用最新版
     compile project(':pickerview')
+
+
+
     //    compile files('libs/zxing.jar')
 //    compile 'com.baidu.mobstat:mtj-sdk:latest.integration'
     //    compile 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
