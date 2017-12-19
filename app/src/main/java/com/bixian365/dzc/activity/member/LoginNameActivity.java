@@ -17,13 +17,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.bixian365.dzc.R;
-import com.bixian365.dzc.entity.MessageEvent;
-import com.bixian365.dzc.fragment.MainFragmentActivity;
 import com.bixian365.dzc.fragment.car.PadCarFragment;
 import com.bixian365.dzc.utils.SXUtils;
 import com.bixian365.dzc.utils.httpClient.AppClient;
-
-import org.greenrobot.eventbus.EventBus;
 
 /**
  * 供应商测试账号
@@ -48,9 +44,9 @@ public class LoginNameActivity extends Activity implements View.OnClickListener 
         initView();
         String phone = loginAccPhoneEdt.getText().toString();
         String psd = loginAccPsdEdt.getText().toString();
-        SXUtils.showMyProgressDialog(activity,false);
+//        SXUtils.showMyProgressDialog(activity,false);
 //                psdLoginHttp(phone,psd);
-        SXUtils.getInstance(activity).psdLoginHttp(hand,phone,psd);
+//        SXUtils.getInstance(activity).psdLoginHttp(hand,phone,psd);
     }
     private void initView(){
         setTitle(getString(R.string.login_str));

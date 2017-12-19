@@ -55,7 +55,7 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:padding="15dp"
+        android:padding="10dp"
         android:background="@color/car_top_bg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -99,8 +99,8 @@
                 android:layout_marginLeft="20dp"
                 android:paddingLeft="25dp"
                 android:paddingRight="25dp"
-                android:paddingTop="15dp"
-                android:paddingBottom="15dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
                 android:textStyle="bold"
                 android:textSize="@dimen/ac_text_size_24"
                 android:text="系统销售目录"
@@ -110,7 +110,7 @@
             <TextView
                 android:layout_alignParentRight="true"
                 android:layout_centerHorizontal="true"
-                android:padding="15dp"
+                android:padding="10dp"
                 android:textStyle="bold"
                 android:textSize="@dimen/ac_text_size_24"
                 android:text="搜索"
@@ -129,8 +129,8 @@
                 android:layout_marginLeft="10dp"
                 android:paddingLeft="25dp"
                 android:paddingRight="25dp"
-                android:paddingTop="15dp"
-                android:paddingBottom="15dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
                 android:textStyle="bold"
                 android:textSize="@dimen/ac_text_size_24"
                 android:text="我的销售目录"
@@ -145,7 +145,7 @@
         android:layout_marginRight="10dp"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="350dp">
+        android:layout_height="500dp">
         <LinearLayout
             android:layout_weight="1"
             android:background="@color/app_bg"
@@ -166,8 +166,8 @@
                 app:xTabIndicatorWidth="60dp"
                 app:xTabSelectedTextColor="@color/qblue"
                 app:xTabTextColor="@color/col_888"
-                app:xTabTextSize="14sp"
-                app:xTabSelectedTextSize="14sp"
+                app:xTabTextSize="@dimen/ac_text_size_16"
+                app:xTabSelectedTextSize="@dimen/ac_text_size_16"
                 app:xTabDisplayNum="5"
                 />
             <LinearLayout
@@ -248,7 +248,46 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+            <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/pad_bill_bottom_tv"
+                android:layout_alignParentBottom="true"
+                android:gravity="right"
+                android:padding="15dp"
+                android:background="#B3A598"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_marginLeft="20dp"
+                    android:paddingLeft="25dp"
+                    android:paddingRight="25dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/ac_text_size_24"
+                    android:text="修改"
+                    android:textColor="@color/white"
+                    android:background="#0089DB"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_marginLeft="20dp"
+                    android:paddingLeft="25dp"
+                    android:paddingRight="25dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/ac_text_size_24"
+                    android:text="删除"
+                    android:textColor="@color/white"
+                    android:background="#0089DB"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
             <RelativeLayout
+                android:layout_alignParentTop="true"
+                android:layout_above="@id/pad_bill_bottom_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <LinearLayout
@@ -257,8 +296,6 @@
                     android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-
-
                     <LinearLayout
                         android:background="@color/app_bg"
                         android:orientation="vertical"
@@ -277,8 +314,8 @@
                             app:xTabIndicatorWidth="60dp"
                             app:xTabSelectedTextColor="@color/qblue"
                             app:xTabTextColor="@color/col_888"
-                            app:xTabTextSize="14sp"
-                            app:xTabSelectedTextSize="14sp"
+                            app:xTabTextSize="@dimen/ac_text_size_16"
+                            app:xTabSelectedTextSize="@dimen/ac_text_size_16"
                             app:xTabDisplayNum="5"
                             />
                     </LinearLayout>
@@ -321,41 +358,7 @@
                 </LinearLayout>
             </RelativeLayout>
 
-            <LinearLayout
-                android:layout_alignParentBottom="true"
-                android:gravity="right"
-                android:padding="15dp"
-                android:background="#B3A598"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:layout_marginLeft="20dp"
-                    android:paddingLeft="25dp"
-                    android:paddingRight="25dp"
-                    android:paddingTop="15dp"
-                    android:paddingBottom="15dp"
-                    android:textStyle="bold"
-                    android:textSize="@dimen/ac_text_size_24"
-                    android:text="修改"
-                    android:textColor="@color/white"
-                    android:background="#0089DB"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-                <TextView
-                    android:layout_marginLeft="20dp"
-                    android:paddingLeft="25dp"
-                    android:paddingRight="25dp"
-                    android:paddingTop="15dp"
-                    android:paddingBottom="15dp"
-                    android:textStyle="bold"
-                    android:textSize="@dimen/ac_text_size_24"
-                    android:text="删除"
-                    android:textColor="@color/white"
-                    android:background="#0089DB"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
 
-            </LinearLayout>
         </RelativeLayout>
     </LinearLayout>
     <RelativeLayout
@@ -373,9 +376,10 @@
             android:layout_height="wrap_content">
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/app_logo" />
+                android:layout_gravity="center_vertical"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@mipmap/pad_nz_img" />
 
             <TextView
                 android:id="@+id/pad_car_now_time_tv"

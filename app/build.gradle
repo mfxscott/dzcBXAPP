@@ -27,6 +27,8 @@ android {
         versionCode 1
         versionName "1.0.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+
     }
     buildTypes {
         release {
@@ -38,12 +40,21 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+//    sourceSet{
+//        main{
+//            jni.srcDirs=['src/main/cpp']
+//        }
+//    }
+//    ndk{
+//        abiFilter("armeabi","armeabi-v7a","x86")
+//    }
     //配置调用aar
     repositories {
         flatDir {
             dirs 'libs'
         }
     }
+
     sourceSets {
         main {
             jniLibs.srcDirs = ['libs']
@@ -55,6 +66,7 @@ android {
         targetCompatibility JavaVersion.VERSION_1_7
     }
 }
+
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {

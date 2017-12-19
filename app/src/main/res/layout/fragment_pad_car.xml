@@ -22,16 +22,32 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
                     <ImageView
-                        android:src="@mipmap/app_logo"
+                        android:src="@mipmap/pad_bx_img"
+                        android:layout_width="107dp"
+                        android:layout_height="62dp" />
+                    <LinearLayout
+                        android:orientation="vertical"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                    <TextView
-                        android:layout_marginLeft="10dp"
-                        android:textSize="@dimen/ac_text_size_14"
-                        android:textColor="@color/white"
-                        android:text="网称智能终端"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_marginTop="10dp"
+                            android:layout_marginLeft="10dp"
+                            android:textSize="@dimen/ac_text_size_14"
+                            android:textColor="@color/white"
+                            android:text="网称智能终端"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                        <TextView
+                            android:layout_marginTop="5dp"
+                            android:layout_marginLeft="10dp"
+                            android:textSize="@dimen/ac_text_size_10"
+                            android:textColor="@color/white"
+                            android:text="让每个人吃上安全放心的菜"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -85,11 +101,9 @@
                     </LinearLayout>
                 </LinearLayout>
             </RelativeLayout>
-
-
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="500dp"
                 android:layout_marginTop="10dp"
                 android:orientation="horizontal">
 
@@ -107,6 +121,7 @@
                         android:paddingTop="20dp">
 
                         <TextView
+                            android:textSize="@dimen/ac_text_size_18"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="2"
@@ -115,6 +130,7 @@
                             android:textColor="@color/col_333" />
 
                         <TextView
+                            android:textSize="@dimen/ac_text_size_18"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1.8"
@@ -123,6 +139,7 @@
                             android:textColor="@color/col_333" />
 
                         <TextView
+                            android:textSize="@dimen/ac_text_size_18"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="2"
@@ -131,6 +148,7 @@
                             android:textColor="@color/col_333" />
 
                         <TextView
+                            android:textSize="@dimen/ac_text_size_18"
                             android:gravity="center_horizontal"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -139,6 +157,7 @@
                             android:textColor="@color/col_333" />
 
                         <TextView
+                            android:textSize="@dimen/ac_text_size_18"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="2"
@@ -147,6 +166,7 @@
                             android:textColor="@color/col_333" />
 
                         <TextView
+                            android:textSize="@dimen/ac_text_size_18"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="2"
@@ -752,6 +772,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
                     <Button
+                        android:textSize="@dimen/ac_text_size_18"
                         android:id="@+id/pad_car_goods_manage_btn"
                         android:layout_weight="1.8"
                         android:background="@color/car_del_update_btn"
@@ -761,6 +782,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />
                     <Button
+                        android:textSize="@dimen/ac_text_size_18"
                         android:id="@+id/pad_car_update_number_btn"
                         android:layout_marginLeft="10dp"
                         android:layout_weight="2"
@@ -771,6 +793,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />
                     <Button
+                        android:textSize="@dimen/ac_text_size_18"
                         android:id="@+id/pad_car_update_price_btn"
                         android:layout_marginLeft="10dp"
                         android:layout_weight="2"
@@ -781,6 +804,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />
                     <Button
+                        android:textSize="@dimen/ac_text_size_18"
                         android:id="@+id/pad_car_update_del_btn"
                         android:layout_marginLeft="10dp"
                         android:layout_weight="2"
@@ -791,6 +815,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />
                     <Button
+                        android:textSize="@dimen/ac_text_size_18"
                         android:id="@+id/pad_car_update_clear_btn"
                         android:layout_marginLeft="10dp"
                         android:layout_weight="2"
@@ -801,6 +826,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />
                     <Button
+                        android:textSize="@dimen/ac_text_size_18"
                         android:id="@+id/pad_car_update_lock_btn"
                         android:layout_marginLeft="10dp"
                         android:layout_weight="2"
@@ -823,7 +849,7 @@
                         android:textSize="@dimen/ac_text_size_24"
                         android:textStyle="bold"
                         android:textColor="@color/white"
-                        android:text="结账"
+                        android:text="结       账"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />
                 </LinearLayout>
@@ -844,10 +870,10 @@
                     android:layout_height="wrap_content">
 
                     <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@mipmap/app_logo" />
-
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@mipmap/pad_nz_img" />
                     <TextView
                         android:id="@+id/pad_car_now_time_tv"
                         android:layout_gravity="center_vertical"

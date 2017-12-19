@@ -6,7 +6,6 @@ import android.app.Dialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
@@ -34,13 +33,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bigkoo.pickerview.OptionsPickerView;
-import com.bixian365.dzc.activity.SearchActivity;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.animation.GlideAnimation;
-import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.request.target.Target;
-import com.lzy.okhttputils.model.HttpHeaders;
-import com.lzy.okhttputils.model.HttpParams;
 import com.bixian365.dzc.R;
 import com.bixian365.dzc.activity.MyApplication;
 import com.bixian365.dzc.activity.member.LoginNameActivity;
@@ -55,6 +47,12 @@ import com.bixian365.dzc.utils.httpClient.AppClient;
 import com.bixian365.dzc.utils.httpClient.HttpUtils;
 import com.bixian365.dzc.utils.httpClient.ResponseData;
 import com.bixian365.dzc.utils.view.SwipyRefreshLayout;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.target.Target;
+import com.lzy.okhttputils.model.HttpHeaders;
+import com.lzy.okhttputils.model.HttpParams;
 
 import org.greenrobot.eventbus.EventBus;
 import org.json.JSONException;
@@ -1118,7 +1116,51 @@ public class SXUtils {
         });
         rightBtn.setOnClickListener(onClickListener);
     }
-
+    public void UpdateConfrimDialogViews(Context context,String title) {
+        tipDialog = new AlertDialog.Builder(context).create();
+        tipDialog.show();
+        tipDialog.setCancelable(true);
+        tipDialog.setCanceledOnTouchOutside(false);
+        Window window = tipDialog.getWindow();
+        window.setContentView(R.layout.common_dialog);
+        LinearLayout cancel = (LinearLayout) window.findViewById(R.id.dialog_liny);
+        TextView content = (TextView) window.findViewById(R.id.dialog_message_tv);
+        content.setTextSize(16);
+        TextView titletv = (TextView) window.findViewById(R.id.dialog_title_tv);
+        TextView rightBtn = (TextView) window.findViewById(R.id.dialog_right_btn);
+        TextView leftBtn = (TextView) window.findViewById(R.id.dialog_left_btn);
+//        if(cancelable){
+//            leftBtn.setVisibility(View.VISIBLE);
+//        }else{
+            leftBtn.setVisibility(View.GONE);
+//        }
+        rightBtn.setText("确  定");
+//        leftBtn.setText("暂不更新");
+        View vi = window.findViewById(R.id.add_bank_dialog_view);
+        vi.setVisibility(View.GONE);
+        vi.setPadding(0, 2, 0, 2);
+        titletv.setText(title);
+        ImageView iv = (ImageView) window.findViewById(R.id.dialog_close_iv);
+        iv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                tipDialog.dismiss();
+            }
+        });
+        content.setText("请您扫二维码支付");
+        leftBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                tipDialog.dismiss();
+          }
+        });
+        rightBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                tipDialog.dismiss();
+            }
+        });
+    }
 
     /**
      * 获取本地省份城市区域地址
@@ -1510,5 +1552,72 @@ public class SXUtils {
         });
     }
 
+    public static byte[] hexStringToBytes(String hexString) {
+        if (hexString == null || hexString.equals("")) {
+            return null;
+        }
+        hexString = hexString.toUpperCase();
+        int length = hexString.length() / 2;
+        char[] hexChars = hexString.toCharArray();
+        byte[] d = new byte[length];
+        for (int i = 0; i < length; i++) {
+            int pos = i * 2;
+            d[i] = (byte) (charToByte(hexChars[pos]) << 4 | charToByte(hexChars[pos + 1]));
 
+        }
+        return d;
+    }
+    private static byte charToByte(char c) {
+        return (byte) "0123456789ABCDEF".indexOf(c);
+    }
+
+
+
+    public static String bytesToHexString(byte[] src){
+        StringBuilder stringBuilder = new StringBuilder("");
+        if (src == null || src.length <= 0) {
+            return null;
+        }
+        for (int i = 0; i < src.length; i++) {
+            int v = src[i] & 0xFF;
+            String hv = Integer.toHexString(v);
+            if (hv.length() < 2) {
+                stringBuilder.append(0);
+            }
+            stringBuilder.append(hv);
+        }
+        return stringBuilder.toString();
+    }
+
+    public   String printHexString( byte[] b) {
+        String a = "";
+        for (int i = 0; i < b.length; i++) {
+            String hex = Integer.toHexString(b[i] & 0xFF);
+            if (hex.length() == 1) {
+                hex = '0' + hex;
+            }
+
+            a = a+hex;
+        }
+
+        return a;
+    }
+    /**
+     * 添加logo
+     */
+    public void addGetGoodsType(String skuBarcode) {
+        HttpParams httpParams = new HttpParams();
+        httpParams.put("skuBarcode",skuBarcode+"");
+        HttpUtils.getInstance(mContext).requestPost(false,"svc.add.sale.commonly", httpParams, new HttpUtils.requestCallBack() {
+            @Override
+            public void onResponse(Object jsonObject) {
+                EventBus.getDefault().post(new MessageEvent(AppClient.PADEVENT00003,"goodslist"));
+
+            }
+            @Override
+            public void onResponseError(String strError) {
+
+            }
+        });
+    }
 }

@@ -1,33 +1,26 @@
 package com.bixian365.dzc.fragment.goods;
 
 import android.app.Activity;
-import android.app.Fragment;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.androidkun.xtablayout.XTabLayout;
-import com.bixian365.dzc.entity.bill.BillDataSetEntity;
-import com.bixian365.dzc.entity.goodstype.PadGoodsTypeGoodsEntity;
-import com.lzy.okhttputils.model.HttpParams;
 import com.bixian365.dzc.R;
-import com.bixian365.dzc.activity.SearchActivity;
 import com.bixian365.dzc.adapter.MainGoodsTypeAdapter;
 import com.bixian365.dzc.adapter.TypeInfoRecyclerViewAdapter;
 import com.bixian365.dzc.entity.MessageEvent;
+import com.bixian365.dzc.entity.bill.BillDataSetEntity;
 import com.bixian365.dzc.entity.goodsinfo.GoodsInfoEntity;
 import com.bixian365.dzc.entity.goodstype.GoodsDataSetEntity;
 import com.bixian365.dzc.entity.goodstype.TypeChildrenEntity;
@@ -40,6 +33,7 @@ import com.bixian365.dzc.utils.httpClient.HttpUtils;
 import com.bixian365.dzc.utils.httpClient.ResponseData;
 import com.bixian365.dzc.utils.view.SwipyRefreshLayout;
 import com.bixian365.dzc.utils.view.SwipyRefreshLayoutDirection;
+import com.lzy.okhttputils.model.HttpParams;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -50,7 +44,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static com.bixian365.dzc.utils.SXUtils.dialog;
@@ -61,7 +54,7 @@ import static com.bixian365.dzc.utils.SXUtils.dialog;
  * @author mfx
  * ***************************
  */
-public class GoodsListFragment extends Activity {
+public class GoodsListFragment extends AppCompatActivity{
     private Activity activity;
     private GridView typeGridView;
     private RecyclerView recyclerView;
@@ -84,7 +77,7 @@ public class GoodsListFragment extends Activity {
     private RecyclerView padrecyclerView;
     private TypeInfoRecyclerViewAdapter padsimpAdapter;
     private List<BillDataSetEntity> billlist;
-    @BindView(R.id.pad_goodslist_back_tv)
+    //    @BindView(R.id.pad_goodslist_back_tv)
     TextView  backTv;
 
     @Override
@@ -98,6 +91,8 @@ public class GoodsListFragment extends Activity {
         SXUtils.getInstance(activity).showMyProgressDialog(activity,true);
         GetGoodsType();
         initBillData();
+        initBill();
+        new TimeThread().start();
 //        GetGoodsTypeInfoHttp();
 //        HttpUtil();
     }
@@ -121,7 +116,7 @@ public class GoodsListFragment extends Activity {
                 }
             }
         });
-        padrecyclerView = (RecyclerView) findViewById(R.id.main_bill_gridv);
+        padrecyclerView = (RecyclerView) findViewById(R.id.pad_main_bill_gridv);
         padrecyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
         padrecyclerView.setItemAnimator(new DefaultItemAnimator());
         padhand = new Handler(new Handler.Callback() {
@@ -162,14 +157,15 @@ public class GoodsListFragment extends Activity {
         });
     }
     private void initView(){
+        backTv = (TextView) findViewById(R.id.pad_goodslist_back_tv);
         backTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
             }
         });
-        TextView  nowTimeTv = (TextView) findViewById(R.id.pad_car_now_time_tv);
-//        nowTimeTv.setText(SXUtils.getInstance(activity).GetNowDateTime()+"");
+          nowTimeTv = (TextView) findViewById(R.id.pad_car_now_time_tv);
+        nowTimeTv.setText(SXUtils.getInstance(activity).GetNowDateTime()+"");
         findViewById(R.id.main_custom_service_ivs).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -313,7 +309,7 @@ public class GoodsListFragment extends Activity {
             @Override
             public void onTabSelected(XTabLayout.Tab tab) {
                 if(billList.get(tab.getPosition()).getCategoryList() != null && billList.get(tab.getPosition()).getCategoryList().size()>0){
-                    simpAdapter = new TypeInfoRecyclerViewAdapter(activity,billList.get(tab.getPosition()).getCategoryList(),"1");
+                    padsimpAdapter = new TypeInfoRecyclerViewAdapter(activity,billList.get(tab.getPosition()).getCategoryList(),"1");
                     padrecyclerView.setAdapter(padsimpAdapter);
                 }else{
                     padrecyclerView.setAdapter(null);
@@ -408,7 +404,6 @@ public class GoodsListFragment extends Activity {
                 msg.what = 1000;
                 msg.obj = goodsTypeList.getDataset();
                 hand.sendMessage(msg);
-
             }
             @Override
             public void onResponseError(String strError) {
@@ -482,16 +477,16 @@ public class GoodsListFragment extends Activity {
             @Override
             public void onResponse(Object jsonObject) {
                 Logs.i("平板商品分类发送成功返回参数=======",jsonObject.toString());
-                List<PadGoodsTypeGoodsEntity> goodsTypeList=null;
+                List<BillDataSetEntity> goodsTypeList=null;
                 try{
-                    goodsTypeList = ResponseData.getInstance(activity).parseJsonArray(jsonObject.toString(),PadGoodsTypeGoodsEntity.class);
+                    goodsTypeList = ResponseData.getInstance(activity).parseJsonArray(jsonObject.toString(),BillDataSetEntity.class);
                 }catch (Exception e){
                     Logs.i(e.toString());
                 }
                 Message msg = new Message();
                 msg.what = 1009;
                 msg.obj = goodsTypeList;
-                hand.sendMessage(msg);
+                padhand.sendMessage(msg);
 
             }
             @Override
@@ -503,18 +498,36 @@ public class GoodsListFragment extends Activity {
             }
         });
     }
+
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMoonEvent(MessageEvent messageEvent) {
         if (messageEvent.getTag() == AppClient.EVENT100026) {
             simpAdapter.notifyDataSetChanged();
         }else if(messageEvent.getTag() == AppClient.PADEVENT00002){
-            nowTimeTv.setText(SXUtils.getInstance(activity).GetNowDateTime()+"");
+            if(nowTimeTv != null)
+                nowTimeTv.setText(SXUtils.getInstance(activity).GetNowDateTime()+"");
+        }else if(messageEvent.getTag() == AppClient.PADEVENT00003){
+            initBillData();
         }
     }
-
+    class TimeThread extends Thread {
+        @Override
+        public void run() {
+            do {
+                try {
+                    Thread.sleep(1000);
+                    EventBus.getDefault().post(new MessageEvent(AppClient.PADEVENT00002, ""));
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            } while (true);
+        }
+    }
     @Override
     public void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
     }
+
 }

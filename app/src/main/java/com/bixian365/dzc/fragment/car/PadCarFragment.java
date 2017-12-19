@@ -16,7 +16,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
@@ -24,16 +23,15 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.zy.uart.UartControlNative;
 import com.bixian365.dzc.R;
-import com.bixian365.dzc.activity.BaseActivity;
+import com.bixian365.dzc.activity.member.LoginNameActivity;
 import com.bixian365.dzc.adapter.PadCarGoodsListRecyclerViewAdapter;
-import com.bixian365.dzc.entity.GoodsTypeEntity;
 import com.bixian365.dzc.entity.MessageEvent;
-import com.bixian365.dzc.entity.bill.BillDataSetEntity;
 import com.bixian365.dzc.entity.car.ShoppingCartLinesEntity;
 import com.bixian365.dzc.entity.goodsinfo.GoodsInfoEntity;
 import com.bixian365.dzc.entity.goodstype.PadGoodsTypeGoodsEntity;
-import com.bixian365.dzc.entity.goodstype.TypeGoodsEntity;
+import com.bixian365.dzc.fragment.XHShowService;
 import com.bixian365.dzc.fragment.goods.GoodsListFragment;
 import com.bixian365.dzc.utils.Logs;
 import com.bixian365.dzc.utils.SXUtils;
@@ -47,15 +45,14 @@ import com.lzy.okhttputils.model.HttpParams;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-import org.json.JSONObject;
 
-import java.lang.reflect.Type;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -172,15 +169,23 @@ public class PadCarFragment extends Activity implements View.OnClickListener{
     TextView goodsPriceTv9;
     @BindView(R.id.pad_car_goodsprice10)
     TextView goodsPriceTv10;
+    private Intent intentService;//双屏幕显示
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_pad_car);
         activity = this;
+        intentService = new Intent(activity,XHShowService.class);
+        startService(intentService);
         ButterKnife.bind(activity);
         EventBus.getDefault().register(this);
         initView();
         getData(typeIndexPage);
+//        new TimeThread().start();
+//        new UartReadThread().start();
+        UartControlNative.initUartNative("/dev/ttyS4",9600);
+        //去掉虚拟按键全屏显示
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
 //        return view;
     }
     private void getData(int indexpage){
@@ -545,14 +550,18 @@ public class PadCarFragment extends Activity implements View.OnClickListener{
                 simpAdapter.removeData();
                 break;
             case R.id.pad_car_update_clear_btn:
+//                send("123123213123123131321\ndsfssdfdsfdsf\n\r");
+                simpAdapter.clearCar();
                 break;
             case R.id.pad_car_update_lock_btn:
                 LockDailog();
+                break;
             case R.id.pad_car_goods_manage_btn:
                 Intent intent = new Intent(activity, GoodsListFragment.class);
                 startActivity(intent);
                 break;
             case R.id.pad_car_topay_btn:
+                SXUtils.getInstance(activity).UpdateConfrimDialogViews(activity,"支付结果");
                 break;
             case R.id.pad_car_type1:
                 typeBtnPosion = 0;
@@ -657,6 +666,20 @@ public class PadCarFragment extends Activity implements View.OnClickListener{
                 break;
         }
     }
+    private static OutputStream outputStream = null;
+    public void send(String sendData) {
+            System.out.println("开始打印！！");
+            try {
+                byte[] data = sendData.getBytes("UTF-8");
+                UartControlNative.uartSendMessageNative(data);
+//                outputStream.write(data, 0, data.length);
+//                outputStream.flush();
+            } catch (IOException e) {
+            }
+        }
+
+
+
     private void  addCarGoods(){
 //       private String discountAmount;
 //       private String goodsImage;
@@ -754,8 +777,11 @@ public class PadCarFragment extends Activity implements View.OnClickListener{
         cancelTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent = new Intent(activity, LoginNameActivity.class);
+                startActivity(intent);
                 activity.finish();
-                System.exit(0);
+//                System.exit(0);
+
             }
         });
         unlockTv.setOnClickListener(new View.OnClickListener() {
@@ -777,9 +803,9 @@ public class PadCarFragment extends Activity implements View.OnClickListener{
             @Override
             public void onResponse(Object jsonObject) {
                 Logs.i("平板商品分类发送成功返回参数=======",jsonObject.toString());
-                List<BillDataSetEntity> goodsTypeList=null;
+                List<PadGoodsTypeGoodsEntity> goodsTypeList=null;
                 try{
-                    goodsTypeList = ResponseData.getInstance(activity).parseJsonArray(jsonObject.toString(),BillDataSetEntity.class);
+                    goodsTypeList = ResponseData.getInstance(activity).parseJsonArray(jsonObject.toString(),PadGoodsTypeGoodsEntity.class);
                 }catch (Exception e){
                     Logs.i(e.toString());
                 }
@@ -803,7 +829,6 @@ public class PadCarFragment extends Activity implements View.OnClickListener{
         super.onDestroy();
         EventBus.getDefault().unregister(this);
     }
-
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -849,4 +874,83 @@ public class PadCarFragment extends Activity implements View.OnClickListener{
                 break;
         }
     }
+    class TimeThread extends Thread {
+        @Override
+        public void run() {
+            do {
+                try {
+                    Thread.sleep(1000);
+                    EventBus.getDefault().post(new MessageEvent(AppClient.PADEVENT00002,""));
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            } while (true);
+        }
+    }
+    class UartReadThread extends Thread {
+        private boolean isStart = false;
+        private StringBuilder builder = new StringBuilder();
+        private long sendTime = 0L;
+
+
+        public void stopThread() {
+            isStart = false;
+            interrupt();
+        }
+
+
+        @Override
+        public void run() {
+            isStart = true;
+            sendTime = System.currentTimeMillis();
+
+            while (isStart) {
+                byte[] data = UartControlNative.uartReadMessageNative();
+                if (data != null && data.length > 0) {
+                    builder.append(SXUtils.getInstance(activity).bytesToHexString(data));
+                }
+
+                if (builder.length() > 0) {
+                    Logs.i("++++++++++++++++");
+//                    int a = builder.toString().indexOf("f4f5");
+//                    int b = builder.toString().indexOf("fbfc");
+//                    if (a >= 0 && b > 0) {
+//                        String cmd = builder.toString().substring(a, b + 4);
+//                        builder.replace(0, b + 4, "");
+//                        int len = Integer.parseInt(cmd.substring(6, 8), 16);
+//                        if (len == (cmd.length() / 2) - 6) {
+//                        }
+////                            parseUartData(cmd);
+                }
+                try {
+                    Thread.sleep(200);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
 }
+//    private void onSerialPortDataReceived(String data){//串口读取到的数据
+//        if(weighingGoodsDialog != null && weighingGoodsDialog.isShowing()){
+//            weighingGoodsDialog.onDataReceived(data);
+//            System.out.println("我可以发送过去========================>" + data);
+//        }
+//        dataflag = data;
+//        System.out.println("串口读到的数据：" + data);
+//        if (data.length() == 32) {// 电子称状态 (16字节
+//            String weightStatus = data.substring(12, 14);// 重量状态 的16进制字符串
+//            weightStatus = CRC16Utils.bytes2BinaryStr(CRC16Utils
+//                    .HexString2Bytes(weightStatus));// 转成8位二进制字符串 00001000
+//            String weightType = weightStatus.substring(4, 5);// 重量状态 0为正，1为负
+//            String stable = weightStatus.substring(5, 6);// 稳定状态 0为不稳定，1为稳定
+//            String peel = weightStatus.substring(6, 7);// 去皮 0为无去皮，1为去 皮
+//            String zero = weightStatus.substring(7, 8);// 置零 0为非零位，1为零位
+//
+//            String weight = data.substring(14, 22);// 重量数据(十六进制
+////			weight = Integer.valueOf(weight, 16).toString();// 十六转十 单位g
+//
+//            String pizhong = data.substring(22, 30);// 皮重数据
+//            pizhong = Integer.valueOf(pizhong, 16).toString();// 十六转十
+//            System.out.println("读取数据完毕========================>");
+//}

@@ -1,7 +1,6 @@
 package com.bixian365.dzc.utils.httpClient;
 
 import com.bixian365.dzc.entity.car.ShoppingCartLinesEntity;
-import com.bixian365.dzc.entity.goodsinfo.GoodsInfoEntity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,6 +20,7 @@ public class AppClient{
     public static List<ShoppingCartLinesEntity>  padCarGoodsList = new ArrayList<>();
     public static final  int PADEVENT00001 =00001;//刷新计算设置购物车总价
     public static final  int PADEVENT00002 =00002;//实时当前更新时间
+    public static final  int PADEVENT00003 =00003;//实时当前更新时间
     public static  String  SELECTSALE="svc.select.sale.commonly";//查询销售清单
 
 

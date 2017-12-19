@@ -14,12 +14,13 @@ import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 
 import com.bixian365.dzc.R;
 
-public class XHShowService extends Service 
+public class XHShowService extends Service implements View.OnClickListener
 {
 	private static final String TAG = "XHShowService";
 
@@ -27,7 +28,7 @@ public class XHShowService extends Service
 
     private DisplayManager mDisplayManager;
     private XHPresentation myPresentation;
-
+    private boolean isShowSecondScreen = false;
     private int nowHdmiPosition=0;
     private Display[] displays;
     MsgReceiver receiver;
@@ -60,7 +61,6 @@ public class XHShowService extends Service
     public void onCreate()
     {
         super.onCreate();
-
         mDisplayManager = (DisplayManager) getSystemService(Context.DISPLAY_SERVICE);
 
         displays = mDisplayManager.getDisplays();//get the number of displays
@@ -122,7 +122,23 @@ public class XHShowService extends Service
         mWindowManager.addView(presentationLayout, wmParams);
         
     }
-    
 
+    @Override
+    public void onClick(View v)
+    {
+        if (!isShowSecondScreen)
+        {
+//            Intent i = new Intent(co, XHShowService.class);
+//            startService(i);
+            isShowSecondScreen = true;
+        }
+        else
+        {
+            Intent i = new Intent(SERVICE_ACTION);
+            i.putExtra("receiver_key", 0);
+            sendBroadcast(i);
+            isShowSecondScreen = false;
+        }
+    }
 
 }

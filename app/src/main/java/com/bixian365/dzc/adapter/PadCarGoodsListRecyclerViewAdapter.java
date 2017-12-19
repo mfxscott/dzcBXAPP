@@ -111,14 +111,13 @@ public  class PadCarGoodsListRecyclerViewAdapter
         }
     }
     //  添加数据
-    public void clearCar(int position) {
+    public void clearCar() {
         AppClient.padCarGoodsList.clear();
 //      在list中添加数据，并通知条目加入一条
         notifyDataSetChangedSetCarTotalPrice();
     }
     //  删除数据
     public void removeData() {
-
         if(AppClient.padCarGoodsList.size()<1)
             return;
         if(mSelect>-1) {
@@ -127,7 +126,6 @@ public  class PadCarGoodsListRecyclerViewAdapter
             mSelect = -1;
             notifyDataSetChangedSetCarTotalPrice();
         }
-
     }
 
     /**

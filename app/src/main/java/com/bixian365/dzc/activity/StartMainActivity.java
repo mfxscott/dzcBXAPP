@@ -250,8 +250,6 @@ public class StartMainActivity extends Activity {
 
         viewContainter.add(view1);
         viewContainter.add(view2);
-//        viewContainter.add(view3);
-//        viewContainter.add(view4);
         viewPager.setAdapter(new PagerAdapter() {
             //viewpager中的组件数量
             @Override
@@ -361,7 +359,7 @@ public class StartMainActivity extends Activity {
         }
         @Override
         public void onTick(long millisUntilFinished) {
-            Log.i("MainActivity", millisUntilFinished + "");
+            Log.i("PortMainActivity", millisUntilFinished + "");
             countTv.setText("跳过"+millisUntilFinished / 1000);
         }
     }

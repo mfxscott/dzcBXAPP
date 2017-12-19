@@ -165,8 +165,8 @@
                                 android:layout_height="wrap_content" />
                             <ImageView
                                 android:id="@+id/type_info_add"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
                                 android:paddingRight="5dp"
                                 android:src="@mipmap/add_img"
                                 android:visibility="visible" />

@@ -1,8 +1,6 @@
 package com.bixian365.dzc.adapter;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,13 +15,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bixian365.dzc.R;
-import com.bixian365.dzc.activity.GoodsDetailActivity;
 import com.bixian365.dzc.entity.FoodActionCallback;
 import com.bixian365.dzc.entity.MessageEvent;
 import com.bixian365.dzc.entity.goodsinfo.GoodsInfoEntity;
 import com.bixian365.dzc.utils.SXUtils;
 import com.bixian365.dzc.utils.httpClient.AppClient;
-import com.bixian365.dzc.utils.view.MyFoodActionCallback;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -139,7 +135,7 @@ public  class TypeInfoRecyclerViewAdapter
 //        if(goodsdetail.getSkuList() != null && goodsdetail.getSkuList().size()>0) {
 //            Logs.i("多规格商品数量========="+goodsdetail.getSkuList().size());
 //        holder.goodsModel.setText("/"+goodsdetail.getChirdren().get(0).getGoodsModel());
-        holder.marketPrice.setText("¥"+goodsdetail.getChirdren().get(0).getMarketPrice()+"/"+goodsdetail.getChirdren().get(0).getGoodsModel()+"");
+        holder.marketPrice.setText("¥"+goodsdetail.getChirdren().get(0).getShopPrice()+"/"+goodsdetail.getChirdren().get(0).getGoodsModel()+"");
         holder.shopPrice.setText("¥"+goodsdetail.getChirdren().get(0).getShopPrice()+"");
         holder.mTextView.setText(goodsdetail.getGoodsName()+"");
         holder.goodsUnit.setText("/"+goodsdetail.getChirdren().get(0).getGoodsModel()+"");
@@ -202,37 +198,40 @@ public  class TypeInfoRecyclerViewAdapter
 //                removeData(position);
             }
         });
-        holder.mView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent( holder.mView.getContext(), GoodsDetailActivity.class);
-                intent.putExtra("cno",mValues.get(position).getId());
-                holder.mView.getContext().startActivity(intent);
-            }
-        });
+//        holder.mView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent( holder.mView.getContext(), GoodsDetailActivity.class);
+//                intent.putExtra("cno",mValues.get(position).getId());
+//                holder.mView.getContext().startActivity(intent);
+//            }
+//        });
         holder.typeadd1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(searchView != null){
-                    callback = new MyFoodActionCallback((Activity) context,searchView,mValues.get(position).getChirdren().get(0).getSkuBarcode());
-                }else{
-                    callback = new MyFoodActionCallback((Activity) context,mValues.get(position).getChirdren().get(0).getSkuBarcode());
-                }
-                if(callback==null) return;
-                callback.addAction(v);
-                if(TextUtils.isEmpty(AppClient.USER_SESSION) || TextUtils.isEmpty(AppClient.USER_ID)){
-                    return;
-                }
-                String skuNum = SXUtils.getInstance(context).CheckExistCar(goodsdetail.getChirdren().get(0).getSkuBarcode());
-                if(!TextUtils.isEmpty(skuNum)){
-                    if(Integer.parseInt(skuNum)>=1) {
-                        AppClient.carSKUNumMap.put(goodsdetail.getChirdren().get(0).getSkuBarcode(), (Integer.parseInt(skuNum) + 1) + "");
-                    }
-                }else{
-                    AppClient.carSKUNumMap.put(goodsdetail.getChirdren().get(0).getSkuBarcode(), "1");
-                }
-                notifyDataSetChanged();
-                EventBus.getDefault().post(new MessageEvent(AppClient.EVENT100026,"refgoods"));
+                SXUtils.getInstance(context).addGetGoodsType(mValues.get(position).getChirdren().get(0).getSkuBarcode());
+
+
+//                if(searchView != null){
+//                    callback = new MyFoodActionCallback((Activity) context,searchView,mValues.get(position).getChirdren().get(0).getSkuBarcode());
+//                }else{
+//                    callback = new MyFoodActionCallback((Activity) context,mValues.get(position).getChirdren().get(0).getSkuBarcode());
+//                }
+//                if(callback==null) return;
+//                callback.addAction(v);
+//                if(TextUtils.isEmpty(AppClient.USER_SESSION) || TextUtils.isEmpty(AppClient.USER_ID)){
+//                    return;
+//                }
+//                String skuNum = SXUtils.getInstance(context).CheckExistCar(goodsdetail.getChirdren().get(0).getSkuBarcode());
+//                if(!TextUtils.isEmpty(skuNum)){
+//                    if(Integer.parseInt(skuNum)>=1) {
+//                        AppClient.carSKUNumMap.put(goodsdetail.getChirdren().get(0).getSkuBarcode(), (Integer.parseInt(skuNum) + 1) + "");
+//                    }
+//                }else{
+//                    AppClient.carSKUNumMap.put(goodsdetail.getChirdren().get(0).getSkuBarcode(), "1");
+//                }
+//                notifyDataSetChanged();
+//                EventBus.getDefault().post(new MessageEvent(AppClient.EVENT100026,"refgoods"));
 
             }
         });
