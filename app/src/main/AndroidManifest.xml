@@ -4,42 +4,12 @@
     package="com.bixian365.dzc">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.RESTART_PACKAGES" />
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-
-    <!-- 高德地图权限 -->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <!-- 要求设备有摄像头 -->
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.FLASHLIGHT" />
-    <uses-permission android:name="android.permission.VIBRATE" />
-<!--  -->
-    <uses-feature android:name="android.hardware.camera" />
-    <uses-feature android:name="android.hardware.camera.autofocus" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.GET_TASKS" />
-    <uses-permission android:name="android.permission.BLUETOOTH" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <!-- 双屏显示权限-->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
@@ -52,16 +22,6 @@
     <!-- <uses-permission android:name="android.permission.READ_PHONE_STATE"/> -->
     <!-- <uses-feature android:name="android.hardware.camera"/> -->
     <!-- <uses-feature android:name="android.hardware.camera.autofocus"/> -->
-    <!--
-    摊主账号
-     15507556959   1
-     13974941111 密码1
-    供应商测试账号 帐号13129343614  密码 1
-    个人18682136973  qwe123
-    新西兰农场：13129343614  密码：1
-    合伙人：账号（手机号）：18165719379  密码：1
-    联创中心：账号（手机号）：18665966074 密码：1
-    -->
     <application
         android:name="com.bixian365.dzc.activity.MyApplication"
         android:icon="@mipmap/app_logo"
@@ -69,21 +29,7 @@
         android:supportsRtl="true"
         android:theme="@style/Splash_Theme"
         tools:replace="android:icon, android:theme,android:label">
-        <!--   <meta-data
-            android:name="com.amap.api.v2.apikey"
-            android:value="3c411d4c119dbbac86b528317ea3d3fe" />
-         秘钥
-        <meta-data
-            android:name="BaiduMobAd_STAT_ID"
-            android:value="ade9056bc3" />
-         是否开启错误日志统计，默认为false
-         日志仅在wifi网络下发送，默认为false
-        <meta-data
-            android:name="BaiduMobAd_ONLY_WIFI"
-            android:value="true" />
-        -->
         <!-- 高德地图key 测试和生产是同一个key -->
-        <service android:name="com.amap.api.location.APSService" />
         <activity android:name="com.bixian365.dzc.activity.member.LoginNameActivity"
             >
             <intent-filter>
@@ -122,10 +68,6 @@
             android:name=".fragment.goods.GoodsListFragment">
 
         </activity>
-        <activity
-            android:theme="@style/Theme.DesignDemo"
-            android:name=".android_serialport_api.PortMainActivity">
-        </activity>
 
         <activity
             android:theme="@style/Theme.DesignDemo"
@@ -134,18 +76,6 @@
         <service
             android:name="com.bixian365.dzc.fragment.XHShowService" >
         </service>
-        <activity
-            android:name="com.bixian365.dzc.fragment.CommonWebViewMainActivity"
-            android:label="@string/app_name"
-
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.DesignDemo" />
-        <activity android:name="com.bixian365.dzc.utils.checkPermission.PermissionsActivity" />
-        <activity
-            android:name="com.bixian365.dzc.activity.member.Regis1Activity"
-            android:screenOrientation="landscape"
-            android:theme="@style/Theme.DesignDemo"
-            android:windowSoftInputMode="stateHidden|stateUnchanged" />
         <!--<activity-->
             <!--android:name="com.bixian365.dzc.activity.member.LoginCodeActivity"-->
             <!--android:label="@string/title_activity_login"-->
@@ -168,31 +98,6 @@
             <!--android:theme="@style/Theme.DesignDemo"-->
             <!--android:windowSoftInputMode="stateHidden|stateUnchanged" />-->
         <activity
-            android:name="com.bixian365.dzc.activity.member.ForGetPsdActivity"
-            android:label="@string/title_activity_for_get_psd"
-            android:screenOrientation="landscape"
-            android:theme="@style/Theme.DesignDemo"
-            android:windowSoftInputMode="stateHidden|stateUnchanged" />
-        <activity
-            android:name="com.bixian365.dzc.activity.member.StoreMapActivity"
-            android:screenOrientation="landscape"
-            android:theme="@style/Theme.DesignDemo"
-            android:windowSoftInputMode="stateHidden|stateUnchanged" />
-        <activity
-            android:name="com.bixian365.dzc.activity.member.RegistCheckActivity"
-            android:screenOrientation="landscape"
-            android:theme="@style/Theme.DesignDemo"
-            android:windowSoftInputMode="stateHidden|stateUnchanged" />
-        <activity
-            android:name="com.bixian365.dzc.fragment.my.store.AccManageActivity"
-            android:screenOrientation="landscape"
-            android:theme="@style/Theme.DesignDemo" />
-        <activity
-            android:name="com.bixian365.dzc.fragment.my.store.AccInfoActivity"
-            android:label="@string/title_activity_acc_info"
-            android:screenOrientation="landscape"
-            android:theme="@style/Theme.DesignDemo" />
-        <activity
             android:name="com.bixian365.dzc.fragment.my.store.AccSecurityActivity"
             android:screenOrientation="landscape"
             android:theme="@style/Theme.DesignDemo" />
@@ -201,33 +106,11 @@
             android:screenOrientation="landscape"
             android:theme="@style/Theme.DesignDemo" />
         <activity
-            android:name="com.bixian365.dzc.fragment.my.store.MyWalletActivity"
-            android:label="@string/title_activity_my_wallet"
-            android:screenOrientation="landscape"
-            android:theme="@style/Theme.DesignDemo" />
-        <activity
-            android:screenOrientation="landscape"
-            android:name="com.bixian365.dzc.fragment.my.pay.TopUpActivity"
-            android:theme="@style/Theme.DesignDemo" />
-        <activity
             android:name="com.bixian365.dzc.fragment.my.store.BankCardTopUpActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name="com.bixian365.dzc.fragment.my.store.yhj.YHJActivity"
-            android:screenOrientation="landscape"
-            android:theme="@style/Theme.DesignDemo" />
-        <activity
-            android:name="com.bixian365.dzc.activity.SearchActivity"
-            android:screenOrientation="landscape"
-            android:theme="@style/Theme.DesignDemo"
-            android:windowSoftInputMode="stateHidden|stateUnchanged" />
-        <activity
             android:name="com.bixian365.dzc.activity.GoodsDetailActivity"
             android:screenOrientation="landscape"
-            android:theme="@style/Theme.DesignDemo" />
-        <activity
-            android:screenOrientation="landscape"
-            android:name="com.bixian365.dzc.fragment.car.GoPayActivity"
             android:theme="@style/Theme.DesignDemo" />
         <activity
             android:name="com.bixian365.dzc.fragment.car.AddressListActivity"
@@ -235,33 +118,6 @@
             android:theme="@style/Theme.DesignDemo" />
         <activity
             android:name="com.bixian365.dzc.fragment.car.EditAddAddressActivity"
-            android:screenOrientation="landscape"
-            android:theme="@style/Theme.DesignDemo" />
-        <activity
-            android:name="com.bixian365.dzc.activity.GoodsFeedbackActivity"
-            android:screenOrientation="landscape"
-            android:theme="@style/Theme.DesignDemo"
-            android:windowSoftInputMode="stateHidden|stateUnchanged" />
-        <activity
-            android:name="com.bixian365.dzc.fragment.my.store.order.MyOrderActivity"
-            android:screenOrientation="landscape"
-            android:theme="@style/Theme.DesignDemo" />
-        <activity
-            android:name="com.bixian365.dzc.fragment.my.store.order.OrderDetailActivity"
-            android:screenOrientation="landscape"
-            android:theme="@style/Theme.DesignDemo" />
-        <activity
-            android:name="com.bixian365.dzc.activity.SearchDetailActivity"
-            android:screenOrientation="landscape"
-            android:theme="@style/Theme.DesignDemo"
-            android:launchMode="singleTask" android:windowSoftInputMode="stateUnspecified|adjustPan"
-            />
-        <activity
-            android:name="com.bixian365.dzc.fragment.my.buyer.ExtractDetailActivity"
-            android:screenOrientation="landscape"
-            android:theme="@style/Theme.DesignDemo" />
-        <activity
-            android:name="com.bixian365.dzc.fragment.my.buyer.ExtractAddBankCardActivity"
             android:screenOrientation="landscape"
             android:theme="@style/Theme.DesignDemo" />
 
@@ -276,60 +132,6 @@
         <activity
             android:name="com.bixian365.dzc.utils.zxing.BaseQRScanActivity"
             android:screenOrientation="landscape" />
-        <activity
-            android:name="com.bixian365.dzc.fragment.my.partner.PartnerOrderActivity"
-            android:theme="@style/Theme.DesignDemo" />
-        <activity
-            android:name="com.bixian365.dzc.fragment.car.PayOrderDetailActivity"
-            android:theme="@style/Theme.DesignDemo" />
-        <activity
-            android:name="com.bixian365.dzc.fragment.my.buyer.purchase.CGBillListActivity"
-            android:theme="@style/Theme.DesignDemo" />
-        <activity
-            android:name="com.bixian365.dzc.fragment.my.buyer.purchase.CGOrderDetailActivity"
-            android:theme="@style/Theme.DesignDemo" />
-        <activity
-            android:name="com.bixian365.dzc.fragment.my.buyer.purchase.CGOrderDeliveActivity"
-            android:theme="@style/Theme.DesignDemo" />
-        <activity
-            android:name="com.bixian365.dzc.fragment.my.store.yhj.AddAccActivity"
-            android:theme="@style/Theme.DesignDemo" />
-        <activity
-            android:name="com.bixian365.dzc.fragment.my.store.yhj.GoPayCheckCouponsActivity"
-            android:theme="@style/Theme.DesignDemo" />
-        <activity
-            android:name="com.bixian365.dzc.fragment.my.store.order.StockSubmitNumberActivity"
-            android:theme="@style/Theme.DesignDemo" />
-        <activity
-            android:launchMode="singleTask" android:windowSoftInputMode="stateUnspecified|adjustPan"
-            android:name="com.bixian365.dzc.fragment.my.partner.PartnerConfirmTakeActivity"
-            android:theme="@style/Theme.DesignDemo" />
-        <activity
-            android:name="com.bixian365.dzc.activity.member.UpdataLoginPsdActivity"
-            android:theme="@style/Theme.DesignDemo" />
-        <activity
-            android:name="com.bixian365.dzc.fragment.my.partner.PartnerDetailInfoActivity"
-            android:theme="@style/Theme.DesignDemo" />
-        <activity
-            android:name="com.bixian365.dzc.fragment.my.buyer.AccUpdateActivity"
-            android:theme="@style/Theme.DesignDemo" />
-        <activity
-            android:name="com.bixian365.dzc.fragment.my.store.AddEmailActivity"
-            android:theme="@style/Theme.DesignDemo" />
-        <activity
-            android:name="com.bixian365.dzc.fragment.my.store.WalletBillLogActivity"
-            android:theme="@style/Theme.DesignDemo" />
-        <activity
-            android:theme="@style/Theme.DesignDemo"
-            android:name="com.bixian365.dzc.fragment.my.store.NoBindCardActivity"></activity>
-        <activity
-            android:theme="@style/Theme.DesignDemo"
-            android:name="com.bixian365.dzc.fragment.my.buyer.purchase.CGBIllListFragmentActivity">
-        </activity>
-        <activity
-            android:name="com.bixian365.dzc.wxapi.WXPayEntryActivity"
-            android:exported="true"
-            android:launchMode="singleTop"/>
     </application>
 
 </manifest>

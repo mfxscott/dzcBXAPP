@@ -3,7 +3,6 @@ package com.bixian365.dzc.fragment;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
@@ -11,8 +10,6 @@ import android.webkit.WebView;
 import com.bixian365.dzc.activity.GoodsDetailActivity;
 import com.bixian365.dzc.activity.member.LoginNameActivity;
 import com.bixian365.dzc.entity.MessageEvent;
-import com.bixian365.dzc.fragment.car.GoPayActivity;
-import com.bixian365.dzc.fragment.my.store.order.OrderDetailActivity;
 import com.bixian365.dzc.utils.Logs;
 import com.bixian365.dzc.utils.SXUtils;
 import com.bixian365.dzc.utils.httpClient.AppClient;
@@ -20,8 +17,6 @@ import com.bixian365.dzc.utils.httpClient.AppClient;
 import org.greenrobot.eventbus.EventBus;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.ArrayList;
 
 /**
  * 与H5交互工具类
@@ -84,10 +79,6 @@ public class WebViewJavaScriptInterface {
 //            SXUtils.getInstance(context).ToastCenter("打开新界面"+actionStr);
                 JSONObject jsn = jsonObject.getJSONObject("data");
                 String url = jsn.getString("url");
-                Intent nintent = new Intent(context, CommonWebViewMainActivity.class);
-                nintent.putExtra("tag","2");
-                nintent.putExtra("postUrl",url+"");
-                context.startActivity(nintent);
             }
 
             else if(actionStr.equals("gotoNativeView")){
@@ -109,19 +100,6 @@ public class WebViewJavaScriptInterface {
 //                    Intent intent = new Intent(context, OrderDetailActivity.class);
 //                    intent.putExtra("cno",orderno);
 //                    context.startActivity(intent);
-                    Intent intent = new Intent(context, OrderDetailActivity.class);
-                    Bundle bundle = new Bundle();
-                    ArrayList list = new ArrayList(); //这个list用于在budnle中传递 需要传递的ArrayList<Object>
-                    bundle.putParcelableArrayList("orderDetail",list);
-                    bundle.putString("orderNo",orderno);
-                    bundle.putString("tradeNo","");
-                    bundle.putString("orderAddress","");
-                    bundle.putString("orderTime","");
-                    bundle.putString("name","");
-                    bundle.putString("total","");
-                    intent.putExtras(bundle);
-                    intent.putExtra("orderTag","1");
-                    context.startActivity(intent);
                 }
                 else if(viewstr.equals("11")){
                     //跳转登录
@@ -143,11 +121,6 @@ public class WebViewJavaScriptInterface {
                 String numStr = jsn.getString("quantity");
                 SXUtils.getInstance(context).AddOrUpdateCar(skuGoods,numStr);
 
-                Intent pay = new Intent(context,GoPayActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putString("skuCode",skuGoods);
-                pay.putExtras(bundle);
-                context.startActivity(pay);
 
             }
             else if(actionStr.equals("getShoppingCart")){

@@ -42,7 +42,6 @@ import com.bixian365.dzc.entity.UserRenderInfoEntity;
 import com.bixian365.dzc.entity.address.AddressProvinceEntity;
 import com.bixian365.dzc.entity.bill.BillDataSetEntity;
 import com.bixian365.dzc.fragment.MainFragmentActivity;
-import com.bixian365.dzc.utils.dncry.wsc.AESEDncryption;
 import com.bixian365.dzc.utils.httpClient.AppClient;
 import com.bixian365.dzc.utils.httpClient.HttpUtils;
 import com.bixian365.dzc.utils.httpClient.ResponseData;
@@ -349,42 +348,6 @@ public class SXUtils {
 //        tintManager.setStatusBarTintEnabled(true);
 //    }
 
-    /**
-     * webview 请求post参数进行加密传输
-     *
-     * @param context
-     * @param url     跳转url
-     * @return
-     */
-    public String WebViewPostJSONObject(Context context, String url) {
-        JSONObject jsonObject = new JSONObject();
-        String encryptKey = "";
-        try {
-//            jsonObject.put("latitude", AppClient.LATITUDE);
-//            jsonObject.put("longitude", AppClient.LONGITUDE);
-//            jsonObject.put("memberno", AppClient.MEMBERNO);
-            jsonObject.put("channel", "APP");
-//            jsonObject.put("tokenstr", AppClient.TOKENSTR);
-//            jsonObject.put("loginname", AppClient.PHONENO);
-            jsonObject.put("gourl", url);
-//            jsonObject.put("customerid",AppClient.CUSTOMERSID);
-//            jsonObject.put("user_id",AppClient.USERID);
-            jsonObject.put("mobileuuid", getClientDeviceInfo());
-            String json = jsonObject.toString();
-            Logs.i("web封装参数====" + json);
-            AESEDncryption mAes = new AESEDncryption();
-
-            try {
-                encryptKey = mAes.encrypt(json);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return "sxUrl=" + encryptKey;
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return encryptKey;
-    }
 
     /**
      * 拨打客服电话

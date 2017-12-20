@@ -11,7 +11,6 @@ import android.text.TextUtils;
 import com.bixian365.dzc.entity.MessageEvent;
 import com.bixian365.dzc.utils.Logs;
 import com.bixian365.dzc.utils.SXUtils;
-import com.bixian365.dzc.utils.dncry.wsc.UXUNMSGEncrypt;
 
 import org.greenrobot.eventbus.EventBus;
 import org.json.JSONException;
@@ -36,59 +35,6 @@ public class RequestReqMsgData {
      * @param  tag  是否需要加密 1  加密 0 不加密
      * @return
      */
-    public static String SetJsonHeadReqMsg(Activity context, JSONObject json, ServiceCodeEnum serviceCodeEnum, int tag) {
-        JSONObject params = new JSONObject();
-        JSONObject headMsgJson = new JSONObject();
-        String encryptEntity = null;
-        try {
-            //交易参数
-            JSONObject jsonObject = new JSONObject();
-            //如果是登录不需传值// 195 设置手势密码
-            if(serviceCodeEnum.getCommonId() == 74 || serviceCodeEnum.getCommonId() == 195) {
-                //头信息封装
-                headMsgJson.put("authcode", "");
-            }
-//            220 227 221 224 226 311
-            else if(serviceCodeEnum.getCommonId() == 220 || serviceCodeEnum.getCommonId() == 227
-                    || serviceCodeEnum.getCommonId() == 221 || serviceCodeEnum.getCommonId() == 224
-                    || serviceCodeEnum.getCommonId() == 226 || serviceCodeEnum.getCommonId() == 311){
-                //约定wscommon  不涉及会员相关接口全部传123456
-                headMsgJson.put("authcode", "123456");
-            }else{
-
-                //头信息封装 涉及authcode
-//                headMsgJson.put("authcode", TextUtils.isEmpty(AppClient.TOKENSTR) ? "123456" : AppClient.TOKENSTR);
-            }
-            //设备信息
-            headMsgJson.put("devno",SXUtils.getInstance(context).getClientDeviceInfo());
-//            headMsgJson.put("tokenstr",AppClient.TOKENSTR+"");
-            //随机数
-            headMsgJson.put("reqsn",getReqsn());// "98d8b2e92be8c8fe640ef291c4fa843e305358e4f0652955b4dd9a5b5bfddef1"
-            //交易时间
-            headMsgJson.put("trandatetime", SXUtils.getInstance(context).GetNowDateTime());
-            //渠道标示 007 移动端 005 PC端
-            headMsgJson.put("tranchannel", "007");
-            //交易名称
-            headMsgJson.put("servicename", serviceCodeEnum.getServiceName());
-            //app版本名
-            headMsgJson.put("version",SXUtils.getInstance(context).getVersionName());//getVersionName(context)+""
-            //头信息
-            jsonObject.putOpt("msghead", headMsgJson);
-            //参数封装
-            jsonObject.putOpt("msgreq", json);
-            params.putOpt(serviceCodeEnum.getBaseName(), jsonObject);
-//            encryptEntity = params.toString();
-            Logs.i("请求报文========",params.toString());
-            if(tag ==1){
-                encryptEntity = UXUNMSGEncrypt.getInstance().encrypt(params.toString(), serviceCodeEnum.getCommonId());
-            }else{
-                encryptEntity = params.toString();
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return encryptEntity;
-    }
 
 
     /**

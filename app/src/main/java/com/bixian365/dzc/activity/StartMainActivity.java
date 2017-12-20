@@ -35,8 +35,6 @@ import com.bixian365.dzc.R;
 import com.bixian365.dzc.activity.member.LoginNameActivity;
 import com.bixian365.dzc.utils.Logs;
 import com.bixian365.dzc.utils.SXUtils;
-import com.bixian365.dzc.utils.checkPermission.PermissionsActivity;
-import com.bixian365.dzc.utils.checkPermission.PermissionsChecker;
 import com.bixian365.dzc.utils.httpClient.AppClient;
 import com.bixian365.dzc.utils.httpClient.HttpUtils;
 import com.bixian365.dzc.utils.httpClient.OKManager;
@@ -62,7 +60,6 @@ public class StartMainActivity extends Activity {
     static final String[] PERMISSIONS = new String[]{
             Manifest.permission.READ_PHONE_STATE
     };
-    private PermissionsChecker mPermissionsChecker; // 权限检测器
     private static final int REQUEST_CODE = 0; // 请求码
     private MyCountDownTimer mc;
     private ViewPager viewPager;
@@ -132,7 +129,6 @@ public class StartMainActivity extends Activity {
 
     }
     private void initDataView(){
-        mPermissionsChecker = new PermissionsChecker(this);
         //自动升级下载apk 删除目录文件
 //        SXUtils.getInstance(activity).deleteDir(SXUtils.getInstance(activity).getSDPath()+"/apk");
         //启动页面倒计时
@@ -304,9 +300,6 @@ public class StartMainActivity extends Activity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         // 拒绝时, 关闭页面, 缺少主要权限, 无法运行
-        if (requestCode == REQUEST_CODE && resultCode == PermissionsActivity.PERMISSIONS_DENIED) {
-            finish();
-        }
     }
     /**
      * 倒计时

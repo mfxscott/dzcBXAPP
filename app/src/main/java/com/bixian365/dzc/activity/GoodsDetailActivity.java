@@ -2,7 +2,6 @@ package com.bixian365.dzc.activity;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.os.Bundle;
@@ -19,11 +18,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.Priority;
-import com.bumptech.glide.request.animation.GlideAnimation;
-import com.bumptech.glide.request.target.SimpleTarget;
-import com.lzy.okhttputils.model.HttpParams;
 import com.bixian365.dzc.R;
 import com.bixian365.dzc.adapter.BillItemRecyclerViewAdapter;
 import com.bixian365.dzc.entity.FoodActionCallback;
@@ -37,6 +31,11 @@ import com.bixian365.dzc.utils.httpClient.AppClient;
 import com.bixian365.dzc.utils.httpClient.HttpUtils;
 import com.bixian365.dzc.utils.httpClient.ResponseData;
 import com.bixian365.dzc.utils.view.NXHooldeView;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.Priority;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.lzy.okhttputils.model.HttpParams;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
@@ -450,31 +449,6 @@ public class GoodsDetailActivity extends BaseActivity implements ObservableScrol
                 finish();
                 break;
             case R.id.goods_detail_feedback_tv:
-                if(!SXUtils.getInstance(activity).IsLogin()){
-                    return ;
-                }
-                if(goodsdetail != null) {
-                    Intent intent = new Intent(activity, GoodsFeedbackActivity.class);
-                    intent.putExtra("goodsName", goodsdetail.getGoodsName());
-                    intent.putExtra("goodsImg", goodsdetail.getOriginalImg());
-                    intent.putExtra("goodsCode", goodsdetail.getGoodsCode());
-                    if(TextUtils.isEmpty(goodsdetail.getShopName())){
-                        intent.putExtra("shopName",goodsdetail.getGoodsName());
-                    }else{
-                        intent.putExtra("shopName",goodsdetail.getShopName());
-                    }
-//
-                    if (goodsdetail.getSkuList() != null){
-                        intent.putExtra("marketPrice", goodsdetail.getSkuList().get(0).getMarketPrice());
-                        intent.putExtra("shopPrice", goodsdetail.getSkuList().get(0).getShopPrice());
-                        intent.putExtra("model", goodsdetail.getSkuList().get(0).getGoodsModel());
-                    }else{
-                        intent.putExtra("marketPrice", "");
-                        intent.putExtra("shopPrice", "");
-                        intent.putExtra("model","");
-                    }
-                    startActivity(intent);
-                }
                 break;
             case R.id.goods_detail_gocar_btn:
                 if(!SXUtils.getInstance(activity).IsLogin()){

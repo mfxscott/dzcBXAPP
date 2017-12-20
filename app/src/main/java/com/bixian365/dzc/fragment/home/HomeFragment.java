@@ -29,7 +29,6 @@ import com.bumptech.glide.Glide;
 import com.lzy.okhttputils.model.HttpParams;
 import com.bixian365.dzc.R;
 import com.bixian365.dzc.activity.GoodsDetailActivity;
-import com.bixian365.dzc.activity.SearchActivity;
 import com.bixian365.dzc.adapter.BannerAdapter;
 import com.bixian365.dzc.adapter.HomeGridViewAdapter;
 import com.bixian365.dzc.adapter.TypeInfoRecyclerViewAdapter;
@@ -38,10 +37,7 @@ import com.bixian365.dzc.entity.bill.BillDataSetEntity;
 import com.bixian365.dzc.entity.main.BannerSlidEntity;
 import com.bixian365.dzc.entity.main.ButtonsEntity;
 import com.bixian365.dzc.entity.main.SpecialsEntity;
-import com.bixian365.dzc.fragment.CommonWebViewMainActivity;
 import com.bixian365.dzc.fragment.MainFragmentActivity;
-import com.bixian365.dzc.fragment.my.store.MyWalletActivity;
-import com.bixian365.dzc.fragment.my.store.order.MyOrderActivity;
 import com.bixian365.dzc.utils.CacheData;
 import com.bixian365.dzc.utils.Logs;
 import com.bixian365.dzc.utils.ObservableScrollView;
@@ -186,8 +182,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener,Obser
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.home_search_lin:case R.id.home_search_gone_lin:
-                Intent intent = new Intent(activity, SearchActivity.class);
-                startActivity(intent);
                 break;
             case R.id.home_go_bill_rel:
                 //滚动到指定位置
@@ -376,10 +370,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener,Obser
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 if(SXUtils.getInstance(activity).IsLogin()) {
-                    Intent ztintent = new Intent(activity, CommonWebViewMainActivity.class);
-                    ztintent.putExtra("tag", "2");
-                    ztintent.putExtra("postUrl", AppClient.ACTIVITYURL + "" + specialsList.get(i).getId() + "");
-                    startActivity(ztintent);
                 }
             }
         });
@@ -467,33 +457,16 @@ public class HomeFragment extends Fragment implements View.OnClickListener,Obser
                     case 7:
                         //6=专题页
                         if(SXUtils.getInstance(activity).IsLogin()) {
-                            Intent ztintent = new Intent(activity, CommonWebViewMainActivity.class);
-                            ztintent.putExtra("tag", "2");
-                            ztintent.putExtra("postUrl", AppClient.ACTIVITYURL + "" + buttonsList.get(position).getImgParam() + "");
-                            startActivity(ztintent);
                         }
                         break;
                     case 8:
                         if(SXUtils.getInstance(activity).IsLogin()) {
-                            //8=我的订单
-                            Intent sendorder = new Intent(activity,MyOrderActivity.class);
-                            sendorder.putExtra("orderTag","1");
-                            startActivity(sendorder);
                         }
                         break;
                     case 9:
-                        //9=我的钱包
-                        if(SXUtils.getInstance(activity).IsLogin()) {
-                            Intent wallet = new Intent(activity, MyWalletActivity.class);
-                            startActivity(wallet);
-                        }
                         break;
                     case 10:
                         //10H5页面
-                        Intent Hintent = new Intent(activity, CommonWebViewMainActivity.class);
-                        Hintent.putExtra("tag", "2");
-                        Hintent.putExtra("postUrl", buttonsList.get(position).getImgParam() + "");
-                        startActivity(Hintent);
                         break;
                 }
             }
@@ -697,33 +670,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener,Obser
                     case 7:
                         //6=专题页
                         if(SXUtils.getInstance(activity).IsLogin()) {
-                            Intent ztintent = new Intent(activity, CommonWebViewMainActivity.class);
-                            ztintent.putExtra("tag", "2");
-                            ztintent.putExtra("postUrl", AppClient.ACTIVITYURL + "" + goodsTypeList.get(position).getImgParam() + "");
-                            startActivity(ztintent);
                         }
                         break;
                     case 8:
-                        //8=我的订单
-                        if(SXUtils.getInstance(activity).IsLogin()) {
-                            Intent sendorder = new Intent(activity,MyOrderActivity.class);
-                            sendorder.putExtra("orderTag","1");
-                            startActivity(sendorder);
-                        }
                         break;
                     case 9:
-                        //9=我的钱包
-                        if(SXUtils.getInstance(activity).IsLogin()) {
-                            Intent wallet = new Intent(activity, MyWalletActivity.class);
-                            startActivity(wallet);
-                        }
                         break;
                     case 10:
-                        //10H5页面
-                        Intent Hintent = new Intent(activity, CommonWebViewMainActivity.class);
-                        Hintent.putExtra("tag", "2");
-                        Hintent.putExtra("postUrl", goodsTypeList.get(position).getImgParam() + "");
-                        startActivity(Hintent);
                         break;
                 }
             }

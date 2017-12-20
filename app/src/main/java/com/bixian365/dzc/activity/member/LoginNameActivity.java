@@ -154,19 +154,6 @@ public class LoginNameActivity extends Activity implements View.OnClickListener 
 //                psdLoginHttp(phone,psd);
                 SXUtils.getInstance(activity).psdLoginHttp(hand,phone,psd);
                 break;
-            case R.id.login_acc_usecode_tv:
-                Intent intent = new Intent(LoginNameActivity.this, LoginCodeActivity.class);
-                startActivity(intent);
-                finish();
-                break;
-            case R.id.login_acc_forgetpsd_tv:
-                Intent forget = new Intent(LoginNameActivity.this, ForGetPsdActivity.class);
-                startActivity(forget);
-                break;
-            case R.id.all_title_right:
-                Intent regist = new Intent(LoginNameActivity.this, RegistCheckActivity.class);
-                startActivity(regist);
-                break;
             case R.id.all_title_back_tv:
 //                if(MainFragmentActivity.badge1 == null){
 //                    Intent mainintent = new Intent(activity, MainFragmentActivity.class);

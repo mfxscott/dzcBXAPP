@@ -6,7 +6,6 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.baidu.mobstat.StatService;
 import com.lzy.okhttputils.OkHttpUtils;
 import com.bixian365.dzc.R;
 import com.bixian365.dzc.utils.SXUtils;
@@ -24,7 +23,6 @@ public class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         application = (MyApplication) getApplicationContext();
         SXUtils.getInstance(this).addActivity(this);
-        StatService.start(this);
 //注册事件
     }
     /**

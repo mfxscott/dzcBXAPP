@@ -2,7 +2,6 @@ package com.bixian365.dzc.fragment.car;
 
 import android.app.Activity;
 import android.app.Fragment;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -18,7 +17,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.lzy.okhttputils.model.HttpParams;
 import com.bixian365.dzc.R;
 import com.bixian365.dzc.adapter.CarCouponsRecyclerViewAdapter;
 import com.bixian365.dzc.adapter.CarStoreRecyclerViewAdapter;
@@ -35,6 +33,7 @@ import com.bixian365.dzc.utils.httpClient.HttpUtils;
 import com.bixian365.dzc.utils.httpClient.ResponseData;
 import com.bixian365.dzc.utils.view.SwipyRefreshLayout;
 import com.bixian365.dzc.utils.view.SwipyRefreshLayoutDirection;
+import com.lzy.okhttputils.model.HttpParams;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -419,11 +418,6 @@ public class CarFragment extends Fragment implements View.OnClickListener{
                 }else{
                     String suk=  getCarTotalStrSkucode();
                     if(!TextUtils.isEmpty(suk)) {
-                        Intent pay = new Intent(activity,GoPayActivity.class);
-                        Bundle bundle = new Bundle();
-                        bundle.putString("skuCode",suk);
-                        pay.putExtras(bundle);
-                        startActivity(pay);
 //                        getFromOrder(suk);
                     }else{
                         SXUtils.getInstance(activity).ToastCenter("请选择购买商品");

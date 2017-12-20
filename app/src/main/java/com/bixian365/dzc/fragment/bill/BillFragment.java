@@ -2,7 +2,6 @@ package com.bixian365.dzc.fragment.bill;
 
 import android.app.Activity;
 import android.app.Fragment;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -18,7 +17,6 @@ import android.widget.LinearLayout;
 
 import com.androidkun.xtablayout.XTabLayout;
 import com.bixian365.dzc.R;
-import com.bixian365.dzc.activity.SearchActivity;
 import com.bixian365.dzc.adapter.TypeInfoRecyclerViewAdapter;
 import com.bixian365.dzc.entity.MessageEvent;
 import com.bixian365.dzc.entity.bill.BillDataSetEntity;
@@ -99,13 +97,6 @@ public class BillFragment extends Fragment {
             }
         });
         LinearLayout searchlin = (LinearLayout) view.findViewById(R.id.bill_search_liny);
-        searchlin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(activity, SearchActivity.class);
-                startActivity(intent);
-            }
-        });
 
         recyclerView = (RecyclerView) view.findViewById(R.id.main_bill_gridv);
         recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));

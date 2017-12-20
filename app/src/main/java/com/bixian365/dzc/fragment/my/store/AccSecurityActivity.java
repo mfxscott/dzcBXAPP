@@ -11,11 +11,8 @@ import android.widget.TextView;
 
 import com.bixian365.dzc.R;
 import com.bixian365.dzc.activity.BaseActivity;
-import com.bixian365.dzc.activity.member.UpdataLoginPsdActivity;
 import com.bixian365.dzc.entity.MessageEvent;
 import com.bixian365.dzc.entity.UserInfoEntity;
-import com.bixian365.dzc.fragment.CommonWebViewMainActivity;
-import com.bixian365.dzc.utils.httpClient.AppClient;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -66,8 +63,6 @@ public class AccSecurityActivity extends BaseActivity {
         updataLoginPsdRel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent forget = new Intent(activity, UpdataLoginPsdActivity.class);
-                startActivity(forget);
             }
         });
         emailRel.setOnClickListener(new View.OnClickListener() {
@@ -81,19 +76,11 @@ public class AccSecurityActivity extends BaseActivity {
         feedbackRel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent feedintent = new Intent(activity, CommonWebViewMainActivity.class);
-                feedintent.putExtra("tag","2");
-                feedintent.putExtra("postUrl", AppClient.FEEDBACK);
-                startActivity(feedintent);
             }
         });
         helpRel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent qintent = new Intent(activity, CommonWebViewMainActivity.class);
-                qintent.putExtra("tag","2");
-                qintent.putExtra("postUrl",AppClient.FAQ);
-                startActivity(qintent);
             }
         });
     }

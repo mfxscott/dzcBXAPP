@@ -24,7 +24,6 @@ import android.widget.TextView;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.DecodeHintType;
 import com.bixian365.dzc.R;
-import com.bixian365.dzc.fragment.my.partner.PartnerConfirmTakeActivity;
 import com.bixian365.dzc.utils.Logs;
 import com.bixian365.dzc.utils.zxing.camera.CameraManager;
 import com.bixian365.dzc.utils.zxing.decoding.CaptureActivityHandler;
@@ -106,9 +105,6 @@ public class BaseQRScanActivity extends Activity
 		scanInput.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				Intent order = new Intent(BaseQRScanActivity.this,PartnerConfirmTakeActivity.class);
-				order.putExtra("result","");
-				startActivity(order);
 				finish();
 			}
 		});
@@ -359,9 +355,6 @@ public class BaseQRScanActivity extends Activity
 		Logs.i("扫码返回值============"+qrCode);
 //		SXUtils.getInstance(this).ToastCenter("扫码获得"+qrCode);
 
-		Intent order = new Intent(BaseQRScanActivity.this,PartnerConfirmTakeActivity.class);
-		order.putExtra("result",qrCode);
-		startActivity(order);
 		finish();
 //		if (!qrCode.startsWith("https://www.sanxiapay.com/")) {
 ////			Toast.makeText(BaseQRScanActivity.this, "扫码结果"+qrCode, Toast.LENGTH_SHORT).show();

@@ -28,9 +28,6 @@ import com.bixian365.dzc.fragment.bill.BillFragment;
 import com.bixian365.dzc.fragment.car.PadCarFragment;
 import com.bixian365.dzc.fragment.goods.GoodsListFragment;
 import com.bixian365.dzc.fragment.home.HomeFragment;
-import com.bixian365.dzc.fragment.my.buyer.BuyerFragment;
-import com.bixian365.dzc.fragment.my.partner.PartnerFragment;
-import com.bixian365.dzc.fragment.my.store.StoreMyFragment;
 import com.bixian365.dzc.utils.Logs;
 import com.bixian365.dzc.utils.SXUtils;
 import com.bixian365.dzc.utils.download.DownloadOkHttpUtils;
@@ -62,12 +59,6 @@ public class MainFragmentActivity extends AppCompatActivity {
     public GoodsListFragment goodsFrag;
 //    public CarFragment  carFrag;
     public PadCarFragment PadCarFrag;
-    //联创中心，供货商
-    public BuyerFragment myFrag;
-    //    合伙人，
-    public PartnerFragment partnerFragment;
-
-    public StoreMyFragment storeFrag;
     public Fragment lastshowFragment;
     private DisplayMetrics dm;
     public static final int FLAG = 100;//进入判断登录后返回主页 标示
@@ -233,26 +224,11 @@ public class MainFragmentActivity extends AppCompatActivity {
                 //根据登陆后获取的用户表示来判断我的界面显示对应布局
 //                用户标签，1:后台用户,2:城市采购中心,4:供应商,8:联创中心,16:合伙人,32:摊主店铺,64:消费者,128:供应商司机,256:采购中心司机
                 if(AppClient.USERROLETAG.equals("4") ){
-                    if (myFrag == null) {
-                        myFrag = new BuyerFragment();
-                        transaction.add(R.id.content, myFrag);
-                    }
-                    addFragmentToStack(myFrag);
 
                 }else if(AppClient.USERROLETAG.equals("16") || AppClient.USERROLETAG.equals("8")){
-                    if (partnerFragment == null) {
-                        partnerFragment = new PartnerFragment();
-                        transaction.add(R.id.content, partnerFragment);
-                    }
-                    addFragmentToStack(partnerFragment);
                 }
                 else{
                     //if(AppClient.USERROLETAG.equals("64") || AppClient.USERROLETAG.equals("32"))
-                    if (storeFrag == null) {
-                        storeFrag = new StoreMyFragment();
-                        transaction.add(R.id.content, storeFrag);
-                    }
-                    addFragmentToStack(storeFrag);
                 }
             }else if(carRb.getId() == checkedId){
                 if(!SXUtils.getInstance(activity).IsLogin()){
