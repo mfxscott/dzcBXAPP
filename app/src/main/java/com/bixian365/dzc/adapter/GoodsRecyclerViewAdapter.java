@@ -1,6 +1,5 @@
 package com.bixian365.dzc.adapter;
 
-import android.app.Activity;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -18,7 +17,6 @@ import com.bixian365.dzc.entity.MessageEvent;
 import com.bixian365.dzc.entity.bill.BillChirdrenEntity;
 import com.bixian365.dzc.utils.SXUtils;
 import com.bixian365.dzc.utils.httpClient.AppClient;
-import com.bixian365.dzc.utils.view.MyFoodActionCallback;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -90,7 +88,7 @@ public  class GoodsRecyclerViewAdapter
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         final  BillChirdrenEntity billchirdren = billchirdrenList.get(position);
-        holder.marketPrice.setText("¥"+billchirdren.getMarketPrice()+"/"+billchirdren.getGoodsModel());
+        holder.marketPrice.setText("¥"+billchirdren.getShopPrice()+"/"+billchirdren.getGoodsModel());
 //        holder.shopPrice.setText(billchirdren.getShopPrice());
         holder.shopPrice.setText("¥"+billchirdren.getShopPrice());
         holder.goodsModel.setText("/"+billchirdren.getGoodsModel());
@@ -116,26 +114,28 @@ public  class GoodsRecyclerViewAdapter
             @Override
             public void onClick(View v) {
                 //商品详情点击需要加入到不同动画view
-                if(carTagV != null){
-                    callback = new MyFoodActionCallback((Activity) context,carTagV,billchirdren.getSkuBarcode());
-                }else{
-                    callback = new MyFoodActionCallback((Activity) context,billchirdren.getSkuBarcode());
-                }
-                if(callback==null) return;
-                callback.addAction(v);
-                if(TextUtils.isEmpty(AppClient.USER_SESSION) || TextUtils.isEmpty(AppClient.USER_ID)){
-                    return;
-                }
-                String skuNum = SXUtils.getInstance(context).CheckExistCar(billchirdren.getSkuBarcode());
-                if(!TextUtils.isEmpty(skuNum)){
-                    if(Integer.parseInt(skuNum)>=1) {
-                        AppClient.carSKUNumMap.put(billchirdren.getSkuBarcode(), (Integer.parseInt(skuNum) + 1) + "");
-                    }
-                }else{
-                    AppClient.carSKUNumMap.put(billchirdren.getSkuBarcode(), "1");
-                }
-                notifyDataSetChanged();
-                EventBus.getDefault().post(new MessageEvent(AppClient.EVENT100026,"refgoods"));
+                SXUtils.getInstance(context).addGetGoodsType(billchirdren.getSkuBarcode());
+
+//                if(carTagV != null){
+//                    callback = new MyFoodActionCallback((Activity) context,carTagV,billchirdren.getSkuBarcode());
+//                }else{
+//                    callback = new MyFoodActionCallback((Activity) context,billchirdren.getSkuBarcode());
+//                }
+//                if(callback==null) return;
+//                callback.addAction(v);
+//                if(TextUtils.isEmpty(AppClient.USER_SESSION) || TextUtils.isEmpty(AppClient.USER_ID)){
+//                    return;
+//                }
+//                String skuNum = SXUtils.getInstance(context).CheckExistCar(billchirdren.getSkuBarcode());
+//                if(!TextUtils.isEmpty(skuNum)){
+//                    if(Integer.parseInt(skuNum)>=1) {
+//                        AppClient.carSKUNumMap.put(billchirdren.getSkuBarcode(), (Integer.parseInt(skuNum) + 1) + "");
+//                    }
+//                }else{
+//                    AppClient.carSKUNumMap.put(billchirdren.getSkuBarcode(), "1");
+//                }
+//                notifyDataSetChanged();
+//                EventBus.getDefault().post(new MessageEvent(AppClient.EVENT100026,"refgoods"));
             }
         });
         holder.subImage.setOnClickListener(new View.OnClickListener() {

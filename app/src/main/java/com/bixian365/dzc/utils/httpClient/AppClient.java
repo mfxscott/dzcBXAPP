@@ -22,7 +22,7 @@ public class AppClient{
     public static final  int PADEVENT00002 =00002;//实时当前更新时间
     public static final  int PADEVENT00003 =00003;//实时当前更新时间
     public static  String  SELECTSALE="svc.select.sale.commonly";//查询销售清单
-
+    public static final  int HANDLERLOCK = 100001;//解锁密码
 
 
 
@@ -33,37 +33,18 @@ public class AppClient{
     public static final  int GETCODEMSG = 1001;//获取短信验证码成功
     public static final  int ERRORCODE = 4040;//非正常数据返回码
     public static final  int UPDATEVER = 1002;//版本升级返回码
-    public static final  int ADDDELCAR = 2001;//添加或者删除购物车成功
-    public static boolean isFristLogin=false;//判断第一次加载首页和购物车不进行登录
-    public static boolean isEditCar;//标识用户在购物车点击编辑还是完成
 
     public static final  int EVENT555 =555;//地址列表接收
     public static final  int EVENT1 =1;//刷新个人中心
-    public static final  int EVENT10001 =10001;//刷新供应商采购列表
     public static final  int EVENT10002 =10002;//刷新常用清单采购列表
     public static final  int EVENT10003 =10003;//刷新首页常用清单采购列表
-    public static final  int EVENT10004 =10004;//刷新购物车价格
-    public static final  int EVENT10005 =10005;//购物车取消全选按钮
     public static final  int EVENT10006 =10006;//购物车设置价格
     public static final  int EVENT10007 =10007;//修改商品详情金额
-    public static final  int EVENT10008 =10008;//刷新合伙人订单数据
-    public static final  int EVENT10009 =10009;//设置摊主确认收货跳转设置tab到已完成
-    public static final  int EVENT100010 =100010;//设置确认收货刷新已完成列表
     public static final  int EVENT100011 =100011;//释放finish activity  回到制定界面
-    public static final  int EVENT100012 =100012;//finish账号管理
-    public static final  int EVENT100013 =100013;//刷新个人待发货界面
-    public static final  int EVENT100014 =100014;//刷新采购接单
-    public static final  int EVENT100015 =100015;//刷新采购发货
-    public static final  int EVENT100016 =100016;//刷新采购收货
-    public static final  int EVENT100017 =100017;//刷新采购完成
-    public static final  int EVENT100018 =100018;//刷新采购选项卡
     public static final  int EVENT100019 =100019;//设置webview标题
     public static final  int EVENT100020 =100020;//设置调用h5方法传参数
     public static final  int EVENT100021 =100021;//购车数据变动通知H5界面刷新
-    public static final  int EVENT100022 =100022;//登录成功重新调用js传会员信息
-    public static final  int EVENT100023 =100023;//登录成功重新购物车图标
     public static final  int EVENT100024 =100024;//修改购物车按钮 是否免运费
-    public static final  int EVENT100025 =100025;//finish 支付收银台界面
     public static final  int EVENT100026 =100026;//刷新清单 商品列表 加入和减少购物车
 
 

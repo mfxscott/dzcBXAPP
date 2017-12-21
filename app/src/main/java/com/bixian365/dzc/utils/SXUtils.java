@@ -69,6 +69,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import static com.bixian365.dzc.utils.httpClient.AppClient.PADEVENT00003;
 import static com.bixian365.dzc.utils.httpClient.RequestReqMsgData.getReqsn;
 
 public class SXUtils {
@@ -1095,7 +1096,7 @@ public class SXUtils {
 //        if(cancelable){
 //            leftBtn.setVisibility(View.VISIBLE);
 //        }else{
-            leftBtn.setVisibility(View.GONE);
+        leftBtn.setVisibility(View.GONE);
 //        }
         rightBtn.setText("确  定");
 //        leftBtn.setText("暂不更新");
@@ -1115,7 +1116,7 @@ public class SXUtils {
             @Override
             public void onClick(View view) {
                 tipDialog.dismiss();
-          }
+            }
         });
         rightBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -1203,16 +1204,16 @@ public class SXUtils {
      * @param sku  商品sku
      * @return
      */
-     public String CheckExistCar(String sku){
+    public String CheckExistCar(String sku){
         //当前sku的购物车数量
-         if(AppClient.carSKUNumMap == null || AppClient.carSKUNumMap.size()<=0){
-             return "";
-         }
+        if(AppClient.carSKUNumMap == null || AppClient.carSKUNumMap.size()<=0){
+            return "";
+        }
         if(AppClient.carSKUNumMap.containsKey(sku)){
             return   AppClient.carSKUNumMap.get(sku);
         }
-         return "";
-     }
+        return "";
+    }
     /**
      * 添加或者删除购物车
      *
@@ -1430,56 +1431,22 @@ public class SXUtils {
 //                msg.what = AppClient.ERRORCODE;
 //                msg.obj = strError;
 //                hand.sendMessage(msg);
-
             }
         });
     }
     /**
-     * 添加删除常用清单
-     * @param tag  1 添加 0 删除
-     * @param goods  商品ID 和商品code
+     * 平板删除商户销售清单添加删除常用清单
      */
-    public void AddDelBill(int tag,String goods,final Handler hand){
+    public void AddDelBill(String skuid){
         HttpParams params = new HttpParams();
-        String appUrl = "";
-        if(tag ==1){
-            params.put("goodsCode", goods);
-            appUrl = AppClient.GOODS_ADDCOMMON;
-        }else{
-            params.put("goodsCode", goods);
-            appUrl = AppClient.GOODS_DELDCOMMON;
-        }
-        HttpUtils.getInstance(mContext).requestPost(false,appUrl, params, new HttpUtils.requestCallBack() {
+        params.put("id", skuid);
+        HttpUtils.getInstance(mContext).requestPost(false,"svc.delete.sale.commonly", params, new HttpUtils.requestCallBack() {
             @Override
             public void onResponse(Object jsonObject) {
-//                String jsonstr="";
-//                try {
-//                    JSONObject jso = new JSONObject(jsonObject.toString());
-//                    jsonstr = jso.getString("dataset");
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
-//                GoodsDetailInfoEntity gde = (GoodsDetailInfoEntity) ResponseData.getInstance(mContext).parseJsonWithGson(jsonstr.toString(),GoodsDetailInfoEntity.class);
-                if(hand != null) {
-                    Message msg = new Message();
-                    msg.what = 1006;
-                    msg.obj = "";
-                    hand.sendMessage(msg);
-                }else{
-                    EventBus.getDefault().post(new MessageEvent(AppClient.EVENT10002,"bill"));
-                    EventBus.getDefault().post(new MessageEvent(AppClient.EVENT10003,"home"));
-                }
+                EventBus.getDefault().post(new MessageEvent(AppClient.PADEVENT00003,"paddel"));
             }
             @Override
             public void onResponseError(String strError) {
-                if(hand != null) {
-                    Message msg = new Message();
-                    msg.what = AppClient.ERRORCODE;
-                    msg.obj = strError;
-                    hand.sendMessage(msg);
-                }else{
-                    ToastCenter("请求失败");
-                }
             }
         });
 
@@ -1566,7 +1533,7 @@ public class SXUtils {
         return a;
     }
     /**
-     * 添加logo
+     * 添加销售商品
      */
     public void addGetGoodsType(String skuBarcode) {
         HttpParams httpParams = new HttpParams();
@@ -1574,12 +1541,35 @@ public class SXUtils {
         HttpUtils.getInstance(mContext).requestPost(false,"svc.add.sale.commonly", httpParams, new HttpUtils.requestCallBack() {
             @Override
             public void onResponse(Object jsonObject) {
-                EventBus.getDefault().post(new MessageEvent(AppClient.PADEVENT00003,"goodslist"));
+                EventBus.getDefault().post(new MessageEvent(PADEVENT00003,"goodslist"));
 
             }
             @Override
             public void onResponseError(String strError) {
 
+            }
+        });
+    }
+    /**
+     * 商户解锁屏幕
+     */
+    public void Unlock(final Handler handler,String psd) {
+        HttpParams httpParams = new HttpParams();
+        httpParams.put("password",psd+"");
+        HttpUtils.getInstance(mContext).requestPost(false,"svc.unlock", httpParams, new HttpUtils.requestCallBack() {
+            @Override
+            public void onResponse(Object jsonObject) {
+                Message msg = new Message();
+                msg.what = AppClient.HANDLERLOCK;
+                msg.obj = "jsonObject";
+                handler.sendMessage(msg);
+            }
+            @Override
+            public void onResponseError(String strError) {
+                Message msg = new Message();
+                msg.what = AppClient.ERRORCODE;
+                msg.obj = "密码错误，请重新输入";
+                handler.sendMessage(msg);
             }
         });
     }

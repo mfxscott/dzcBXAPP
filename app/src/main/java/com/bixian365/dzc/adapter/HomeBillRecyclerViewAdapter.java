@@ -156,7 +156,7 @@ public  class HomeBillRecyclerViewAdapter
                     @Override
                     public void onClick(View v) {
                         SXUtils.getInstance(context).tipDialog.dismiss();
-                        SXUtils.getInstance(holder.delImageView.getContext()).AddDelBill(0,categInfo.getGoodsCode(),null);
+//                        SXUtils.getInstance(holder.delImageView.getContext()).AddDelBill(0,categInfo.getGoodsCode(),null);
                     }
                 });
             }
@@ -173,7 +173,6 @@ public  class HomeBillRecyclerViewAdapter
                 callback.addAction(v);
             }
         });
-
 
         SXUtils.getInstance(context).GlideSetImg(categInfo.getOriginalImg(),holder.mImageView);
     }

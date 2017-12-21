@@ -124,7 +124,7 @@ public class HomeBillGridViewAdapter extends BaseAdapter implements View.OnClick
                     @Override
                     public void onClick(View v) {
                         SXUtils.getInstance(context).tipDialog.dismiss();
-                        SXUtils.getInstance(context).AddDelBill(0,categInfo.getGoodsCode(),null);
+//                        SXUtils.getInstance(context).AddDelBill(0,categInfo.getGoodsCode(),null);
                     }
                 });
 

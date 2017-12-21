@@ -475,10 +475,10 @@ public class GoodsDetailActivity extends BaseActivity implements ObservableScrol
                 //删除或者添加到常用清单
                 if(goodsdetail.getIsCommonGoos().equals("1")){
                     setBill = "0";
-                    SXUtils.getInstance(activity).AddDelBill(0,goodsdetail.getGoodsCode(),hand);
+//                    SXUtils.getInstance(activity).AddDelBill(0,goodsdetail.getGoodsCode(),hand);
                 }else{
                     setBill = "1";
-                    SXUtils.getInstance(activity).AddDelBill(1,goodsdetail.getGoodsCode(),hand);
+//                    SXUtils.getInstance(activity).AddDelBill(1,goodsdetail.getGoodsCode(),hand);
                 }
                 break;
         }

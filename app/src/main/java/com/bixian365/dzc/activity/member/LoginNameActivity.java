@@ -44,9 +44,8 @@ public class LoginNameActivity extends Activity implements View.OnClickListener 
         initView();
         String phone = loginAccPhoneEdt.getText().toString();
         String psd = loginAccPsdEdt.getText().toString();
-//        SXUtils.showMyProgressDialog(activity,false);
-//                psdLoginHttp(phone,psd);
-//        SXUtils.getInstance(activity).psdLoginHttp(hand,phone,psd);
+        SXUtils.showMyProgressDialog(activity,false);
+        SXUtils.getInstance(activity).psdLoginHttp(hand,phone,psd);
     }
     private void initView(){
         setTitle(getString(R.string.login_str));

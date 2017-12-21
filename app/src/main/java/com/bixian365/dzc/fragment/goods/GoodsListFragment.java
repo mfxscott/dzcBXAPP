@@ -136,9 +136,9 @@ public class GoodsListFragment extends AppCompatActivity{
                         }
 //                        noDataLin.setVisibility(View.GONE);
                         if(billlist.size() >9){
-                            mSwipyRefreshLayout.setDirection(SwipyRefreshLayoutDirection.BOTH);
+                            padmSwipyRefreshLayout.setDirection(SwipyRefreshLayoutDirection.BOTH);
                         }else{
-                            mSwipyRefreshLayout.setDirection(SwipyRefreshLayoutDirection.TOP);
+                            padmSwipyRefreshLayout.setDirection(SwipyRefreshLayoutDirection.TOP);
                         }
                         padinitViewPager(billlist);
                         break;
@@ -148,8 +148,8 @@ public class GoodsListFragment extends AppCompatActivity{
 //                        noDataLin.setVisibility(View.VISIBLE);
                         break;
                 }
-                if(mSwipyRefreshLayout != null){
-                    mSwipyRefreshLayout.setRefreshing(false);
+                if(padmSwipyRefreshLayout != null){
+                    padmSwipyRefreshLayout.setRefreshing(false);
                 }
                 SXUtils.DialogDismiss();
                 return true;

@@ -14,6 +14,7 @@ import android.os.Message;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -183,7 +184,7 @@ public class PadCarFragment extends Activity implements View.OnClickListener{
         getData(typeIndexPage);
 //        new TimeThread().start();
 //        new UartReadThread().start();
-        UartControlNative.initUartNative("/dev/ttyS4",9600);
+//        UartControlNative.initUartNative("/dev/ttyS4",9600);
         //去掉虚拟按键全屏显示
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
 //        return view;
@@ -263,6 +264,9 @@ public class PadCarFragment extends Activity implements View.OnClickListener{
                         recyclerView.setAdapter(simpAdapter);
                         goodsNumberTv.setText(AppClient.padCarGoodsList.size()+"件");
                         totalPriceTv.setText(simpAdapter.getPadCarTotalMoney()+"元");
+                        break;
+                    case AppClient.HANDLERLOCK:
+                        LockDialog.dismiss();
                         break;
                     case AppClient.ERRORCODE:
                         String str = (String) msg.obj;
@@ -761,11 +765,12 @@ public class PadCarFragment extends Activity implements View.OnClickListener{
                 .setNegativeButton("取消", null)
                 .show();
     }
+     Dialog LockDialog;
     /**
      * 用户锁屏幕操作
      */
     public void LockDailog() {
-        final Dialog LockDialog = new AlertDialog.Builder(activity).create();
+        LockDialog = new AlertDialog.Builder(activity).create();
         LockDialog.show();
         LockDialog.setCancelable(false);
         LockDialog.setCanceledOnTouchOutside(false);
@@ -787,8 +792,13 @@ public class PadCarFragment extends Activity implements View.OnClickListener{
         unlockTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LockDialog.dismiss();
                 String  psd = inputedt.getText().toString();
+                if(TextUtils.isEmpty(psd)){
+                    SXUtils.getInstance(activity).ToastCenter("请输入解锁密码");
+                    return;
+                }
+                SXUtils.showMyProgressDialog(activity,false);
+                SXUtils.getInstance(activity).Unlock(hand,psd);
             }
         });
     }

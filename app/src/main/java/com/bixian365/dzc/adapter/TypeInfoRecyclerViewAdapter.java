@@ -149,8 +149,6 @@ public  class TypeInfoRecyclerViewAdapter
             holder.carNum.setVisibility(View.VISIBLE);
             holder.carNum.setText(skuNum+"");
         }
-
-
         holder.recyclerView.setLayoutManager(new LinearLayoutManager(holder.recyclerView.getContext()));
         holder.recyclerView.setItemAnimator(new DefaultItemAnimator());
         GoodsRecyclerViewAdapter simpAdapter;
@@ -210,8 +208,6 @@ public  class TypeInfoRecyclerViewAdapter
             @Override
             public void onClick(View v) {
                 SXUtils.getInstance(context).addGetGoodsType(mValues.get(position).getChirdren().get(0).getSkuBarcode());
-
-
 //                if(searchView != null){
 //                    callback = new MyFoodActionCallback((Activity) context,searchView,mValues.get(position).getChirdren().get(0).getSkuBarcode());
 //                }else{
@@ -252,16 +248,8 @@ public  class TypeInfoRecyclerViewAdapter
                 }
                 notifyDataSetChanged();
                 EventBus.getDefault().post(new MessageEvent(AppClient.EVENT100026,"refgoods"));
-
             }
         });
-
-
-
-
-
-
-
         if(!TextUtils.isEmpty(tag)){
             if(TextUtils.isEmpty(AppClient.USER_SESSION) || TextUtils.isEmpty(AppClient.USER_ID)) {
                 holder.delImageView.setVisibility(View.GONE);
@@ -276,7 +264,7 @@ public  class TypeInfoRecyclerViewAdapter
                         @Override
                         public void onClick(View v) {
                             SXUtils.getInstance(context).tipDialog.dismiss();
-                            SXUtils.getInstance(holder.delImageView.getContext()).AddDelBill(0,goodsdetail.getGoodsCode(),null);
+                            SXUtils.getInstance(holder.delImageView.getContext()).AddDelBill(mValues.get(position).getChirdren().get(0).getSkuBarcode());
                         }
                     });
                 }
