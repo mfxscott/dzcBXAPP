@@ -253,7 +253,6 @@ public class PadCarFragment extends Activity implements View.OnClickListener{
                     case 1000:
                         Typelist = (List<PadGoodsTypeGoodsEntity>) msg.obj;
                         if(Typelist.size()>0){
-                            Logs.i(Typelist.size()+"===========");
                             initTypeData(Typelist);
                         }else{
                             SXUtils.getInstance(activity).ToastCenter("未查询到数据");
@@ -663,6 +662,7 @@ public class PadCarFragment extends Activity implements View.OnClickListener{
                 break;
 
             case R.id.pad_car_goods_last_step:
+
                 break;
             case R.id.pad_car_goods_next:
                 break;
