@@ -5,6 +5,16 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+
     <RelativeLayout
         android:visibility="gone"
         android:background="@color/white"
@@ -158,7 +168,7 @@
                 android:layout_marginBottom="10dp"
                 android:id="@+id/goods_xTablayout"
                 android:layout_width="match_parent"
-                android:layout_height="35dp"
+                android:layout_height="40dp"
                 android:layout_gravity="start"
                 app:xTabMode="scrollable"
                 app:xTabIndicatorColor="@color/qblue"
@@ -306,12 +316,12 @@
                             android:layout_marginBottom="10dp"
                             android:id="@+id/pad_bill_xTablayout"
                             android:layout_width="match_parent"
-                            android:layout_height="35dp"
+                            android:layout_height="40dp"
                             android:layout_gravity="start"
                             app:xTabMode="scrollable"
                             app:xTabIndicatorColor="@color/qblue"
                             app:xTabIndicatorHeight="2dp"
-                            app:xTabIndicatorWidth="60dp"
+                            app:xTabIndicatorWidth="100dp"
                             app:xTabSelectedTextColor="@color/qblue"
                             app:xTabTextColor="@color/col_888"
                             app:xTabTextSize="@dimen/ac_text_size_16"
@@ -404,4 +414,6 @@
             android:textSize="@dimen/ac_text_size_18"
             android:textStyle="bold" />
     </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

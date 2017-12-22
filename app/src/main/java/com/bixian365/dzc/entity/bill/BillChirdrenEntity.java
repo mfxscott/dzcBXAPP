@@ -5,10 +5,19 @@ package com.bixian365.dzc.entity.bill;
  */
 
 public class BillChirdrenEntity{
+    private String id;
     private String  goodsModel;
     private String  marketPrice;
     private String  shopPrice;
     private String  skuBarcode;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getGoodsModel() {
         return goodsModel;

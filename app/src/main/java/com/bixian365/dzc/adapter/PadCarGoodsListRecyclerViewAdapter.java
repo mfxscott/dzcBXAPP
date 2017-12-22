@@ -2,6 +2,7 @@ package com.bixian365.dzc.adapter;
 
 import android.app.Activity;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,8 +17,12 @@ import com.bixian365.dzc.utils.SXUtils;
 import com.bixian365.dzc.utils.httpClient.AppClient;
 
 import org.greenrobot.eventbus.EventBus;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -159,8 +164,45 @@ public  class PadCarGoodsListRecyclerViewAdapter
         }
         return SXUtils.getInstance(activity).getFloatPrice(priceTotal)+"";
     }
+    /**
+     * 获取购物车内商品总数量
+     * @return
+     */
+    public String getPadCarTotalNumber(){
+        if(AppClient.padCarGoodsList.size()<1){
+            return "0";
+        }
+        float priceTotal = 0;
+        for(int i = 0; i< AppClient.padCarGoodsList.size(); i++){
+            priceTotal += Integer.parseInt(AppClient.padCarGoodsList.get(i).getQuantity());
+        }
+        return priceTotal+"";
+    }
     public void notifyDataSetChangedSetCarTotalPrice(){
         notifyDataSetChanged();
         EventBus.getDefault().post(new MessageEvent(AppClient.PADEVENT00001,getPadCarTotalMoney()+""));
+    }
+
+    /**
+     * 获取购物车商品详细信息
+     * @return
+     */
+    public JSONArray getSkuList(){
+        JSONArray jsonArray = new JSONArray();
+        for(int i=0;i<AppClient.padCarGoodsList.size();i++){
+                JSONObject jsonObjct = new JSONObject();
+                try {
+                    jsonObjct.put("skuNumber",AppClient.padCarGoodsList.get(i).getQuantity());
+                    jsonObjct.put("shopPrice",AppClient.padCarGoodsList.get(i).getSkuPrice());
+                    jsonObjct.put("skuBarcode",AppClient.padCarGoodsList.get(i).getSkuBarcode());
+                    jsonObjct.put("skuWeight","66");
+                    jsonObjct.put("amount",Float.parseFloat(AppClient.padCarGoodsList.get(i).getSkuPrice())
+                            *Float.parseFloat(AppClient.padCarGoodsList.get(i).getQuantity())+"");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                jsonArray.put(jsonObjct);
+            }
+        return jsonArray;
     }
 }

@@ -23,6 +23,10 @@ public class AppClient{
     public static final  int PADEVENT00003 =00003;//实时当前更新时间
     public static  String  SELECTSALE="svc.select.sale.commonly";//查询销售清单
     public static  String PAYORDER= "svc.settlement.commonly";//结算订单
+    public static  String UPDATEGOODS= "svc.update.sale.commonly";//修改商品数据
+    public static   String UNLOCK="svc.unlock";//解锁
+    public static  String  ADDSALE="svc.add.sale.commonly";//添加商品只销售清单
+
     public static final  int HANDLERLOCK = 100001;//解锁密码
 
 

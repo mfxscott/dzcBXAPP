@@ -182,7 +182,7 @@ public class PadCarFragment extends Activity implements View.OnClickListener{
         EventBus.getDefault().register(this);
         initView();
         getData(typeIndexPage);
-//        new TimeThread().start();
+        new TimeThread().start();
 //        new UartReadThread().start();
 //        UartControlNative.initUartNative("/dev/ttyS4",9600);
         //去掉虚拟按键全屏显示
@@ -227,7 +227,7 @@ public class PadCarFragment extends Activity implements View.OnClickListener{
         initHandler();
         simpAdapter = new PadCarGoodsListRecyclerViewAdapter(activity,AppClient.padCarGoodsList);
         recyclerView.setAdapter(simpAdapter);
-        goodsNumberTv.setText(AppClient.padCarGoodsList.size()+"件");
+        goodsNumberTv.setText(simpAdapter.getPadCarTotalNumber()+"件");
         totalPriceTv.setText(simpAdapter.getPadCarTotalMoney()+"元");
 //        steData();
     }
@@ -261,11 +261,16 @@ public class PadCarFragment extends Activity implements View.OnClickListener{
                     case 1009:
                         simpAdapter = new PadCarGoodsListRecyclerViewAdapter(activity,AppClient.padCarGoodsList);
                         recyclerView.setAdapter(simpAdapter);
-                        goodsNumberTv.setText(AppClient.padCarGoodsList.size()+"件");
+                        goodsNumberTv.setText(simpAdapter.getPadCarTotalNumber()+"件");
                         totalPriceTv.setText(simpAdapter.getPadCarTotalMoney()+"元");
                         break;
                     case AppClient.HANDLERLOCK:
-                        LockDialog.dismiss();
+                        if(LockDialog != null)
+                            LockDialog.dismiss();
+                        break;
+                    case 10002:
+                        simpAdapter.clearCar();
+                        SXUtils.getInstance(activity).ToastCenter("订单结算成功，请扫码支付");
                         break;
                     case AppClient.ERRORCODE:
                         String str = (String) msg.obj;
@@ -368,7 +373,7 @@ public class PadCarFragment extends Activity implements View.OnClickListener{
     public void onMoonEvent(MessageEvent messageEvent) {
         //发货和确认采购订单成功，刷新列表
         if (messageEvent.getTag() == AppClient.PADEVENT00001) {
-            goodsNumberTv.setText(AppClient.padCarGoodsList.size()+"件");
+            goodsNumberTv.setText(simpAdapter.getPadCarTotalNumber()+"件");
             totalPriceTv.setText(simpAdapter.getPadCarTotalMoney()+"元");
         }else if(messageEvent.getTag() == AppClient.PADEVENT00002){
             nowTimeTv.setText(SXUtils.getInstance(activity).GetNowDateTime()+"");
@@ -564,7 +569,18 @@ public class PadCarFragment extends Activity implements View.OnClickListener{
                 startActivity(intent);
                 break;
             case R.id.pad_car_topay_btn:
-                SXUtils.getInstance(activity).UpdateConfrimDialogViews(activity,"支付结果");
+                goodsNumberTv.setText(AppClient.padCarGoodsList.size()+"件");
+                totalPriceTv.setText(simpAdapter.getPadCarTotalMoney()+"元");
+               if(AppClient.padCarGoodsList.size()>0){
+                SXUtils.getInstance(activity).GoPay(hand,
+                        simpAdapter.getPadCarTotalNumber()+"",
+                        simpAdapter.getPadCarTotalMoney(),
+                        "1",
+                        "1",
+                        simpAdapter.getSkuList());
+               }else{
+                  SXUtils.getInstance(activity).ToastCenter("请添加商品进行结账");
+               }
                 break;
             case R.id.pad_car_type1:
                 typeBtnPosion = 0;
@@ -672,31 +688,19 @@ public class PadCarFragment extends Activity implements View.OnClickListener{
     }
     private static OutputStream outputStream = null;
     public void send(String sendData) {
-            System.out.println("开始打印！！");
-            try {
-                byte[] data = sendData.getBytes("UTF-8");
-                UartControlNative.uartSendMessageNative(data);
+        System.out.println("开始打印！！");
+        try {
+            byte[] data = sendData.getBytes("UTF-8");
+            UartControlNative.uartSendMessageNative(data);
 //                outputStream.write(data, 0, data.length);
 //                outputStream.flush();
-            } catch (IOException e) {
-            }
+        } catch (IOException e) {
         }
+    }
 
 
 
     private void  addCarGoods(){
-//       private String discountAmount;
-//       private String goodsImage;
-//       private String goodsModel;
-//       private String goodsName;
-//       private String isValid;
-//       private String quantity;
-//       private String skuBarcode;
-//       private String skuPrice;
-//       private String subTotal;
-//       private String goodsCode;
-//       private String goodsId;
-//       private String isChecked;
         try {
             GoodsInfoEntity  goodsinfo = Typelist.get(typeBtnPosion).getCategoryList().get(goodsBtnPosion);
             ShoppingCartLinesEntity shoppingCartLinesEntity = new ShoppingCartLinesEntity();
@@ -704,6 +708,7 @@ public class PadCarFragment extends Activity implements View.OnClickListener{
             shoppingCartLinesEntity.setGoodsCode(goodsinfo.getGoodsCode()+"");
             shoppingCartLinesEntity.setGoodsName(goodsinfo.getGoodsName()+"");
             shoppingCartLinesEntity.setGoodsModel(goodsinfo.getGoodsUnit()+"");
+            shoppingCartLinesEntity.setSkuBarcode(goodsinfo.getChirdren().get(0).getSkuBarcode()+"");
             shoppingCartLinesEntity.setSkuPrice(goodsinfo.getChirdren().get(0).getShopPrice()+"");
             int posion = isExistGoods(goodsinfo.getGoodsCode());
             if (posion > -1) {
@@ -715,10 +720,7 @@ public class PadCarFragment extends Activity implements View.OnClickListener{
         }catch (Exception e){
             return;
         }
-//        simpAdapter = new PadCarGoodsListRecyclerViewAdapter(activity,AppClient.padCarGoodsList);
-//        recyclerView.setAdapter(simpAdapter);
         simpAdapter.notifyDataSetChangedSetCarTotalPrice();
-//        simpAdapter.notifyDataSetChanged();
     }
     /**
      *
@@ -746,6 +748,8 @@ public class PadCarFragment extends Activity implements View.OnClickListener{
             return;
         }
         View convertView = LayoutInflater.from(activity).inflate(R.layout.pad_car_update_value_dialog, null);
+        TextView  titleTV = (TextView) convertView.findViewById(R.id.pad_car_update_dialog_title);
+        titleTV.setText(title);
         final EditText et = (EditText) convertView.findViewById(R.id.pad_car_update_dialog_edt);
         new AlertDialog.Builder(activity)
 //                .setTitle(title+"")
@@ -765,7 +769,7 @@ public class PadCarFragment extends Activity implements View.OnClickListener{
                 .setNegativeButton("取消", null)
                 .show();
     }
-     Dialog LockDialog;
+    Dialog LockDialog;
     /**
      * 用户锁屏幕操作
      */

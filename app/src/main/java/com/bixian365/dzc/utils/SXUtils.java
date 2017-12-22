@@ -54,6 +54,7 @@ import com.lzy.okhttputils.model.HttpHeaders;
 import com.lzy.okhttputils.model.HttpParams;
 
 import org.greenrobot.eventbus.EventBus;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -1538,7 +1539,7 @@ public class SXUtils {
     public void addGetGoodsType(String skuBarcode) {
         HttpParams httpParams = new HttpParams();
         httpParams.put("skuBarcode",skuBarcode+"");
-        HttpUtils.getInstance(mContext).requestPost(false,"svc.add.sale.commonly", httpParams, new HttpUtils.requestCallBack() {
+        HttpUtils.getInstance(mContext).requestPost(false,AppClient.ADDSALE, httpParams, new HttpUtils.requestCallBack() {
             @Override
             public void onResponse(Object jsonObject) {
                 EventBus.getDefault().post(new MessageEvent(PADEVENT00003,"goodslist"));
@@ -1556,7 +1557,7 @@ public class SXUtils {
     public void Unlock(final Handler handler,String psd) {
         HttpParams httpParams = new HttpParams();
         httpParams.put("password",psd+"");
-        HttpUtils.getInstance(mContext).requestPost(false,"svc.unlock", httpParams, new HttpUtils.requestCallBack() {
+        HttpUtils.getInstance(mContext).requestPost(false,AppClient.UNLOCK, httpParams, new HttpUtils.requestCallBack() {
             @Override
             public void onResponse(Object jsonObject) {
                 Message msg = new Message();
@@ -1570,6 +1571,116 @@ public class SXUtils {
                 msg.what = AppClient.ERRORCODE;
                 msg.obj = "密码错误，请重新输入";
                 handler.sendMessage(msg);
+            }
+        });
+    }
+
+    /**
+     * 结算订单
+     * @param handler
+     * @param totalNumber 总的商品数量
+     * @param totalAmount 总的商品金额
+     * @param totalWeight  总商品总量
+     * @param elecScale  电子秤重量
+     * @param jsonArray  单个商品数组
+     */
+    public void GoPay(final Handler handler,String totalNumber,String totalAmount,String totalWeight,String elecScale,JSONArray jsonArray) {
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("skuNumber",totalNumber+"");
+            jsonObject.put("totalAmount",totalAmount+"");
+            jsonObject.put("elecScale",elecScale+"");//电子秤重量
+            jsonObject.put("toalWeight",totalWeight+"");//总重量
+            jsonObject.put("settlementLines",jsonArray);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+//        JSONArray  jsonArray=null;
+//        try {
+//          jsonArray = new JSONArray();
+//        JSONObject jsonObject = new JSONObject();
+//            jsonObject.put("skuBarcode","1");
+//            jsonObject.put("shopPrice","1");
+//            jsonObject.put("amount","1");
+//            jsonObject.put("skuWeight","1");
+//            jsonObject.put("skuNumber","1");
+//            jsonArray.put(jsonObject);
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
+        HttpUtils.getInstance(mContext).requestStringPost(false,AppClient.PAYORDER, jsonObject.toString(), new HttpUtils.requestCallBack() {
+            @Override
+            public void onResponse(Object jsonObject) {
+                Message msg = new Message();
+                msg.what = 10002;
+                msg.obj = "";
+                handler.sendMessage(msg);
+            }
+            @Override
+            public void onResponseError(String strError) {
+                Message msg = new Message();
+                msg.what = AppClient.ERRORCODE;
+                msg.obj = strError+"";
+                handler.sendMessage(msg);
+            }
+        });
+    }
+    Dialog updateDialog;
+
+    /**
+     * 修改商品信息
+     */
+    public void UpdateGoodsDialog(final Context activity,final String skuCode) {
+        updateDialog = new AlertDialog.Builder(activity).create();
+        updateDialog.show();
+        updateDialog.setCancelable(true);
+        updateDialog.setCanceledOnTouchOutside(false);
+        Window window = updateDialog.getWindow();
+        window.setContentView(R.layout.pad_goods_update_value_dialog);
+        TextView cancelTv = (TextView) window.findViewById(R.id.pad_sale_cancel_tv);
+        TextView updateTv = (TextView) window.findViewById(R.id.pad_sale_update_tv);
+       final EditText   goodsName = (EditText) window.findViewById(R.id.pad_sale_update_goodsname_edt);
+        final  EditText   goodsPrice = (EditText) window.findViewById(R.id.pad_sale_update_goodsprice_edt);
+        cancelTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                Intent intent = new Intent(mContext, LoginNameActivity.class);
+//                startActivity(intent);
+//                activity.finish();
+////                System.exit(0);
+
+            }
+        });
+        updateTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String  goodsNameStr = goodsName.getText().toString();
+                String  goodsPriceStr = goodsPrice.getText().toString();
+                if(TextUtils.isEmpty(goodsNameStr) || TextUtils.isEmpty(goodsPriceStr)){
+                   ToastCenter("请输入修改信息");
+                   return;
+                }
+                SXUtils.showMyProgressDialog(activity,false);
+                updateGoodsHttp(skuCode+"",goodsNameStr+"",goodsPriceStr+"");
+            }
+        });
+    }
+    /**
+     * 修改销售商品
+     */
+    public void updateGoodsHttp(String skuBarcode,String goodsName,String shopPrice) {
+        HttpParams httpParams = new HttpParams();
+        httpParams.put("skuBarcode",skuBarcode+"");
+        httpParams.put("goodsName",goodsName+"");
+        httpParams.put("shopPrice",shopPrice+"");
+        HttpUtils.getInstance(mContext).requestPost(false,AppClient.UPDATEGOODS, httpParams, new HttpUtils.requestCallBack() {
+            @Override
+            public void onResponse(Object jsonObject) {
+                EventBus.getDefault().post(new MessageEvent(PADEVENT00003,"goodslist"));
+            }
+            @Override
+            public void onResponseError(String strError) {
+
             }
         });
     }

@@ -1,6 +1,8 @@
 package com.bixian365.dzc.fragment.goods;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -9,11 +11,14 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.androidkun.xtablayout.XTabLayout;
 import com.bixian365.dzc.R;
@@ -107,10 +112,10 @@ public class GoodsListFragment extends AppCompatActivity{
             @Override
             public void onRefresh(SwipyRefreshLayoutDirection direction) {
                 if(direction == SwipyRefreshLayoutDirection.TOP){
-                    indexPage = 0;
+                    padindexPage = 0;
                     initBillData();
                 }else{
-                    indexPage ++;
+                    padindexPage ++;
                     initBillData();
 //                    HttpLiveSp(indexPage);
                 }
@@ -126,11 +131,11 @@ public class GoodsListFragment extends AppCompatActivity{
                         billlist = (List<BillDataSetEntity>) msg.obj;
                         if(billlist == null || billlist.size()<=0) {
 //                            noDataLin.setVisibility(View.VISIBLE);
-                            if(tabLayout != null)
-                                tabLayout.removeAllTabs();
+                            if(padtabLayout != null)
+                                padtabLayout.removeAllTabs();
                             if(billlist.size()<1){
                                 billlist.clear();
-                                recyclerView.setAdapter(null);
+                                padrecyclerView.setAdapter(null);
                             }
                             break;
                         }
@@ -302,7 +307,6 @@ public class GoodsListFragment extends AppCompatActivity{
         for(int i=0;i<billList.size();i++){
             padtabLayout.addTab(padtabLayout.newTab().setText(billList.get(i).getCategoryName()));
         }
-
         padsimpAdapter = new TypeInfoRecyclerViewAdapter(activity,billList.get(0).getCategoryList(),"1");
         padrecyclerView.setAdapter(padsimpAdapter);
         padtabLayout.setOnTabSelectedListener(new XTabLayout.OnTabSelectedListener() {
@@ -494,7 +498,7 @@ public class GoodsListFragment extends AppCompatActivity{
                 Message msg = new Message();
                 msg.what = AppClient.ERRORCODE;
                 msg.obj = strError;
-                hand.sendMessage(msg);
+                padhand.sendMessage(msg);
             }
         });
     }

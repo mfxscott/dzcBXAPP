@@ -1,6 +1,8 @@
 package com.bixian365.dzc.adapter;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,9 +12,11 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bixian365.dzc.R;
 import com.bixian365.dzc.entity.FoodActionCallback;
@@ -168,6 +172,7 @@ public  class TypeInfoRecyclerViewAdapter
         if(goodsdetail.getChirdren().size()>1){
             holder.typeadd1.setVisibility(View.GONE);
             holder.modeTView.setVisibility(View.VISIBLE);
+            //不等于空  未销售列表
             if(!TextUtils.isEmpty(tag)){
                 holder.lineTv.setVisibility(View.VISIBLE);
             }else{
@@ -196,38 +201,14 @@ public  class TypeInfoRecyclerViewAdapter
 //                removeData(position);
             }
         });
-//        holder.mView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent( holder.mView.getContext(), GoodsDetailActivity.class);
-//                intent.putExtra("cno",mValues.get(position).getId());
-//                holder.mView.getContext().startActivity(intent);
-//            }
-//        });
         holder.typeadd1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SXUtils.getInstance(context).addGetGoodsType(mValues.get(position).getChirdren().get(0).getSkuBarcode());
-//                if(searchView != null){
-//                    callback = new MyFoodActionCallback((Activity) context,searchView,mValues.get(position).getChirdren().get(0).getSkuBarcode());
-//                }else{
-//                    callback = new MyFoodActionCallback((Activity) context,mValues.get(position).getChirdren().get(0).getSkuBarcode());
-//                }
-//                if(callback==null) return;
-//                callback.addAction(v);
-//                if(TextUtils.isEmpty(AppClient.USER_SESSION) || TextUtils.isEmpty(AppClient.USER_ID)){
-//                    return;
-//                }
-//                String skuNum = SXUtils.getInstance(context).CheckExistCar(goodsdetail.getChirdren().get(0).getSkuBarcode());
-//                if(!TextUtils.isEmpty(skuNum)){
-//                    if(Integer.parseInt(skuNum)>=1) {
-//                        AppClient.carSKUNumMap.put(goodsdetail.getChirdren().get(0).getSkuBarcode(), (Integer.parseInt(skuNum) + 1) + "");
-//                    }
-//                }else{
-//                    AppClient.carSKUNumMap.put(goodsdetail.getChirdren().get(0).getSkuBarcode(), "1");
-//                }
-//                notifyDataSetChanged();
-//                EventBus.getDefault().post(new MessageEvent(AppClient.EVENT100026,"refgoods"));
+                if(!TextUtils.isEmpty(tag)){
+                    SXUtils.getInstance(context).UpdateGoodsDialog(context,mValues.get(position).getChirdren().get(0).getSkuBarcode());
+                }else{
+                    SXUtils.getInstance(context).addGetGoodsType(mValues.get(position).getChirdren().get(0).getSkuBarcode());
+                }
 
             }
         });
@@ -264,7 +245,7 @@ public  class TypeInfoRecyclerViewAdapter
                         @Override
                         public void onClick(View v) {
                             SXUtils.getInstance(context).tipDialog.dismiss();
-                            SXUtils.getInstance(holder.delImageView.getContext()).AddDelBill(mValues.get(position).getChirdren().get(0).getSkuBarcode());
+                            SXUtils.getInstance(holder.delImageView.getContext()).AddDelBill(mValues.get(position).getChirdren().get(0).getId());
                         }
                     });
                 }
@@ -291,5 +272,6 @@ public  class TypeInfoRecyclerViewAdapter
         mValues.remove(position);
         notifyItemRemoved(position);
     }
+
 
 }
