@@ -24,6 +24,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -822,9 +823,6 @@ public class SXUtils {
      * @return
      */
     public String priceTwoNum(String price){
-        if(price.indexOf(".") == -1){
-            return "";
-        }
         try {
             if(!TextUtils.isEmpty(price)){
                 DecimalFormat decimalFormat=new DecimalFormat(".00");//构造方法的字符格式这里如果小数不足2位,会以0补足.
@@ -1574,7 +1572,6 @@ public class SXUtils {
             }
         });
     }
-
     /**
      * 结算订单
      * @param handler
@@ -1635,7 +1632,12 @@ public class SXUtils {
         updateDialog.show();
         updateDialog.setCancelable(true);
         updateDialog.setCanceledOnTouchOutside(false);
+        //只用下面这一行弹出对话框时需要点击输入框才能弹出软键盘
+//加上下面这一行弹出对话框时软键盘随之弹出
         Window window = updateDialog.getWindow();
+        window.clearFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+
         window.setContentView(R.layout.pad_goods_update_value_dialog);
         TextView cancelTv = (TextView) window.findViewById(R.id.pad_sale_cancel_tv);
         TextView updateTv = (TextView) window.findViewById(R.id.pad_sale_update_tv);
@@ -1644,6 +1646,7 @@ public class SXUtils {
         cancelTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                updateDialog.dismiss();
 //                Intent intent = new Intent(mContext, LoginNameActivity.class);
 //                startActivity(intent);
 //                activity.finish();

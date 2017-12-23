@@ -1,8 +1,6 @@
 package com.bixian365.dzc.fragment.goods;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -11,14 +9,11 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.androidkun.xtablayout.XTabLayout;
 import com.bixian365.dzc.R;
@@ -59,7 +54,7 @@ import static com.bixian365.dzc.utils.SXUtils.dialog;
  * @author mfx
  * ***************************
  */
-public class GoodsListFragment extends AppCompatActivity{
+public class GoodsListFragment extends AppCompatActivity {
     private Activity activity;
     private GridView typeGridView;
     private RecyclerView recyclerView;
@@ -502,8 +497,6 @@ public class GoodsListFragment extends AppCompatActivity{
             }
         });
     }
-
-
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMoonEvent(MessageEvent messageEvent) {
         if (messageEvent.getTag() == AppClient.EVENT100026) {
@@ -515,6 +508,8 @@ public class GoodsListFragment extends AppCompatActivity{
             initBillData();
         }
     }
+
+
     class TimeThread extends Thread {
         @Override
         public void run() {
@@ -532,6 +527,7 @@ public class GoodsListFragment extends AppCompatActivity{
     public void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
+//        stopUartReadThread();
     }
 
 }

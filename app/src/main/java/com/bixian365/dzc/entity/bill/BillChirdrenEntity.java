@@ -10,6 +10,15 @@ public class BillChirdrenEntity{
     private String  marketPrice;
     private String  shopPrice;
     private String  skuBarcode;
+    private String goodsWeight;
+
+    public String getGoodsWeight() {
+        return goodsWeight;
+    }
+
+    public void setGoodsWeight(String goodsWeight) {
+        this.goodsWeight = goodsWeight;
+    }
 
     public String getId() {
         return id;

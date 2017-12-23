@@ -18,13 +18,19 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.zy.uart.UartControlNative;
+import com.android.scale.uart.IReadDataListener;
+import com.android.scale.uart.PrintUtils;
+import com.android.scale.uart.UartOptNative;
+import com.android.scale.uart.UartReadThread;
+import com.android.scale.uart.Utils;
+import com.android.scale.uart.ZhilingTest;
 import com.bixian365.dzc.R;
 import com.bixian365.dzc.activity.member.LoginNameActivity;
 import com.bixian365.dzc.adapter.PadCarGoodsListRecyclerViewAdapter;
@@ -47,8 +53,8 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.io.IOException;
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import butterknife.BindView;
@@ -58,7 +64,7 @@ import butterknife.OnClick;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class PadCarFragment extends Activity implements View.OnClickListener{
+public class PadCarFragment extends Activity implements IReadDataListener, View.OnClickListener{
     private RecyclerView recyclerView;
     private SwipyRefreshLayout mSwipyRefreshLayout;
     private Activity activity;
@@ -170,12 +176,21 @@ public class PadCarFragment extends Activity implements View.OnClickListener{
     TextView goodsPriceTv9;
     @BindView(R.id.pad_car_goodsprice10)
     TextView goodsPriceTv10;
+    @BindView(R.id.pad_car_clear_0)
+    Button  clear0;//清除为0
+    @BindView(R.id.pad_car_qp_btn)
+    Button  qpBtn;//去皮
     private Intent intentService;//双屏幕显示
+        @BindView(R.id.pad_car_weight_tv)
+    TextView  weightTv;//电子秤称重重量
+//    @BindView(R.id.pad_car_bd_btn)
+    TextView  bd;//标定核准打印机
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_pad_car);
         activity = this;
+//        weightTv = (TextView) findViewById(R.id.pad_car_weight_tv);
         intentService = new Intent(activity,XHShowService.class);
         startService(intentService);
         ButterKnife.bind(activity);
@@ -185,6 +200,11 @@ public class PadCarFragment extends Activity implements View.OnClickListener{
         new TimeThread().start();
 //        new UartReadThread().start();
 //        UartControlNative.initUartNative("/dev/ttyS4",9600);
+        bd = (TextView) findViewById(R.id.pad_car_bd_btn);
+        clear0.setOnClickListener(this);
+        qpBtn.setOnClickListener(this);
+        bd.setOnClickListener(this);
+        initUart();
         //去掉虚拟按键全屏显示
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
 //        return view;
@@ -227,7 +247,7 @@ public class PadCarFragment extends Activity implements View.OnClickListener{
         initHandler();
         simpAdapter = new PadCarGoodsListRecyclerViewAdapter(activity,AppClient.padCarGoodsList);
         recyclerView.setAdapter(simpAdapter);
-        goodsNumberTv.setText(simpAdapter.getPadCarTotalNumber()+"件");
+        goodsNumberTv.setText(AppClient.padCarGoodsList.size()+"件");
         totalPriceTv.setText(simpAdapter.getPadCarTotalMoney()+"元");
 //        steData();
     }
@@ -261,7 +281,7 @@ public class PadCarFragment extends Activity implements View.OnClickListener{
                     case 1009:
                         simpAdapter = new PadCarGoodsListRecyclerViewAdapter(activity,AppClient.padCarGoodsList);
                         recyclerView.setAdapter(simpAdapter);
-                        goodsNumberTv.setText(simpAdapter.getPadCarTotalNumber()+"件");
+                        goodsNumberTv.setText(AppClient.padCarGoodsList.size()+"件");
                         totalPriceTv.setText(simpAdapter.getPadCarTotalMoney()+"元");
                         break;
                     case AppClient.HANDLERLOCK:
@@ -271,6 +291,10 @@ public class PadCarFragment extends Activity implements View.OnClickListener{
                     case 10002:
                         simpAdapter.clearCar();
                         SXUtils.getInstance(activity).ToastCenter("订单结算成功，请扫码支付");
+                        break;
+                    case 000022:
+                        String strweight = (String) msg.obj;
+                        weightTv.setText(strweight);
                         break;
                     case AppClient.ERRORCODE:
                         String str = (String) msg.obj;
@@ -373,7 +397,7 @@ public class PadCarFragment extends Activity implements View.OnClickListener{
     public void onMoonEvent(MessageEvent messageEvent) {
         //发货和确认采购订单成功，刷新列表
         if (messageEvent.getTag() == AppClient.PADEVENT00001) {
-            goodsNumberTv.setText(simpAdapter.getPadCarTotalNumber()+"件");
+            goodsNumberTv.setText(AppClient.padCarGoodsList.size()+"件");
             totalPriceTv.setText(simpAdapter.getPadCarTotalMoney()+"元");
         }else if(messageEvent.getTag() == AppClient.PADEVENT00002){
             nowTimeTv.setText(SXUtils.getInstance(activity).GetNowDateTime()+"");
@@ -569,18 +593,19 @@ public class PadCarFragment extends Activity implements View.OnClickListener{
                 startActivity(intent);
                 break;
             case R.id.pad_car_topay_btn:
-                goodsNumberTv.setText(AppClient.padCarGoodsList.size()+"件");
-                totalPriceTv.setText(simpAdapter.getPadCarTotalMoney()+"元");
-               if(AppClient.padCarGoodsList.size()>0){
-                SXUtils.getInstance(activity).GoPay(hand,
-                        simpAdapter.getPadCarTotalNumber()+"",
-                        simpAdapter.getPadCarTotalMoney(),
-                        "1",
-                        "1",
-                        simpAdapter.getSkuList());
-               }else{
-                  SXUtils.getInstance(activity).ToastCenter("请添加商品进行结账");
-               }
+                if(AppClient.padCarGoodsList.size()>0) {
+                    testPrint(AppClient.padCarGoodsList);
+                }
+//                if(AppClient.padCarGoodsList.size()>0){
+//                    SXUtils.getInstance(activity).GoPay(hand,
+//                            AppClient.padCarGoodsList.size()+"",
+//                            simpAdapter.getPadCarTotalMoney(),
+//                            simpAdapter.getPadCarTotalWeight(),
+//                            "18682136973",//电子秤重量 型号
+//                            simpAdapter.getSkuList());
+//                }else{
+//                    SXUtils.getInstance(activity).ToastCenter("请添加商品进行结账");
+//                }
                 break;
             case R.id.pad_car_type1:
                 typeBtnPosion = 0;
@@ -687,16 +712,16 @@ public class PadCarFragment extends Activity implements View.OnClickListener{
         }
     }
     private static OutputStream outputStream = null;
-    public void send(String sendData) {
-        System.out.println("开始打印！！");
-        try {
-            byte[] data = sendData.getBytes("UTF-8");
-            UartControlNative.uartSendMessageNative(data);
-//                outputStream.write(data, 0, data.length);
-//                outputStream.flush();
-        } catch (IOException e) {
-        }
-    }
+//    public void send(String sendData) {
+//        System.out.println("开始打印！！");
+//        try {
+//            byte[] data = sendData.getBytes("UTF-8");
+//            UartControlNative.uartSendMessageNative(data);
+////                outputStream.write(data, 0, data.length);
+////                outputStream.flush();
+//        } catch (IOException e) {
+//        }
+//    }
 
 
 
@@ -704,16 +729,26 @@ public class PadCarFragment extends Activity implements View.OnClickListener{
         try {
             GoodsInfoEntity  goodsinfo = Typelist.get(typeBtnPosion).getCategoryList().get(goodsBtnPosion);
             ShoppingCartLinesEntity shoppingCartLinesEntity = new ShoppingCartLinesEntity();
-            shoppingCartLinesEntity.setQuantity("1");
+            shoppingCartLinesEntity.setQuantity("");
+            shoppingCartLinesEntity.setGoodsWeight(goodsinfo.getChirdren().get(0).getGoodsWeight()+"");
             shoppingCartLinesEntity.setGoodsCode(goodsinfo.getGoodsCode()+"");
             shoppingCartLinesEntity.setGoodsName(goodsinfo.getGoodsName()+"");
-            shoppingCartLinesEntity.setGoodsModel(goodsinfo.getGoodsUnit()+"");
+            shoppingCartLinesEntity.setGoodsModel(goodsinfo.getChirdren().get(0).getGoodsModel()+"");
+            shoppingCartLinesEntity.setGoodsUnit(goodsinfo.getGoodsUnit()+"");
             shoppingCartLinesEntity.setSkuBarcode(goodsinfo.getChirdren().get(0).getSkuBarcode()+"");
             shoppingCartLinesEntity.setSkuPrice(goodsinfo.getChirdren().get(0).getShopPrice()+"");
             int posion = isExistGoods(goodsinfo.getGoodsCode());
             if (posion > -1) {
                 ShoppingCartLinesEntity shop = AppClient.padCarGoodsList.get(posion);
-                shop.setQuantity((Integer.parseInt(shop.getQuantity()) + 1) + "");
+//                if(!TextUtils.isEmpty(shop.getGoodsWeight())){
+//                    shop.setGoodsWeight(SXUtils.getInstance(activity).priceTwoNum(goodsinfo.getChirdren().get(0).getGoodsWeight()));
+//                }else{
+//                    float  strWeight = Float.parseFloat(shop.getGoodsWeight());
+//                    float  addprice = Float.parseFloat(goodsinfo.getChirdren().get(0).getGoodsWeight());
+//                }
+                float  exist = Float.parseFloat(shop.getGoodsWeight());
+                float   newStr = Float.parseFloat(goodsinfo.getChirdren().get(0).getGoodsWeight());
+                shop.setGoodsWeight(exist+newStr+"");
             } else{
                 AppClient.padCarGoodsList.add(shoppingCartLinesEntity);
             }
@@ -722,6 +757,7 @@ public class PadCarFragment extends Activity implements View.OnClickListener{
         }
         simpAdapter.notifyDataSetChangedSetCarTotalPrice();
     }
+
     /**
      *
      * @param goodsCode
@@ -779,6 +815,8 @@ public class PadCarFragment extends Activity implements View.OnClickListener{
         LockDialog.setCancelable(false);
         LockDialog.setCanceledOnTouchOutside(false);
         Window window = LockDialog.getWindow();
+        window.clearFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         window.setContentView(R.layout.pad_car_lock_dialog);
         final  EditText inputedt = (EditText) window.findViewById(R.id.pad_car_lock_input_psd_tv);
         TextView cancelTv = (TextView) window.findViewById(R.id.pad_car_lock_cancel_tv);
@@ -842,6 +880,7 @@ public class PadCarFragment extends Activity implements View.OnClickListener{
     public void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
+        stopUartReadThread();
     }
     @Override
     public void onClick(View view) {
@@ -886,6 +925,22 @@ public class PadCarFragment extends Activity implements View.OnClickListener{
                 goodsBtnPosion = 9;
                 addCarGoods();
                 break;
+            case R.id.pad_car_clear_0:
+                UartOptNative.uartSendMessageNative(scale_fb,ZhilingTest.ZL());
+                //置零按钮
+//                testPrint();
+                break;
+            case R.id.pad_car_qp_btn:
+                UartOptNative.uartSendMessageNative(scale_fb,ZhilingTest.QP());
+                //去皮
+                break;
+            case R.id.pad_car_bd_btn:
+                byte[]   senddata = ZhilingTest.PricbD();
+//                byte[] senddata = Utils.hexStringToBytes(SendString);
+////                串口发送十六进制，
+                //标定
+                UartOptNative.uartSendMessageNative(scale_fb,senddata);
+                break;
         }
     }
     class TimeThread extends Thread {
@@ -901,49 +956,178 @@ public class PadCarFragment extends Activity implements View.OnClickListener{
             } while (true);
         }
     }
-    class UartReadThread extends Thread {
-        private boolean isStart = false;
-        private StringBuilder builder = new StringBuilder();
-        private long sendTime = 0L;
+    private IReadDataListener listener;
+    private UartReadThread mUartReadThread;
+    private int scale_fb;
+    private int print_fb;
+    private Button button;
+    private PrintUtils print;
+    private void initUart() {
+        scale_fb = UartOptNative.openUartNative("/dev/ttyS1", 9600);
+        Logs.i("+++++++++++", "fb = " + scale_fb);
+        print_fb = UartOptNative.openUartNative("/dev/ttyS4", 9600);
+        Logs.i("+++++++++++", "fb = " + print_fb);
 
-
-        public void stopThread() {
-            isStart = false;
-            interrupt();
+        if (scale_fb > 0) {
+            startUartReadThread();
         }
+//        testPrint();
+    }
+    private void startUartReadThread() {
+        if (mUartReadThread == null) {
+            mUartReadThread = new UartReadThread(scale_fb);
+            mUartReadThread.setListener(this);
+            mUartReadThread.start();
+        }
+    }
+    private void stopUartReadThread() {
+        if (mUartReadThread != null) {
+            mUartReadThread.stopThread();
+            mUartReadThread = null;
+        }
+    }
+    private void testPrint(List<ShoppingCartLinesEntity> shopcarList) {
+        if (print_fb > 0) {
+            if (print == null) {
+                print = new PrintUtils(print_fb, "1");
+            }
+            try {
+                print.standardPrinterLine(SXUtils.getInstance(activity).GetNowDateTime()+"", PrintUtils.CENTER);
+                print.standardBoldPrinterLine("",PrintUtils.CENTER);
+                print.standardPrinterLine("收款："+""+simpAdapter.getPadCarTotalMoney()+"       "+"优惠："+"0.00", PrintUtils.CENTER);
+                print.standardBoldPrinterLine("",PrintUtils.CENTER);
+                print.standardPrinterLine("总计："+""+simpAdapter.getPadCarTotalMoney()+"       "+"应收："+"0.00", PrintUtils.CENTER);
+                print.standardBoldPrinterLine("",PrintUtils.CENTER);
+                print.standardPrinterLine("件数："+""+AppClient.padCarGoodsList.size()+"        "+"找回："+"0.00", PrintUtils.CENTER);
+                print.standardBoldPrinterLine("",PrintUtils.CENTER);
+                print.standardPrinterLine("-----------------------------", PrintUtils.CENTER);
+                print.standardBoldPrinterLine("",PrintUtils.CENTER);
+               for(int i=0;i<shopcarList.size();i++){
+                   print.standardPrinterLine(shopcarList.get(i).getGoodsName()+"   "+shopcarList.get(i).getGoodsWeight()+"   "+shopcarList.get(i).getSkuPrice()+"    "+simpAdapter.initdoublw(Float.parseFloat(shopcarList.get(i).getGoodsWeight())*Float.parseFloat(shopcarList.get(i).getSkuPrice())+"")+"", PrintUtils.CENTER);
+                   print.standardBoldPrinterLine("",PrintUtils.CENTER);
+               }
 
+//                print.standardPrinterLine("青菜  2/公斤  12.0元   65.0元", PrintUtils.CENTER);
+//                print.standardBoldPrinterLine("",PrintUtils.CENTER);
+//                print.standardPrinterLine("青菜  7/公斤  12.0元   34.0元", PrintUtils.CENTER);
+//                print.standardBoldPrinterLine("",PrintUtils.CENTER);
+//                print.standardPrinterLine("青菜  9/公斤  12.0元    4.0元", PrintUtils.CENTER);
+//                print.standardBoldPrinterLine("",PrintUtils.CENTER);
+//                print.standardPrinterLine("青菜  3/公斤  12.0元   12.0元", PrintUtils.CENTER);
+//                print.standardBoldPrinterLine("",PrintUtils.CENTER);
+//                print.standardPrinterLine("青菜  2/公斤  12.0元   12.0元", PrintUtils.CENTER);
+//                print.standardBoldPrinterLine("",PrintUtils.CENTER);
+                print.standardPrinterLine("-----------------------------", PrintUtils.CENTER);
+                print.standardBoldPrinterLine("",PrintUtils.CENTER);
+                print.standardBoldPrinterLine("名称   重量    单价     总价",PrintUtils.CENTER);
+                print.standardBoldPrinterLine("",PrintUtils.CENTER);
 
-        @Override
-        public void run() {
-            isStart = true;
-            sendTime = System.currentTimeMillis();
-
-            while (isStart) {
-                byte[] data = UartControlNative.uartReadMessageNative();
-                if (data != null && data.length > 0) {
-                    builder.append(SXUtils.getInstance(activity).bytesToHexString(data));
-                }
-
-                if (builder.length() > 0) {
-                    Logs.i("++++++++++++++++");
-//                    int a = builder.toString().indexOf("f4f5");
-//                    int b = builder.toString().indexOf("fbfc");
-//                    if (a >= 0 && b > 0) {
-//                        String cmd = builder.toString().substring(a, b + 4);
-//                        builder.replace(0, b + 4, "");
-//                        int len = Integer.parseInt(cmd.substring(6, 8), 16);
-//                        if (len == (cmd.length() / 2) - 6) {
-//                        }
-////                            parseUartData(cmd);
-                }
-                try {
-                    Thread.sleep(200);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+                print.billHeaderPrinter("皕鲜自营店");
+                print.standardBoldPrinterLine("",PrintUtils.CENTER);
+                print.standardBoldPrinterLine("",PrintUtils.CENTER);
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
             }
         }
     }
+    @Override
+    public void onReadData(String data) {
+        // 处理数据
+        if(data.indexOf("4d3e505441")>=0){
+            Message msg = new Message();
+            msg.what = 000023;
+            msg.obj = "去皮指令发送成功";
+            hand.sendMessage(msg);
+        }else if(data.indexOf("4d3e505a4f")>=0){
+            Message msg = new Message();
+            msg.what = 000023;
+            msg.obj = "置零指令发送成功";
+            hand.sendMessage(msg);
+        }else if(data.indexOf("4d3e504244")>=0){
+            Message msg = new Message();
+            msg.what = 000023;
+            msg.obj = "定标指令发送成功";
+            hand.sendMessage(msg);
+        }else
+        if (data.length() == 20) {
+            byte[] weitht = Utils.hexStringToBytes(data);
+            if ((weitht[1] & 0x10) == 0x10) {
+                // 超重
+            }
+            if ((weitht[1] & 0x04) == 0x04) {
+                Logs.i("======稳定+000000");
+                // 稳定
+            }
+            if ((weitht[1] & 0x08) == 0x08) {
+                // 重量数据为正数
+            }
+            if ((weitht[1] & 0x08) == 0x00) {
+                // 重量数据为负数
+            }
+            if ((weitht[1] & 0x02) == 0x02) {
+                // 去皮
+                Logs.i("=========去皮11111111111");
+            }
+            if ((weitht[1] & 0x01) == 0x01) {
+                // 置零
+                Logs.i("=========+置零222222222");
+            }
+            if ((weitht[1] & 0x01) == 0x01) {
+                //标定成功
+                Logs.i("=========+置零33333");
+            }
+
+            // 重量数据 单位克
+            int v = Utils.bytesToInt2(weitht, 2);
+            // 皮重 单位克
+            int p = Utils.bytesToInt2(weitht, 6);
+            Message msg = new Message();
+            msg.what = 000022;
+            msg.obj = v / 1000.0+"";
+            hand.sendMessage(msg);
+            Logs.i("======"+"重量 = " + v / 1000.0);
+//            SXUtils.getInstance(activity).ToastCenter("重量 = " + v / 1000.0 + " 皮重 = " + p / 1000.0);
+        }
+    }
+//    class UartReadThread extends Thread {
+//        private boolean isStart = false;
+//        private StringBuilder builder = new StringBuilder();
+//        private long sendTime = 0L;
+//        public void stopThread() {
+//            isStart = false;
+//            interrupt();
+//        }
+//        @Override
+//        public void run() {
+//            isStart = true;
+//            sendTime = System.currentTimeMillis();
+//
+//            while (isStart) {
+//                byte[] data = UartControlNative.uartReadMessageNative();
+//                if (data != null && data.length > 0) {
+//                    builder.append(SXUtils.getInstance(activity).bytesToHexString(data));
+//                }
+//
+//                if (builder.length() > 0) {
+//                    Logs.i("++++++++++++++++");
+////                    int a = builder.toString().indexOf("f4f5");
+////                    int b = builder.toString().indexOf("fbfc");
+////                    if (a >= 0 && b > 0) {
+////                        String cmd = builder.toString().substring(a, b + 4);
+////                        builder.replace(0, b + 4, "");
+////                        int len = Integer.parseInt(cmd.substring(6, 8), 16);
+////                        if (len == (cmd.length() / 2) - 6) {
+////                        }
+//////                            parseUartData(cmd);
+//                }
+//                try {
+//                    Thread.sleep(200);
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }
+//    }
 }
 //    private void onSerialPortDataReceived(String data){//串口读取到的数据
 //        if(weighingGoodsDialog != null && weighingGoodsDialog.isShowing()){

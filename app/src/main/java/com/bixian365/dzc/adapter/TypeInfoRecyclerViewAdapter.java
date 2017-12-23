@@ -1,8 +1,6 @@
 package com.bixian365.dzc.adapter;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,11 +10,9 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bixian365.dzc.R;
 import com.bixian365.dzc.entity.FoodActionCallback;
@@ -54,7 +50,7 @@ public  class TypeInfoRecyclerViewAdapter
         public final TextView mTextView;
         public  final LinearLayout  selectLin;
         public final ImageView typeadd1;
-        //        public final ImageView addImage2;
+        // public final ImageView addImage2;
         public final TextView  shopPrice;
         public final TextView  goodsUnit;
         public final TextView  goodsModel;
@@ -83,10 +79,8 @@ public  class TypeInfoRecyclerViewAdapter
             goodsLiny = (LinearLayout) view.findViewById(R.id.type_info_item_frist_goods_lin);
             lineTv = (TextView) view.findViewById(R.id.bill_item_info_s);
             delImageView = (ImageView) view.findViewById(R.id.main_bill_item_del_iv);
-
             subImage = (ImageView) view.findViewById(R.id.type_info_sub_img);
             carNum = (TextView) view.findViewById(R.id.type_info_carnum_img);
-
         }
         @Override
         public String toString() {
@@ -112,7 +106,6 @@ public  class TypeInfoRecyclerViewAdapter
         this.context = context;
         this.searchView = searchView;
     }
-
     /**
      * 从用户清单过来显示 删除按钮
      * @param context

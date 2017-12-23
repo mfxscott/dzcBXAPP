@@ -2,7 +2,6 @@ package com.bixian365.dzc.adapter;
 
 import android.app.Activity;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,8 +20,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -48,6 +47,7 @@ public  class PadCarGoodsListRecyclerViewAdapter
         public final  TextView  priceTv;
         public final  TextView  totalPriceTv;
         public final LinearLayout  carLiny;
+        public final  TextView  modleTv;
         public ViewHolder(View view) {
             super(view);
             mView = view;
@@ -58,7 +58,7 @@ public  class PadCarGoodsListRecyclerViewAdapter
             priceTv = (TextView) view.findViewById(R.id.car_list_item_price_tv);
             totalPriceTv = (TextView) view.findViewById(R.id.car_list_item_total_price_tv);
             carLiny = (LinearLayout) view.findViewById(R.id.pad_car_item_liny);
-
+           modleTv = (TextView) view.findViewById(R.id.car_list_item_modle_tv);
         }
         @Override
         public String toString() {
@@ -85,10 +85,11 @@ public  class PadCarGoodsListRecyclerViewAdapter
 
         holder.xh.setText(position+1>9 ? (position+1)+"":"0"+(position+1)+"");
         holder.goodsNameTv.setText(goods.getGoodsName()+"");
-        holder.numberTv.setText(goods.getQuantity()+"");
-        holder.unitTv.setText(goods.getGoodsModel()+"");
-        holder.priceTv.setText(goods.getSkuPrice()+"元");
-        holder.totalPriceTv.setText(Float.parseFloat(goods.getQuantity())*Float.parseFloat(goods.getSkuPrice())+"元");
+        holder.numberTv.setText(initdoublw(goods.getGoodsWeight())+"");
+        holder.unitTv.setText(goods.getGoodsUnit()+"");
+        holder.priceTv.setText(initdoublw(goods.getSkuPrice())+"元");
+        holder.modleTv.setText(goods.getGoodsModel()+"");
+        holder.totalPriceTv.setText(initdoublw(Float.parseFloat(goods.getGoodsWeight())*Float.parseFloat(goods.getSkuPrice())+"")+"元");
         if(mSelect==position){
             holder.carLiny.setBackgroundResource(R.color.car_item_on_bg);  //选中项背景
         }else{
@@ -115,6 +116,13 @@ public  class PadCarGoodsListRecyclerViewAdapter
             notifyDataSetChangedSetCarTotalPrice();
         }
     }
+    public String initdoublw(String value){
+        float data = Float.parseFloat(value);
+        NumberFormat nf = NumberFormat.getNumberInstance(java.util.Locale.CHINA);
+        nf.setMaximumFractionDigits(2);  //两位小数
+        String sData = nf.format(data);
+        return sData;
+    }
     //  添加数据
     public void clearCar() {
         AppClient.padCarGoodsList.clear();
@@ -135,15 +143,15 @@ public  class PadCarGoodsListRecyclerViewAdapter
 
     /**
      *  修改购物车商品参数
-     * @param isPrice 0 修改数量  1 修改价格
+     * @param tag 0 修改数量  1 修改单价价格
      * @param value
      */
-    public void updateData(String isPrice,String value) {
+    public void updateData(String tag,String value) {
         if(AppClient.padCarGoodsList.size()<1)
             return;
         final ShoppingCartLinesEntity  goods = mValues.get(mSelect);
-        if(isPrice.equals("0")){
-            goods.setQuantity(value+"");
+        if(tag.equals("0")){
+            goods.setGoodsWeight(value+"");
         }else{
             goods.setSkuPrice(value+"");
         }
@@ -160,21 +168,21 @@ public  class PadCarGoodsListRecyclerViewAdapter
         float priceTotal = 0;
         for(int i = 0; i< AppClient.padCarGoodsList.size(); i++){
             priceTotal += Float.parseFloat(AppClient.padCarGoodsList.get(i).getSkuPrice()) *
-                    Float.parseFloat(AppClient.padCarGoodsList.get(i).getQuantity());
+                    Float.parseFloat(AppClient.padCarGoodsList.get(i).getGoodsWeight());
         }
         return SXUtils.getInstance(activity).getFloatPrice(priceTotal)+"";
     }
     /**
-     * 获取购物车内商品总数量
+     * 获取购物车内商品总重量量
      * @return
      */
-    public String getPadCarTotalNumber(){
+    public String getPadCarTotalWeight(){
         if(AppClient.padCarGoodsList.size()<1){
             return "0";
         }
         float priceTotal = 0;
         for(int i = 0; i< AppClient.padCarGoodsList.size(); i++){
-            priceTotal += Integer.parseInt(AppClient.padCarGoodsList.get(i).getQuantity());
+            priceTotal += Float.parseFloat(AppClient.padCarGoodsList.get(i).getGoodsWeight());
         }
         return priceTotal+"";
     }
@@ -192,12 +200,12 @@ public  class PadCarGoodsListRecyclerViewAdapter
         for(int i=0;i<AppClient.padCarGoodsList.size();i++){
                 JSONObject jsonObjct = new JSONObject();
                 try {
-                    jsonObjct.put("skuNumber",AppClient.padCarGoodsList.get(i).getQuantity());
+                    jsonObjct.put("skuNumber",AppClient.padCarGoodsList.get(i).getQuantity()+"");
                     jsonObjct.put("shopPrice",AppClient.padCarGoodsList.get(i).getSkuPrice());
                     jsonObjct.put("skuBarcode",AppClient.padCarGoodsList.get(i).getSkuBarcode());
-                    jsonObjct.put("skuWeight","66");
-                    jsonObjct.put("amount",Float.parseFloat(AppClient.padCarGoodsList.get(i).getSkuPrice())
-                            *Float.parseFloat(AppClient.padCarGoodsList.get(i).getQuantity())+"");
+                    jsonObjct.put("skuWeight",AppClient.padCarGoodsList.get(i).getGoodsWeight());
+                    jsonObjct.put("amount",SXUtils.getInstance(activity).priceTwoNum(Float.parseFloat(AppClient.padCarGoodsList.get(i).getSkuPrice())
+                            *Float.parseFloat(AppClient.padCarGoodsList.get(i).getGoodsWeight())+""));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

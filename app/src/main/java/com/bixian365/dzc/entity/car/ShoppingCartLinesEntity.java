@@ -18,6 +18,24 @@ public class ShoppingCartLinesEntity {
     private String goodsCode;
     private String goodsId;
     private String isChecked;
+    private String goodsWeight;
+    private String goodsUnit;
+
+    public String getGoodsUnit() {
+        return goodsUnit;
+    }
+
+    public void setGoodsUnit(String goodsUnit) {
+        this.goodsUnit = goodsUnit;
+    }
+
+    public String getGoodsWeight() {
+        return goodsWeight;
+    }
+
+    public void setGoodsWeight(String goodsWeight) {
+        this.goodsWeight = goodsWeight;
+    }
 
     public String getIsChecked() {
         return isChecked;
