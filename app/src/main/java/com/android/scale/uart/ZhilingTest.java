@@ -19,7 +19,7 @@ public class ZhilingTest {
 		// 长度
 		String len = "08";
 		// 　最大量程 例如 30千克
-		String range= bytesToHexString(intToBytes(15*1000)); // 这里要换成单位 克
+		String range= bytesToHexString(intToBytes(30*1000)); // 这里要换成单位 克
 		// 分度值 例如 10g
 		String a = Integer.toHexString(10); // 转成16进制
 		while (a.length() < 2) {
@@ -27,12 +27,12 @@ public class ZhilingTest {
 		}
 
 		// 追零大小 例如 10g
-		String b = Integer.toHexString(10); // 转成16进制
+		String b = Integer.toHexString(5); // 转成16进制
 		while (b.length() < 2) {
 			b = "0" + b;
 		}
 		// 标定砝码的重量 例如20 千克
-		String reference = bytesToHexString(intTo2Bytes(1 * 1000)); // 这里要换成单位克
+		String reference = bytesToHexString(intTo2Bytes(15 * 1000)); // 这里要换成单位克
 		// 校验
 		String tmp = len + range + a + b + reference;
 		byte[] newData = hexStringToBytes(tmp);

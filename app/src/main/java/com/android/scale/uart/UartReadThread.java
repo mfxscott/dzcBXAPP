@@ -1,8 +1,6 @@
 package com.android.scale.uart;
 
 
-import com.bixian365.dzc.utils.Logs;
-
 public class UartReadThread extends Thread {
     private static final String TAG = "UartReadThread";
     private int fb;
@@ -22,38 +20,32 @@ public class UartReadThread extends Thread {
         isStart = false;
         interrupt();
     }
-
+    public boolean checkData(String data) {
+        byte[] tmp = Utils.hexStringToBytes(data);
+        int sum = 0;
+        for (int i = 0; i < tmp.length; i++) {
+            sum += tmp[i];
+        }
+        String crc = Integer.toHexString(sum);
+        if (crc.contains(data.substring(data.length() -2, data.length()))) {
+            return true;
+        }
+        return false;
+    }
     @Override
     public void run() {
         isStart = true;
+
+
         while (isStart) {
             byte[] data = UartOptNative.uartReadMessageNative(fb);
             if (data != null && data.length > 0) {
                 builder.append(Utils.bytesToHexString(data));
+//                Log.d(TAG, "read data =" + Utils.bytesToHexString(data));
             }
+
             if (builder.length() > 0) {
-                if(builder.toString().indexOf("4d3e505441010001")>=0){
-                    Logs.i("+++++++++去皮======"+builder.toString());
-                    //去皮
-                    listener.onReadData(builder.toString());
-                    builder.replace(0, builder.toString().length(), "");
-                }else
-                if(builder.toString().indexOf("4d3e505a4f010001")>=0){
-                    //置零
-                    Logs.i("+++++++++置零======"+builder.toString());
-                    listener.onReadData(builder.toString());
-                    builder.replace(0, builder.toString().length(), "");
-                }else if(builder.toString().indexOf("4d3e504244010001")>=0){
-                    //定标
-                    Logs.i("+++++++++标定成功======"+builder.toString());
-                    listener.onReadData(builder.toString());
-                    builder.replace(0, builder.toString().length(), "");
-                }
-                while (builder.toString().indexOf("4d3e505754") >= 0
-//                     || builder.toString().indexOf("4d3e505441")>=0//去皮
-//                     || builder.toString().indexOf("4d3e505a4f")>=0//置零协议
-//                      ||builder.toString().indexOf("4d3e504244")>=0 //定标
-                        ) {
+                while (builder.toString().indexOf("4d3e505754") >= 0) {
                     int a = builder.toString().indexOf("4d3e505754");
                     if (builder.toString().length() >= a + 32) {
                         String cmd = builder.toString().substring(a + 10, a + 30);
@@ -71,4 +63,78 @@ public class UartReadThread extends Thread {
             }
         }
     }
+
+
+
+
+
+//        while (isStart) {
+//            byte[] data = UartOptNative.uartReadMessageNative(fb);
+//            if (data != null && data.length > 0) {
+//                builder.append(Utils.bytesToHexString(data));
+//                // Log.d(TAG, "read data =" + Utils.bytesToHexString(data));
+//            }
+//
+//            if (builder.length() > 0) {
+//                while (true) {
+//                    int a = builder.toString().indexOf("4d3e50");
+//                    if (a == 0) {
+//                        if (builder.toString().length() >= 10) {
+//                            String fun = builder.toString().substring(6, 10);
+//                            if (fun.equals("5754")) {
+//                                if (builder.toString().length() >= 32) {
+//                                    String cmd = builder.toString().substring(0, 32);
+//                                    if (checkData(cmd)) {
+//                                        listener.onReadData(cmd);
+//                                    }
+//                                    builder.replace(0, 32, "");
+//                                } else {
+//                                    break;
+//                                }
+//                            } else if (fun.equals("5441")) {
+//                                if (builder.toString().length() >= 16) {
+//                                    String cmd = builder.toString().substring(
+//                                            0, 16);
+//                                    listener.onReadData(cmd);
+//                                    builder.replace(0, 16, "");
+//                                } else {
+//                                    break;
+//                                }
+//                            } else if (fun.equals("5a30")) {
+//                                if (builder.toString().length() >= 16) {
+//                                    String cmd = builder.toString().substring(
+//                                            0, 16);
+//                                    listener.onReadData(cmd);
+//                                    builder.replace(0, 16, "");
+//                                } else {
+//                                    break;
+//                                }
+//                            } else if (fun.equals("4244")) {
+//                                if (builder.toString().length() >= 16) {
+//                                    String cmd = builder.toString().substring(
+//                                            0, 16);
+//                                    listener.onReadData(cmd);
+//                                    builder.replace(0, 16, "");
+//                                } else {
+//                                    break;
+//                                }
+//                            }
+//                        } else {
+//                            break;
+//                        }
+//                    } else if (a > 0) {
+//                        builder.replace(0, a, "");
+//                    } else {
+//                        break;
+//                    }
+//                }
+//            }
+//            try {
+//                Thread.sleep(50);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//    }
+
 }

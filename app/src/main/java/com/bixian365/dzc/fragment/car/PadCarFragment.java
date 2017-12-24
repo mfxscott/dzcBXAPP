@@ -180,10 +180,12 @@ public class PadCarFragment extends Activity implements IReadDataListener, View.
     Button  clear0;//清除为0
     @BindView(R.id.pad_car_qp_btn)
     Button  qpBtn;//去皮
+    @BindView(R.id.pad_car_pz_tag)
+    TextView   pzTagTv;//显示皮重标识
     private Intent intentService;//双屏幕显示
-        @BindView(R.id.pad_car_weight_tv)
+    @BindView(R.id.pad_car_weight_tv)
     TextView  weightTv;//电子秤称重重量
-//    @BindView(R.id.pad_car_bd_btn)
+    //    @BindView(R.id.pad_car_bd_btn)
     TextView  bd;//标定核准打印机
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -295,6 +297,14 @@ public class PadCarFragment extends Activity implements IReadDataListener, View.
                     case 000022:
                         String strweight = (String) msg.obj;
                         weightTv.setText(strweight);
+                        break;
+                    case 000024:
+                        String  tag = (String) msg.obj;
+                        if(tag.equals("1")){
+                            pzTagTv.setText("有皮重");
+                        }else{
+                            pzTagTv.setText("无皮重");
+                        }
                         break;
                     case AppClient.ERRORCODE:
                         String str = (String) msg.obj;
@@ -1002,11 +1012,10 @@ public class PadCarFragment extends Activity implements IReadDataListener, View.
                 print.standardBoldPrinterLine("",PrintUtils.CENTER);
                 print.standardPrinterLine("-----------------------------", PrintUtils.CENTER);
                 print.standardBoldPrinterLine("",PrintUtils.CENTER);
-               for(int i=0;i<shopcarList.size();i++){
-                   print.standardPrinterLine(shopcarList.get(i).getGoodsName()+"   "+shopcarList.get(i).getGoodsWeight()+"   "+shopcarList.get(i).getSkuPrice()+"    "+simpAdapter.initdoublw(Float.parseFloat(shopcarList.get(i).getGoodsWeight())*Float.parseFloat(shopcarList.get(i).getSkuPrice())+"")+"", PrintUtils.CENTER);
-                   print.standardBoldPrinterLine("",PrintUtils.CENTER);
-               }
-
+                for(int i=0;i<shopcarList.size();i++){
+                    print.standardPrinterLine(shopcarList.get(i).getGoodsName()+"   "+shopcarList.get(i).getGoodsWeight()+"   "+shopcarList.get(i).getSkuPrice()+"    "+simpAdapter.initdoublw(Float.parseFloat(shopcarList.get(i).getGoodsWeight())*Float.parseFloat(shopcarList.get(i).getSkuPrice())+"")+"", PrintUtils.CENTER);
+                    print.standardBoldPrinterLine("",PrintUtils.CENTER);
+                }
 //                print.standardPrinterLine("青菜  2/公斤  12.0元   65.0元", PrintUtils.CENTER);
 //                print.standardBoldPrinterLine("",PrintUtils.CENTER);
 //                print.standardPrinterLine("青菜  7/公斤  12.0元   34.0元", PrintUtils.CENTER);
@@ -1032,6 +1041,7 @@ public class PadCarFragment extends Activity implements IReadDataListener, View.
     }
     @Override
     public void onReadData(String data) {
+        String strTag="0";
         // 处理数据
         if(data.indexOf("4d3e505441")>=0){
             Message msg = new Message();
@@ -1062,7 +1072,15 @@ public class PadCarFragment extends Activity implements IReadDataListener, View.
                 // 重量数据为正数
             }
             if ((weitht[1] & 0x08) == 0x00) {
-                // 重量数据为负数
+                strTag = "1";
+                // 重量数据 单位克
+//                float v = (float) (Utils.bytesToInt2(weitht, 2)/1000.0);
+//                // 重量数据为负数
+//                Message msg = new Message();
+//                msg.what = 000022;
+//                msg.obj = "-"+v+"";
+//                hand.sendMessage(msg);
+//                return ;
             }
             if ((weitht[1] & 0x02) == 0x02) {
                 // 去皮
@@ -1076,17 +1094,34 @@ public class PadCarFragment extends Activity implements IReadDataListener, View.
                 //标定成功
                 Logs.i("=========+置零33333");
             }
-
             // 重量数据 单位克
-            int v = Utils.bytesToInt2(weitht, 2);
+            float v = (float) (Utils.bytesToInt2(weitht, 2)/1000.0);
             // 皮重 单位克
-            int p = Utils.bytesToInt2(weitht, 6);
+            float p = (float) (Utils.bytesToInt2(weitht, 6)/1000.0);
+            if (p>0){
+                //有皮重显示 皮重表示
+                Message msg = new Message();
+                msg.what = 000024;
+                msg.obj = "1";
+                hand.sendMessage(msg);
+            }else{
+                //有皮重显示 皮重表示
+                Message msg = new Message();
+                msg.what = 000024;
+                msg.obj = "2";
+                hand.sendMessage(msg);
+            }
             Message msg = new Message();
             msg.what = 000022;
-            msg.obj = v / 1000.0+"";
+            if(strTag.equals("1")){
+                msg.obj ="-"+ v +"";
+            }else{
+                msg.obj = v +"";
+            }
             hand.sendMessage(msg);
-            Logs.i("======"+"重量 = " + v / 1000.0);
-//            SXUtils.getInstance(activity).ToastCenter("重量 = " + v / 1000.0 + " 皮重 = " + p / 1000.0);
+
+//            Logs.i("======"+"重量 = " + v / 1000.0);
+            Logs.i("重量 = " + v + " 皮重 = " + p);
         }
     }
 //    class UartReadThread extends Thread {

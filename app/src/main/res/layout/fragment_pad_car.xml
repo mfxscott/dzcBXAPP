@@ -84,33 +84,48 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                     <LinearLayout
-                        android:gravity="center_horizontal"
                         android:layout_gravity="bottom"
-                        android:layout_width="200dp"
+                        android:orientation="vertical"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
                         <TextView
-                            android:layout_marginLeft="20dp"
-                            android:textSize="@dimen/ac_text_size_14"
+                            android:textSize="@dimen/ac_text_size_16"
                             android:textColor="@color/white"
-                            android:text="重量"
+                            android:layout_gravity="center_horizontal"
+                            android:id="@+id/pad_car_pz_tag"
+                            android:text="有皮重"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
-                        <TextView
-                            android:id="@+id/pad_car_weight_tv"
-                            android:layout_marginLeft="5dp"
-                            android:textSize="@dimen/ac_text_size_24"
-                            android:textColor="@color/white"
-                            android:textStyle="bold"
-                            android:text="0.0"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
-                        <TextView
-                            android:layout_marginLeft="5dp"
-                            android:textSize="@dimen/ac_text_size_14"
-                            android:textColor="@color/white"
-                            android:text="kg"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
+
+                        <LinearLayout
+                            android:gravity="center_horizontal"
+                            android:layout_gravity="bottom"
+                            android:layout_width="200dp"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:layout_marginLeft="20dp"
+                                android:textSize="@dimen/ac_text_size_14"
+                                android:textColor="@color/white"
+                                android:text="重量"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+                            <TextView
+                                android:id="@+id/pad_car_weight_tv"
+                                android:layout_marginLeft="5dp"
+                                android:textSize="@dimen/ac_text_size_24"
+                                android:textColor="@color/white"
+                                android:textStyle="bold"
+                                android:text="0.0"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+                            <TextView
+                                android:layout_marginLeft="5dp"
+                                android:textSize="@dimen/ac_text_size_14"
+                                android:textColor="@color/white"
+                                android:text="kg"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+                        </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
             </RelativeLayout>
