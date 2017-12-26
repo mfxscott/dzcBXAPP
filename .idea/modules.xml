@@ -3,8 +3,11 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://E:\mfx\mc\dzc\dzcBXAPP\app\app.iml" filepath="E:\mfx\mc\dzc\dzcBXAPP\app\app.iml" />
       <module fileurl="file://$PROJECT_DIR$/dzcBXAPP.iml" filepath="$PROJECT_DIR$/dzcBXAPP.iml" />
+      <module fileurl="file://E:\mfx\mc\dzc\dzcBXAPP\dzcBXAPP.iml" filepath="E:\mfx\mc\dzc\dzcBXAPP\dzcBXAPP.iml" />
       <module fileurl="file://$PROJECT_DIR$/pickerview/pickerview.iml" filepath="$PROJECT_DIR$/pickerview/pickerview.iml" />
+      <module fileurl="file://E:\mfx\mc\dzc\dzcBXAPP\pickerview\pickerview.iml" filepath="E:\mfx\mc\dzc\dzcBXAPP\pickerview\pickerview.iml" />
     </modules>
   </component>
 </project>
